@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+<!-- $Id$ -->
+
+<project>
+
+  <!-- ================================================================== -->
+  <!-- Deployment  JBoss42                                                -->
+  <!-- ================================================================== -->
+  
+  <!-- Deploy jbossws to jboss42 -->
+  <target name="deploy" depends="jboss42-jars" description="Deploy jbossws">
+
+    <fail message="Not available: ${jboss42.available.file}" unless="jboss42.available"/>
+
+    <copy todir="${jboss42.home}/bin" overwrite="true">
+      <fileset dir="${thirdparty.dir}/jbossws-resources">
+        <include name="*.bat"/>
+        <include name="*.sh"/>
+      </fileset>
+    </copy>
+    <copy todir="${jboss42.home}/client" overwrite="true">
+      <fileset dir="${thirdparty.dir}">
+        <include name="jboss-jaxrpc.jar"/>
+        <include name="jboss-jaxws.jar"/>
+        <include name="jboss-saaj.jar"/>
+        <include name="jbossws-client.jar"/>
+        <include name="jaxb-api.jar"/>
+        <include name="jaxb-impl.jar"/>
+        <include name="jaxb-xjc.jar"/>
+        <include name="wsdl4j.jar"/>
+        <include name="jbossws-wsconsume-impl.jar"/>
+      </fileset>
+    </copy>
+    <copy todir="${jboss42.home}/server/${jboss.server.instance}/lib" overwrite="true">
+      <fileset dir="${thirdparty.dir}">
+        <include name="jboss-jaxrpc.jar"/>
+        <include name="jboss-jaxws.jar"/>
+        <include name="jboss-saaj.jar"/>
+      </fileset>
+    </copy>
+    <delete dir="${jboss42.home}/server/${jboss.server.instance}/deploy/jbossws.sar"/>
+    <mkdir dir="${jboss42.home}/server/${jboss.server.instance}/deploy/jbossws.sar"/>
+    <unjar dest="${jboss42.home}/server/${jboss.server.instance}/deploy/jbossws.sar" src="${jboss42.output.lib.dir}/jbossws42.sar"/>
+  </target>
+    
+</project>
