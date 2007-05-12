@@ -3,17 +3,8 @@
 	<classpathentry excluding="org/jboss/ws/integration/jboss42/jms/" kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jbossws-core"/>
-	<classpathentry kind="lib" path="thirdparty/jaxb-api.jar"/>
-	<classpathentry kind="lib" path="thirdparty/jaxb-impl.jar"/>
-	<classpathentry kind="lib" path="thirdparty/jaxb-xjc.jar"/>
-	<classpathentry kind="lib" path="thirdparty/jboss-common-core.jar"/>
-	<classpathentry kind="lib" path="thirdparty/jboss-container.jar"/>
-	<classpathentry kind="lib" path="thirdparty/jboss-dependency.jar"/>
-	<classpathentry kind="lib" path="thirdparty/jboss-logging-spi.jar"/>
-	<classpathentry kind="lib" path="thirdparty/jboss-microcontainer.jar"/>
-	<classpathentry kind="lib" path="thirdparty/jboss-xml-binding.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jbossws-spi"/>
-	<classpathentry kind="lib" path="thirdparty/servlet-api.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jboss-4.2.x"/>
+	<classpathentry kind="lib" path="/jbossws-spi/thirdparty/jboss-xml-binding.jar"/>
 	<classpathentry kind="output" path="output-eclipse"/>
 </classpath>

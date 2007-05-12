@@ -13,81 +13,49 @@
 
 <project>
 
+  <property file="${basedir}/version.properties"/>
+  
   <!-- ========= -->
   <!-- Libraries -->
   <!-- ========= -->
 
-  <target name="thirdparty" depends="prepare,jbossws-spi-get,jbossws-core-get,thirdparty-get,thirdparty-classpath">
+  <target name="thirdparty" depends="thirdparty-init,thirdparty-get,thirdparty-classpath">
   </target>
   
-  <!-- 
-    jbossws-spi-get
-  -->
-  <target name="jbossws-spi-get" if="force.thirdparty.get" 
-    description="Gets the jbossws-core libraries">
-
-    <mkdir dir="${thirdparty.dir}/jbossws-spi"/>
-    <get src="${jboss.repository}/jboss/jbossws-spi/${jboss-jbossws-spi}/lib/jbossws-spi.jar" dest="${thirdparty.dir}/jbossws-spi/jbossws-spi.jar" usetimestamp="true" verbose="true"/>
+  <target name="thirdparty-init" depends="prepare">
     
+    <property name="thirdparty.dir" value="${basedir}/thirdparty"/>
+    <checksum file="${basedir}/version.properties" fileext=".md5" verifyproperty="checksum.ok"/>
+    <condition property="jbws.force.thirdparty.get">
+      <or>
+        <not>
+          <available file="${thirdparty.dir}" type="dir"/>
+        </not>
+        <isfalse value="${checksum.ok}"/>
+        <isset property="force.thirdparty.get"/>
+      </or>
+    </condition>
+    <echo message="checksum.ok = ${checksum.ok}"/>
   </target>
-    
-  <!-- 
-    jbossws-core-get
-  -->
-  <target name="jbossws-core-get" if="force.thirdparty.get" 
-    description="Gets the jbossws-core libraries">
-
-    <mkdir dir="${thirdparty.dir}/jbossws-core"/>
-    <get src="${jboss.repository}/jboss/jbossws/${jboss-jbossws}/lib/jbossws-client.jar" dest="${thirdparty.dir}/jbossws-core/jbossws-client.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/jbossws/${jboss-jbossws}/lib/jbossws-core.jar" dest="${thirdparty.dir}/jbossws-core/jbossws-core.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/jbossws/${jboss-jbossws}/lib/jbossws-resources.zip" dest="${thirdparty.dir}/jbossws-core/jbossws-resources.zip" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/jbossws/${jboss-jbossws}/lib/jboss-saaj.jar" dest="${thirdparty.dir}/jbossws-core/jboss-saaj.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/jbossws/${jboss-jbossws}/lib/jboss-jaxrpc.jar" dest="${thirdparty.dir}/jbossws-core/jboss-jaxrpc.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/jbossws/${jboss-jbossws}/lib/jboss-jaxws.jar" dest="${thirdparty.dir}/jbossws-core/jboss-jaxws.jar" usetimestamp="true" verbose="true"/>
-    
-    <mkdir dir="${thirdparty.dir}/jbossws-resources"/>
-    <unzip dest="${thirdparty.dir}/jbossws-resources" src="${thirdparty.dir}/jbossws-core/jbossws-resources.zip"/>
-    
-  </target>
-    
+  
   <!-- 
     thirdpartry-get
   -->
-  <target name="thirdparty-get" if="force.thirdparty.get" 
+  <target name="thirdparty-get" if="jbws.force.thirdparty.get" 
     description="Gets the thirdparty libraries">
 
     <mkdir dir="${thirdparty.dir}"/>
-    <get src="${jboss.repository}/apache-xmlsec/${apache-xmlsec}/lib/xmlsec.jar" dest="${thirdparty.dir}/xmlsec.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/ibm-wsdl4j/${ibm-wsdl4j}/lib/wsdl4j.jar" dest="${thirdparty.dir}/wsdl4j.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/ibm-wsdl4j/${ibm-wsdl4j}/lib/wsdl4j-src.jar" dest="${thirdparty.dir}/wsdl4j-src.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/common-core/${jboss-common-core}/lib/jboss-common-core.jar" dest="${thirdparty.dir}/jboss-common-core.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/common-core/${jboss-common-core}/lib/jboss-common-core-sources.jar" dest="${thirdparty.dir}/jboss-common-core-sources.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/common-logging-log4j/${jboss-common-logging-log4j}/lib/jboss-logging-log4j.jar" dest="${thirdparty.dir}/jboss-logging-log4j.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/common-logging-spi/${jboss-common-logging-spi}/lib/jboss-logging-spi.jar" dest="${thirdparty.dir}/jboss-logging-spi.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/jaxr/${jboss-jaxr}/lib/juddi-service.sar" dest="${thirdparty.dir}/juddi-service.sar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/jbossws-wsconsume-impl/${jbossws-wsconsume-impl}/lib/jbossws-wsconsume-impl.jar" dest="${thirdparty.dir}/jbossws-wsconsume-impl.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/jbossxb/${jboss-jbossxb}/lib/jboss-xml-binding.jar" dest="${thirdparty.dir}/jboss-xml-binding.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/jbossxb/${jboss-jbossxb}/lib/jboss-xml-binding-sources.jar" dest="${thirdparty.dir}/jboss-xml-binding-sources.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/microcontainer/${jboss-microcontainer}/lib/jboss-container.jar" dest="${thirdparty.dir}/jboss-container.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/microcontainer/${jboss-microcontainer}/lib/jboss-dependency.jar" dest="${thirdparty.dir}/jboss-dependency.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/jboss/microcontainer/${jboss-microcontainer}/lib/jboss-microcontainer.jar" dest="${thirdparty.dir}/jboss-microcontainer.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/stax-api/${stax-api}/lib/stax-api.jar" dest="${thirdparty.dir}/stax-api.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/sun-jaxb/${sun-jaxb}/lib/jaxb-api.jar" dest="${thirdparty.dir}/jaxb-api.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/sun-jaxb/${sun-jaxb}/lib/jaxb-impl.jar" dest="${thirdparty.dir}/jaxb-impl.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/sun-jaxb/${sun-jaxb}/lib/jaxb-xjc.jar" dest="${thirdparty.dir}/jaxb-xjc.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/sun-servlet/${sun-servlet}/lib/servlet-api.jar" dest="${thirdparty.dir}/servlet-api.jar" usetimestamp="true" verbose="true"/>
-    <get src="${jboss.repository}/wscommons-policy/${wscommons-policy}/lib/policy.jar" dest="${thirdparty.dir}/policy.jar" usetimestamp="true" verbose="true"/>
+    
+    <checksum file="${basedir}/version.properties" fileext=".md5"/>
   </target>
   
-  <target name="thirdparty-classpath" >
+  <target name="thirdparty-classpath" depends="thirdparty-init,core-thirdparty-classpath">
     
     <!-- The compile classpath for jboss42 integration -->
-    <path id="jboss42.integration.classpath">
-      <pathelement location="${thirdparty.dir}/jbossws-spi/jbossws-spi.jar"/>
-      <pathelement location="${thirdparty.dir}/jbossws-core/jbossws-core.jar"/>
-      <pathelement location="${thirdparty.dir}/jbossws-core/jboss-jaxrpc.jar"/>
-      <pathelement location="${thirdparty.dir}/jbossws-core/jboss-jaxws.jar"/>
-      <pathelement location="${thirdparty.dir}/jbossws-core/jboss-saaj.jar"/>
+    <path id="jbws42.integration.classpath">
+      <pathelement location="${spi.dir}/output/classes"/>
+      <pathelement location="${core.dir}/output/classes"/>
+      <pathelement location="${core.dir}/output/classes14"/>
       <pathelement location="${jboss42.lib}/jboss-jmx.jar"/>
       <pathelement location="${jboss42.lib}/jboss-system.jar"/>
       <pathelement location="${jboss42.server.lib}/jboss.jar"/>
@@ -97,15 +65,7 @@
       <pathelement location="${jboss42.server.deploy}/jboss-aop-jdk50.deployer/jboss-aop-jdk50.jar"/>
       <pathelement location="${jboss42.server.deploy}/ejb3.deployer/jboss-annotations-ejb3.jar"/>
       <pathelement location="${jboss42.server.deploy}/ejb3.deployer/jboss-ejb3.jar"/>
-      <pathelement location="${thirdparty.dir}/jaxb-api.jar"/>
-      <pathelement location="${thirdparty.dir}/jaxb-impl.jar"/>
-      <pathelement location="${thirdparty.dir}/jaxb-xjc.jar"/>
-      <pathelement location="${thirdparty.dir}/jboss-common-core.jar"/>
-      <pathelement location="${thirdparty.dir}/jboss-dependency.jar"/>
-      <pathelement location="${thirdparty.dir}/jboss-logging-spi.jar"/>
-      <pathelement location="${thirdparty.dir}/jboss-microcontainer.jar"/>
-      <pathelement location="${thirdparty.dir}/jboss-xml-binding.jar"/>
-      <pathelement location="${thirdparty.dir}/servlet-api.jar"/>
+      <path refid="core.thirdparty.classpath"/>
     </path>
 
   </target>

@@ -14,20 +14,20 @@
 <project>
 
   <!-- Release to jboss.local.repository -->
-  <target name="release" depends="jboss42-jars" 
+  <target name="release" depends="jbws42-jars" 
     description="Release to jboss.local.repository">
 
     <!-- jboss/jbossws-jboss42 -->
     <property name="jboss.repository.dir" value="${jboss.local.repository}/jboss"/>
     <mkdir dir="${jboss.repository.dir}/jbossws-jboss42/${repository.id}/lib"/>
     <copy todir="${jboss.repository.dir}/jbossws-jboss42/${repository.id}/lib" overwrite="true">
-      <fileset dir="${jboss42.output.lib.dir}">
+      <fileset dir="${jbws42.output.lib.dir}">
         <include name="jbossws-jboss42.jar"/>
         <include name="jbossws42.sar"/>
         <include name="jbossws42-src.zip"/>
       </fileset>
     </copy>
-    <copy tofile="${jboss.repository.dir}/jbossws-jboss42/${repository.id}/component-info.xml" file="${jboss42.etc.dir}/component-info.xml" filtering="true" overwrite="true">
+    <copy tofile="${jboss.repository.dir}/jbossws-jboss42/${repository.id}/component-info.xml" file="${jbws42.etc.dir}/component-info.xml" filtering="true" overwrite="true">
       <filterset>
         <filtersfile file="${basedir}/version.properties"/>
       </filterset>

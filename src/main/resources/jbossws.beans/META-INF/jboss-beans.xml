@@ -3,7 +3,7 @@
 <deployment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:jboss:bean-deployer bean-deployer_1_0.xsd" xmlns="urn:jboss:bean-deployer">
   
   <!-- An abstraction of server configuration aspects. -->  
-  <bean name="WSServerConfig" class="org.jboss.ws.core.server.ManagedServerConfig">
+  <bean name="WSServerConfig" class="org.jboss.ws.integration.jboss42.common.ManagedServerConfig">
     <!--
         The WSDL, that is a required deployment artifact for an endpoint, has a <soap:address>
         element which points to the location of the endpoint. JBoss supports rewriting of that SOAP address.
@@ -118,7 +118,7 @@
   --> 
   <bean name="WSClassLoaderInjectionDeployer" class="org.jboss.ws.integration.jboss42.jbossws.ClassLoaderInjectionDeployer"/>
   <bean name="WSEagerInitializeDeployer" class="org.jboss.ws.core.deployment.EagerInitializeDeployer"/>
-  <bean name="WSEndpointHandlerDeployer" class="org.jboss.ws.core.deployment.EndpointHandlerDeployer">
+  <bean name="WSEndpointHandlerDeployer" class="org.jboss.ws.integration.deployment.EndpointHandlerDeployer">
     <property name="requestHandler">org.jboss.ws.core.server.RequestHandlerImpl</property>
     <property name="lifecycleHandler">org.jboss.ws.core.server.LifecycleHandlerImpl</property>
     <property name="invocationHandler">
@@ -130,7 +130,7 @@
       </map>
     </property>
   </bean>
-  <bean name="WSEndpointLifecycleDeployer" class="org.jboss.ws.core.deployment.EndpointLifecycleDeployer"/>
+  <bean name="WSEndpointLifecycleDeployer" class="org.jboss.ws.integration.deployment.EndpointLifecycleDeployer"/>
   <bean name="WSEndpointNameDeployer" class="org.jboss.ws.core.deployment.EndpointNameDeployer"/>
   <bean name="WSEndpointRegistryDeployer" class="org.jboss.ws.integration.deployment.EndpointRegistryDeployer"/>
   <bean name="WSEventingDeployer" class="org.jboss.ws.core.deployment.EventingDeployer"/>

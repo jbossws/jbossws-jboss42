@@ -23,26 +23,13 @@ package org.jboss.ws.integration.jboss42.jbossws;
 
 //$Id$
 
-import java.util.ArrayList;
-
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-
 import org.jboss.deployment.DeploymentInfo;
-import org.jboss.ejb3.Ejb3ModuleMBean;
-import org.jboss.ejb3.stateless.StatelessContainer;
-import org.jboss.mx.util.MBeanProxy;
-import org.jboss.mx.util.MBeanProxyCreationException;
-import org.jboss.mx.util.MBeanServerLocator;
-import org.jboss.ws.WSException;
 import org.jboss.ws.integration.deployment.AbstractDeployer;
 import org.jboss.ws.integration.deployment.Deployment;
 import org.jboss.ws.integration.deployment.JAXRPCDeployment;
 import org.jboss.ws.integration.deployment.JAXWSDeployment;
 import org.jboss.ws.integration.deployment.UnifiedDeploymentInfo;
 import org.jboss.ws.integration.deployment.Deployment.DeploymentType;
-import org.jboss.ws.metadata.j2ee.UnifiedApplicationMetaData;
-import org.jboss.ws.metadata.j2ee.UnifiedBeanMetaData;
 import org.jboss.ws.metadata.webservices.WebservicesMetaData;
 
 /**
