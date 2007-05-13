@@ -29,11 +29,11 @@ import java.util.Map.Entry;
 
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.metadata.WebMetaData;
-import org.jboss.ws.integration.Endpoint;
 import org.jboss.ws.integration.BasicEndpoint;
+import org.jboss.ws.integration.Endpoint;
 import org.jboss.ws.integration.Service;
-import org.jboss.ws.integration.deployment.Deployment;
 import org.jboss.ws.integration.deployment.BasicDeploymentImpl;
+import org.jboss.ws.integration.deployment.Deployment;
 import org.jboss.ws.integration.deployment.Deployment.DeploymentType;
 import org.jboss.ws.metadata.webservices.PortComponentMetaData;
 import org.jboss.ws.metadata.webservices.WebserviceDescriptionMetaData;
@@ -92,8 +92,14 @@ public class JAXRPCDeployerHookJSE extends AbstractDeployerHookJSE
 
             try
             {
-               ClassLoader loader = unit.annotationsCl;
+               ClassLoader loader = dep.getClassLoader();
                Class<?> epBean = loader.loadClass(servletClass.trim());
+               
+               // If this is a servlet we defer the the bean creation 
+               if (javax.servlet.Servlet.class.isAssignableFrom(epBean))
+               {
+                  epBean = null;
+               }
 
                // Create the endpoint
                Endpoint endpoint = new BasicEndpoint(service, epBean);

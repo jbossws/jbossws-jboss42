@@ -24,9 +24,12 @@ package org.jboss.ws.integration.jboss42.jbossws;
 //$Id$
 
 import org.jboss.ws.core.deployment.ServiceEndpointPublisher;
+import org.jboss.ws.core.deployment.ServiceEndpointPublisher.RewriteResults;
+import org.jboss.ws.integration.Endpoint;
 import org.jboss.ws.integration.deployment.AbstractDeployer;
 import org.jboss.ws.integration.deployment.Deployment;
 import org.jboss.ws.integration.deployment.UnifiedDeploymentInfo;
+import org.jboss.ws.metadata.umdm.ServerEndpointMetaData;
 
 /**
  * A deployer that modifies the web.xml meta data 
@@ -49,6 +52,34 @@ public class ModifyWebMetaDataDeployer extends AbstractDeployer
       if (udi == null)
          throw new IllegalStateException("Cannot obtain unified deployement info");
 
-      serviceEndpointPublisher.rewriteWebXml(udi);
+      RewriteResults results = serviceEndpointPublisher.rewriteWebXml(udi);
+
+      // The endpoint may not have a target bean when 
+      // <servlet-class> originally contained a javax.servlet.Servlet
+      for (Endpoint ep : dep.getService().getEndpoints())
+      {
+         if (ep.getEndpointImpl() == null)
+         {
+            String servletName = ep.getName().getKeyProperty(Endpoint.SEPID_PROPERTY_ENDPOINT);
+            String beanName = results.sepTargetMap.get(servletName);
+            if (beanName == null)
+               throw new IllegalStateException("Cannot obtain target bean for: " + servletName);
+
+            try
+            {
+               ClassLoader loader = dep.getClassLoader();
+               Class<?> epBean = loader.loadClass(beanName);
+               ep.setEndpointImpl(epBean);
+               
+               ServerEndpointMetaData sepMetaData = ep.getMetaData(ServerEndpointMetaData.class);
+               sepMetaData.setServiceEndpointImplName(beanName);
+            }
+            catch (ClassNotFoundException ex)
+            {
+               log.warn("Cannot load target bean: " + beanName);
+            }
+
+         }
+      }
    }
 }
