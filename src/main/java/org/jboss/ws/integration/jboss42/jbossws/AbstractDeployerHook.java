@@ -35,8 +35,8 @@ import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
 import org.jboss.ws.integration.deployment.DeployerManager;
 import org.jboss.ws.integration.deployment.WSDeploymentException;
-import org.jboss.ws.integration.jboss42.DeployerHook;
-import org.jboss.ws.integration.jboss42.DeployerInterceptorMBean;
+import org.jboss.ws.integration.jboss42.common.DeployerHook;
+import org.jboss.ws.integration.jboss42.common.DeployerInterceptorMBean;
 
 /**
  * An abstract web service deployer.

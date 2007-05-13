@@ -76,6 +76,8 @@
     <copy todir="${jbws42.output.etc.dir}" filtering="yes" overwrite="yes">
       <fileset dir="${jbws42.etc.dir}">
         <include name="component-info.xml"/>
+  	  </fileset>
+      <fileset dir="${build.dir}/etc">
         <include name="default.mf"/>
   	  </fileset>
       <filterset>
@@ -84,7 +86,6 @@
         <filter token="build.id" value="${build.id}"/>
         <filter token="implementation.version" value="jbossws-${version.id}"/>
         <filtersfile file="${build.dir}/version.properties"/>
-        <filtersfile file="${basedir}/version.properties"/>
       </filterset>
     </copy>
   </target>

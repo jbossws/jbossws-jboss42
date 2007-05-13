@@ -19,17 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.ws.integration.jboss42;
+package org.jboss.ws.integration.jboss42.common;
 
-//$Id$
+import javax.management.ObjectName;
+
+import org.jboss.ws.utils.ObjectNameFactory;
 
 /**
- * A deployer service that manages WS4EE compliant Web-Services for EJB-2.1 Endpoints
- *
- * @author Thomas.Diesler@jboss.org
- * @since 15-Jan-2005
+ * MBean interface.
+ * @since 19-Jan-2005
  */
-public class DeployerInterceptorEJB21 extends DeployerInterceptor implements DeployerInterceptorEJB21MBean
+public interface DeployerInterceptorEJB21MBean extends DeployerInterceptorMBean
 {
-
+   //default object name
+   public static final ObjectName OBJECT_NAME = ObjectNameFactory.create("jboss.ws:service=WebServiceDeployerEJB21");
 }

@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.ws.integration.jboss42;
+package org.jboss.ws.integration.jboss42.common;
 
 import javax.management.ObjectName;
 
@@ -29,8 +29,8 @@ import org.jboss.ws.utils.ObjectNameFactory;
  * MBean interface.
  * @since 19-Jan-2005
  */
-public interface DeployerInterceptorEJB21MBean extends DeployerInterceptorMBean
+public interface DeployerInterceptorEJB3MBean extends DeployerInterceptorMBean
 {
    //default object name
-   public static final ObjectName OBJECT_NAME = ObjectNameFactory.create("jboss.ws:service=WebServiceDeployerEJB21");
+   public static final ObjectName OBJECT_NAME = ObjectNameFactory.create("jboss.ws:service=WebServiceDeployerEJB3");
 }

@@ -7,7 +7,7 @@
    <!--
      A deployer service for JSE endpoints.
    -->
-   <mbean name="jboss.ws:service=DeployerInterceptorJSE" code="org.jboss.ws.integration.jboss42.DeployerInterceptorJSE">
+   <mbean name="jboss.ws:service=DeployerInterceptorJSE" code="org.jboss.ws.integration.jboss42.common.DeployerInterceptorJSE">
       <depends-list optional-attribute-name="Interceptables">
          <depends-list-element>jboss.web:service=WebServer</depends-list-element>
       </depends-list>
@@ -16,7 +16,7 @@
    <!--
      A deployer service for EJB2.1 endpoints.
    -->
-   <mbean name="jboss.ws:service=DeployerInterceptorEJB21" code="org.jboss.ws.integration.jboss42.DeployerInterceptorEJB21">
+   <mbean name="jboss.ws:service=DeployerInterceptorEJB21" code="org.jboss.ws.integration.jboss42.common.DeployerInterceptorEJB21">
       <depends-list optional-attribute-name="Interceptables">
          <depends-list-element>jboss.ejb:service=EJBDeployer</depends-list-element>
       </depends-list>
@@ -25,7 +25,7 @@
    <!--
      A deployer service for EJB3 endpoints.
    -->
-   <mbean name="jboss.ws:service=DeployerInterceptorEJB3" code="org.jboss.ws.integration.jboss42.DeployerInterceptorEJB3">
+   <mbean name="jboss.ws:service=DeployerInterceptorEJB3" code="org.jboss.ws.integration.jboss42.common.DeployerInterceptorEJB3">
       <depends-list optional-attribute-name="Interceptables">
          <depends-list-element>jboss.ejb3:service=EJB3Deployer</depends-list-element>
       </depends-list>

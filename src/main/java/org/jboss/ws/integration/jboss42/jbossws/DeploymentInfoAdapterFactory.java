@@ -41,7 +41,7 @@ public class DeploymentInfoAdapterFactory
    public static DeploymentInfoAdapter newInstance()
    {
       KernelRegistry registry = KernelLocator.getKernel().getRegistry();
-      KernelRegistryEntry entry = registry.getEntry("DeploymentInfoAdapter");
+      KernelRegistryEntry entry = registry.getEntry("WSDeploymentInfoAdapter");
       return (DeploymentInfoAdapter)entry.getTarget();
    }
 }

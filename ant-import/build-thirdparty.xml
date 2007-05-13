@@ -13,41 +13,20 @@
 
 <project>
 
-  <property file="${basedir}/version.properties"/>
-  
   <!-- ========= -->
   <!-- Libraries -->
   <!-- ========= -->
 
-  <target name="thirdparty" depends="thirdparty-init,thirdparty-get,thirdparty-classpath">
+  <target name="thirdparty" depends="thirdparty-get,thirdparty-classpath">
   </target>
   
-  <target name="thirdparty-init" depends="prepare">
-    
-    <property name="thirdparty.dir" value="${basedir}/thirdparty"/>
-    <checksum file="${basedir}/version.properties" fileext=".md5" verifyproperty="checksum.ok"/>
-    <condition property="jbws.force.thirdparty.get">
-      <or>
-        <not>
-          <available file="${thirdparty.dir}" type="dir"/>
-        </not>
-        <isfalse value="${checksum.ok}"/>
-        <isset property="force.thirdparty.get"/>
-      </or>
-    </condition>
-    <echo message="checksum.ok = ${checksum.ok}"/>
-  </target>
+  <target name="thirdparty-init" depends="prepare"/>
   
   <!-- 
     thirdpartry-get
   -->
-  <target name="thirdparty-get" if="jbws.force.thirdparty.get" 
-    description="Gets the thirdparty libraries">
-
-    <mkdir dir="${thirdparty.dir}"/>
-    
-    <checksum file="${basedir}/version.properties" fileext=".md5"/>
-  </target>
+  <target name="thirdparty-get" depends="thirdparty-init" 
+    description="Gets the thirdparty libraries"/>
   
   <target name="thirdparty-classpath" depends="thirdparty-init,core-jars">
     
