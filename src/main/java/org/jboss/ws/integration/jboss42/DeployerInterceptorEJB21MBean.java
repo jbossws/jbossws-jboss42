@@ -19,16 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.ws.integration.jboss42.jbossws;
+package org.jboss.ws.integration.jboss42;
 
-//$Id$
+import javax.management.ObjectName;
+
+import org.jboss.ws.utils.ObjectNameFactory;
 
 /**
- * An abstract deployer for EJB Endpoints
- *
- * @author Thomas.Diesler@jboss.org
- * @since 25-Apr-2007
+ * MBean interface.
+ * @since 19-Jan-2005
  */
-public abstract class AbstractDeployerHookEJB extends ArchiveDeployerHook
+public interface DeployerInterceptorEJB21MBean extends DeployerInterceptorMBean
 {
+   //default object name
+   public static final ObjectName OBJECT_NAME = ObjectNameFactory.create("jboss.ws:service=WebServiceDeployerEJB21");
 }

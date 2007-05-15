@@ -19,21 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.ws.integration.jboss42.common;
+package org.jboss.ws.integration.jboss42;
 
-import org.jboss.deployment.SubDeployerInterceptorMBean;
+import org.jboss.ws.integration.management.ServerConfig;
 
 /**
  * MBean interface.
- * @since 19-Jan-2005
+ * @since 15-April-2004
  */
-public interface DeployerInterceptorMBean extends SubDeployerInterceptorMBean
+public interface ManagedServerConfigMBean extends ServerConfig
 {
-   void addPhaseOneHook(DeployerHook deployer);
-
-   void removePhaseOneHook(DeployerHook deployer);
-
-   void addPhaseTwoHook(DeployerHook deployer);
-
-   void removePhaseTwoHook(DeployerHook deployer);
 }

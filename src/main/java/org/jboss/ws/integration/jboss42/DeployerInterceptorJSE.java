@@ -19,45 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.ws.integration.jboss42.jbossws;
+package org.jboss.ws.integration.jboss42;
 
-import org.jboss.deployment.DeploymentInfo;
-import org.jboss.metadata.WebMetaData;
-
-//$Id$
+// $Id$
 
 /**
- * An abstract deployer for JSE Endpoints
+ * A deployer service that manages WS4EE compliant Web Services for WAR
  *
  * @author Thomas.Diesler@jboss.org
- * @since 25-Apr-2007
+ * @since 15-Jan-2005
  */
-public abstract class AbstractDeployerHookJSE extends ArchiveDeployerHook
+public class DeployerInterceptorJSE extends DeployerInterceptor implements DeployerInterceptorJSEMBean
 {
-   public boolean isWebServiceDeployment(DeploymentInfo unit)
-   {
-      if ((unit.metaData instanceof WebMetaData) == false)
-         return false;
-
-      return true;
-   }
-   
-   static class Servlet
-   {
-      String servletName;
-      String servletClass;
-      public Servlet(String servletName, String servletClass)
-      {
-         this.servletName = servletName;
-         this.servletClass = servletClass;
-      }
-      public String getServletClass()
-      {
-         return servletClass;
-      }
-      public String getServletName()
-      {
-         return servletName;
-      }
-   }
 }

@@ -11,22 +11,17 @@
 
 <!-- $Id$ -->
 
-<project default="main"  basedir="../jbws-jboss42" name="JBossWS-JBoss42">
+<project default="main" basedir="../.." name="JBossWS-JBoss42">
   
-  <import file="${basedir}/../build/ant-import/build-setup.xml"/>
+  <import file="${basedir}/build/ant-import/build-setup.xml"/>
   
-  <import file="${basedir}/ant-import/build-deploy.xml"/>
-  <import file="${basedir}/ant-import/build-release.xml"/>
-  <import file="${basedir}/ant-import/build-thirdparty.xml"/>
-  <import file="${basedir}/ant-import/build-testsuite.xml"/>
-  
-  <import file="${core.dir}/build.xml"/>
+  <import file="${int.jboss42.dir}/ant-import/build-thirdparty.xml"/>
   
   <!-- ================================================================== -->
   <!-- Setup                                                              -->
   <!-- ================================================================== -->
   
-  <property name="jbws42.dir" value="${basedir}"/>
+  <property name="jbws42.dir" value="${int.jboss42.dir}"/>
   <property name="jbws42.src.dir" value="${jbws42.dir}/src/main"/>
   <property name="jbws42.etc.dir" value="${jbws42.src.dir}/etc"/>
   <property name="jbws42.java.dir" value="${jbws42.src.dir}/java"/>
@@ -40,9 +35,9 @@
   <!-- Initialization                                                     -->
   <!-- ================================================================== -->
   
-  <target name="jbws42-init" depends="prepare, thirdparty">
+  <target name="init" depends="prepare, thirdparty">
     <fail message="Not available: ${jboss42.available.file}" unless="jboss42.available"/>
-    <available file="${jboss42.client}/jboss-ejb3-client.jar" property="jboss42.ejb3.available"/>
+    <ant antfile="${spi.dir}/build.xml" target="main" inheritall="false"/>
   </target>
   
   <!-- ================================================================== -->
@@ -57,26 +52,22 @@
   | documentation compiles.
   -->
   
-  <target name="jbws42-compile" depends="jbws42-init,core-compile,jbws42-compile-classes,jbws42-compile-etc" description="Compile all source files."/>
+  <target name="compile" depends="init,compile-classes,compile-etc" description="Compile all source files."/>
   
   <!-- Compile integration java sources -->
-  <target name="jbws42-compile-classes" depends="jbws42-init">
+  <target name="compile-classes" depends="init">
     <mkdir dir="${jbws42.output.classes.dir}"/>
     <javac srcdir="${jbws42.java.dir}" sourcepath="" destdir="${jbws42.output.classes.dir}" encoding="utf-8" debug="${javac.debug}" verbose="${javac.verbose}"
       deprecation="${javac.deprecation}" failonerror="${javac.fail.onerror}">
-      <exclude name="org/jboss/ws/integration/jboss42/jms/**"/>
       <include name="org/jboss/ws/integration/jboss42/**"/>
       <classpath refid="jbws42.integration.classpath"/>
     </javac>
   </target>
   
   <!-- Compile etc files (manifests and such) -->
-  <target name="jbws42-compile-etc" depends="jbws42-init">
+  <target name="compile-etc" depends="init">
     <mkdir dir="${jbws42.output.etc.dir}"/>
     <copy todir="${jbws42.output.etc.dir}" filtering="yes" overwrite="yes">
-      <fileset dir="${jbws42.etc.dir}">
-        <include name="component-info.xml"/>
-  	  </fileset>
       <fileset dir="${build.dir}/etc">
         <include name="default.mf"/>
   	  </fileset>
@@ -97,13 +88,13 @@
   <!--
   | Build all jar files.
   -->
-  <target name="jbws42-jars"  depends="jbws42-compile,core-jars,jbws42-module-jars" description="Builds all jar files.">
+  <target name="jars"  depends="compile,module-jars" description="Builds all jar files.">
   </target>
   
   <!--
   |  Build all jar files.
   -->
-  <target name="jbws42-module-jars" depends="jbws42-init">
+  <target name="module-jars" depends="init">
     
     <!-- Build jbossws-jboss42.jar -->
     <mkdir dir="${jbws42.output.lib.dir}"/>
@@ -114,51 +105,8 @@
       <metainf dir="${jbws42.resources.dir}/jbossws-jboss42.jar/META-INF"/>
     </jar>
     
-    <!-- Build jbossws-context.war -->
-    <war warfile="${jbws42.output.lib.dir}/jbossws-context.war" webxml="${jbws42.resources.dir}/jbossws.war/WEB-INF/web.xml">
-      <fileset dir="${jbws42.resources.dir}/jbossws.war">
-        <include name="index.html"/>
-        <include name="styles.css"/>
-      </fileset>
-      <webinf dir="${jbws42.resources.dir}/jbossws.war/WEB-INF">
-        <include name="jboss-web.xml"/>
-      </webinf>
-    </war>
-    
-    <!-- Build jbossws42.sar -->
-    <jar jarfile="${jbws42.output.lib.dir}/jbossws42.sar" manifest="${jbws42.output.etc.dir}/default.mf">
-      <fileset dir="${jbws42.output.lib.dir}">
-        <include name="jbossws-jboss42.jar"/>
-        <include name="jbossws-context.war"/>
-      </fileset>
-      <fileset dir="${spi.dir}/output/lib">
-        <include name="jbossws-spi.jar"/>
-      </fileset>
-      <fileset dir="${core.dir}/output/lib">
-        <include name="jboss-jaxws.jar"/>
-        <include name="jbossws-core.jar"/>
-      </fileset>
-      <fileset dir="${core.thirdparty.dir}">
-        <include name="jaxb-api.jar"/>
-        <include name="jaxb-impl.jar"/>
-        <include name="policy.jar"/>
-        <include name="stax-api.jar"/>
-        <include name="wsdl4j.jar"/>
-        <include name="xmlsec.jar"/>
-      </fileset>
-      <fileset dir="${jbws42.resources.dir}">
-        <include name="jbossws.beans/META-INF/jboss-beans.xml"/>
-      </fileset>
-      <metainf dir="${core.dir}/src/main/resources/standard-config">
-        <include name="standard-*-config.xml"/>
-      </metainf>
-      <metainf dir="${jbws42.resources.dir}/jbossws.sar/META-INF">
-        <include name="jboss-service.xml"/>
-      </metainf>
-    </jar>
-    
     <!-- Build jbossws42-src.zip -->
-    <zip zipfile="${jbws42.output.lib.dir}/jbossws42-src.zip" >
+    <zip zipfile="${jbws42.output.lib.dir}/jbossws-jboss42-src.zip" >
       <fileset dir="${jbws42.java.dir}"/>
     </zip>
     
@@ -173,12 +121,11 @@
   </target>
   
   <target name="clobber" depends="clean" description="Cleans up all generated files.">
-    <delete dir="${basedir}/output-tests"/>
   </target>
   
   <target name="main" description="Executes the default target (most)." depends="most"/>
   
-  <target name="most" description="Builds almost everything." depends="jbws42-jars,tests-main"/>
+  <target name="most" description="Builds almost everything." depends="jars"/>
   
   <target name="all" description="Create a distribution zip file" depends="main">
   </target>

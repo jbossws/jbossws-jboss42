@@ -19,14 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.ws.integration.jboss42.common;
+package org.jboss.ws.integration.jboss42;
 
-import org.jboss.ws.integration.management.ServerConfig;
+// $Id$
 
 /**
- * MBean interface.
- * @since 15-April-2004
+ * A deployer service that manages WS4EE compliant Web-Services for EJB3 Endpoints
+ *
+ * @author Thomas.Diesler@jboss.org
+ * @since 10-May-2005
  */
-public interface ManagedServerConfigMBean extends ServerConfig
+public class DeployerInterceptorEJB3 extends DeployerInterceptor implements DeployerInterceptorEJB3MBean
 {
 }

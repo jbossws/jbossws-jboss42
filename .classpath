@@ -2,9 +2,7 @@
 <classpath>
 	<classpathentry excluding="org/jboss/ws/integration/jboss42/jms/" kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jbossws-core"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jbossws-spi"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jboss-4.2.x"/>
-	<classpathentry kind="lib" path="/jbossws-spi/thirdparty/jboss-xml-binding.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/spi"/>
 	<classpathentry kind="output" path="output-eclipse"/>
 </classpath>

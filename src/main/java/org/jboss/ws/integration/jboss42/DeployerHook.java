@@ -19,39 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.ws.integration.jboss42.jbossws;
+package org.jboss.ws.integration.jboss42;
 
-// $Id$
+import org.jboss.deployment.DeploymentException;
+import org.jboss.deployment.DeploymentInfo;
 
-import java.security.Principal;
+//$Id$
 
-import org.jboss.security.SecurityAssociation;
-import org.jboss.ws.extensions.security.SecurityAssociationAdaptor;
-import org.jboss.ws.extensions.security.SecurityAssociationAdaptorFactory;
 
 /**
- * A JBoss specific SecurityAdaptorFactory 
- *
+ * An interface for all web service deployer hooks 
+ * 
  * @author Thomas.Diesler@jboss.org
- * @since 05-May-2006
+ * @since 24-Apr-2007
  */
-public class SecurityAssociationAdaptorFactoryImpl implements SecurityAssociationAdaptorFactory
+public interface DeployerHook
 {
-   public SecurityAssociationAdaptor getSecurityAssociationAdaptor()
-   {
-      return new SecurityAccociationAdaptorImpl();
-   }
+   void deploy(DeploymentInfo unit) throws DeploymentException;
 
-   public class SecurityAccociationAdaptorImpl implements SecurityAssociationAdaptor
-   {
-      public void setPrincipal(Principal pricipal)
-      {
-         SecurityAssociation.setPrincipal(pricipal);
-      }
-
-      public void setCredential(Object credential)
-      {
-         SecurityAssociation.setCredential(credential);
-      }
-   }
+   void undeploy(DeploymentInfo unit);
 }

@@ -19,16 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.ws.integration.jboss42.common;
+package org.jboss.ws.integration.jboss42;
 
-// $Id$
+import org.jboss.deployment.SubDeployerInterceptorMBean;
 
 /**
- * A deployer service that manages WS4EE compliant Web Services for WAR
- *
- * @author Thomas.Diesler@jboss.org
- * @since 15-Jan-2005
+ * MBean interface.
+ * @since 19-Jan-2005
  */
-public class DeployerInterceptorJSE extends DeployerInterceptor implements DeployerInterceptorJSEMBean
+public interface DeployerInterceptorMBean extends SubDeployerInterceptorMBean
 {
+   void addPhaseOneHook(DeployerHook deployer);
+
+   void removePhaseOneHook(DeployerHook deployer);
+
+   void addPhaseTwoHook(DeployerHook deployer);
+
+   void removePhaseTwoHook(DeployerHook deployer);
 }

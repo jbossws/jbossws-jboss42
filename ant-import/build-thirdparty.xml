@@ -28,15 +28,12 @@
   <target name="thirdparty-get" depends="thirdparty-init" 
     description="Gets the thirdparty libraries"/>
   
-  <target name="thirdparty-classpath" depends="thirdparty-init,core-jars">
+  <target name="thirdparty-classpath" depends="thirdparty-init">
     
     <!-- The compile classpath for jboss42 integration -->
     <path id="jbws42.integration.classpath">
       <pathelement location="${spi.dir}/output/lib/jbossws-spi.jar"/>
-      <pathelement location="${core.dir}/output/lib/jboss-jaxrpc.jar"/>
-      <pathelement location="${core.dir}/output/lib/jboss-jaxws.jar"/>
-      <pathelement location="${core.dir}/output/lib/jboss-saaj.jar"/>
-      <pathelement location="${core.dir}/output/lib/jbossws-core.jar"/>
+      <pathelement location="${jboss42.lib}/jboss-common.jar"/>
       <pathelement location="${jboss42.lib}/jboss-jmx.jar"/>
       <pathelement location="${jboss42.lib}/jboss-system.jar"/>
       <pathelement location="${jboss42.server.lib}/jboss.jar"/>
@@ -46,7 +43,6 @@
       <pathelement location="${jboss42.server.deploy}/jboss-aop-jdk50.deployer/jboss-aop-jdk50.jar"/>
       <pathelement location="${jboss42.server.deploy}/ejb3.deployer/jboss-annotations-ejb3.jar"/>
       <pathelement location="${jboss42.server.deploy}/ejb3.deployer/jboss-ejb3.jar"/>
-      <path refid="core.thirdparty.classpath"/>
     </path>
 
   </target>
