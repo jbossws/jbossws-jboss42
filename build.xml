@@ -60,6 +60,7 @@
     <javac srcdir="${jbws42.java.dir}" sourcepath="" destdir="${jbws42.output.classes.dir}" encoding="utf-8" debug="${javac.debug}" verbose="${javac.verbose}"
       deprecation="${javac.deprecation}" failonerror="${javac.fail.onerror}">
       <include name="org/jboss/ws/integration/jboss42/**"/>
+      <exclude name="org/jboss/ws/integration/jboss42/jms/**"/>
       <classpath refid="jbws42.integration.classpath"/>
     </javac>
   </target>
