@@ -40,7 +40,7 @@ import org.jboss.metadata.WebMetaData;
 import org.jboss.mx.util.MBeanProxy;
 import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
-import org.jboss.wsintegration.spi.deployment.ResourceLoaderAdapter;
+import org.jboss.ws.integration.ResourceLoaderAdapter;
 import org.jboss.wsintegration.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsintegration.spi.deployment.WSDeploymentException;
 import org.jboss.wsintegration.spi.metadata.j2ee.UnifiedApplicationMetaData;

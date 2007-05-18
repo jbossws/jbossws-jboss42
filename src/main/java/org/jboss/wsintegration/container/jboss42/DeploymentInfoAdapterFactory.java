@@ -25,7 +25,7 @@ package org.jboss.wsintegration.container.jboss42;
 
 import org.jboss.kernel.spi.registry.KernelRegistry;
 import org.jboss.kernel.spi.registry.KernelRegistryEntry;
-import org.jboss.wsintegration.spi.utils.KernelLocator;
+import org.jboss.ws.integration.KernelLocator;
 
 /**
  * @author Thomas.Diesler@jboss.org

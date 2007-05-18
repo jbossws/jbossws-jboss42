@@ -28,9 +28,9 @@ import java.net.URL;
 
 import org.jboss.deployment.DeploymentException;
 import org.jboss.deployment.DeploymentInfo;
+import org.jboss.ws.integration.ResourceLoaderAdapter;
+import org.jboss.ws.integration.UnifiedVirtualFile;
 import org.jboss.wsintegration.spi.deployment.Deployment;
-import org.jboss.wsintegration.spi.deployment.ResourceLoaderAdapter;
-import org.jboss.wsintegration.spi.deployment.UnifiedVirtualFile;
 import org.jboss.wsintegration.spi.deployment.WSDeploymentException;
 import org.jboss.wsintegration.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsintegration.spi.metadata.webservices.WebservicesFactory;
