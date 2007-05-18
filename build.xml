@@ -59,8 +59,8 @@
     <mkdir dir="${jbws42.output.classes.dir}"/>
     <javac srcdir="${jbws42.java.dir}" sourcepath="" destdir="${jbws42.output.classes.dir}" encoding="utf-8" debug="${javac.debug}" verbose="${javac.verbose}"
       deprecation="${javac.deprecation}" failonerror="${javac.fail.onerror}">
-      <include name="org/jboss/ws/integration/jboss42/**"/>
-      <exclude name="org/jboss/ws/integration/jboss42/jms/**"/>
+      <include name="org/jboss/wsintegration/container/jboss42/**"/>
+      <exclude name="org/jboss/wsintegration/container/jboss42/jms/**"/>
       <classpath refid="jbws42.integration.classpath"/>
     </javac>
   </target>
@@ -101,7 +101,7 @@
     <mkdir dir="${jbws42.output.lib.dir}"/>
     <jar jarfile="${jbws42.output.lib.dir}/jbossws-jboss42.jar" manifest="${jbws42.output.etc.dir}/default.mf">
       <fileset dir="${jbws42.output.classes.dir}">
-        <include name="org/jboss/ws/integration/jboss42/**"/>
+        <include name="org/jboss/wsintegration/container/jboss42/**"/>
       </fileset>
       <metainf dir="${jbws42.resources.dir}/jbossws-jboss42.jar/META-INF"/>
     </jar>
