@@ -27,8 +27,6 @@ import org.jboss.deployment.DeploymentInfo;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.wsf.spi.deployment.AbstractDeployer;
 import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.deployment.Endpoint;
-import org.jboss.wsf.spi.deployment.WSDeploymentException;
 
 /**
  * A deployer that injects the correct classloader into the UMDM 
@@ -55,27 +53,5 @@ public class ClassLoaderInjectionDeployer extends AbstractDeployer
       }
 
       dep.setClassLoader(classLoader);
-
-      // Reload target beans with the updated class loader
-      for (Endpoint ep : dep.getService().getEndpoints())
-      {
-         Class targetBean = ep.getTargetBean();
-         if (targetBean != null)
-         {
-            String beanName = targetBean.getName();
-            if (targetBean.getClassLoader() != classLoader)
-            {
-               try
-               {
-                  targetBean = classLoader.loadClass(beanName);
-                  ep.setTargetBean(targetBean);
-               }
-               catch (ClassNotFoundException e)
-               {
-                  throw new WSDeploymentException("Cannot reload target bean: " + beanName);
-               }
-            }
-         }
-      }
    }
 }

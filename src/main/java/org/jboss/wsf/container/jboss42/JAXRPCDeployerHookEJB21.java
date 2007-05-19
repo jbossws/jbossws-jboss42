@@ -33,7 +33,6 @@ import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsf.spi.metadata.webservices.PortComponentMetaData;
 import org.jboss.wsf.spi.metadata.webservices.WebserviceDescriptionMetaData;
 import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
-import org.jboss.wsf.spi.utils.ObjectNameFactory;
 
 /**
  * A deployer JAXRPC EJB21 Endpoints
@@ -84,25 +83,14 @@ public class JAXRPCDeployerHookEJB21 extends AbstractDeployerHookEJB
                throw new IllegalStateException("Cannot obtain bean meta data for: " + ejbLink);
 
             String ejbClass = beanMetaData.getEjbClass();
-            try
-            {
-               ClassLoader loader = unit.ucl;
-               Class<?> epBean = loader.loadClass(ejbClass.trim());
+            
+            // Create the endpoint
+            Endpoint ep = createEndpoint();
+            ep.setShortName(ejbLink);
+            ep.setService(service);
+            ep.setTargetBean(ejbClass);
 
-               // Create the endpoint
-               Endpoint ep = createEndpoint();
-               ep.setService(service);
-               ep.setTargetBean(epBean);
-
-               String nameStr = Endpoint.SEPID_DOMAIN + ":" + Endpoint.SEPID_PROPERTY_ENDPOINT + "=" + ejbLink;
-               ep.setName(ObjectNameFactory.create(nameStr));
-
-               service.addEndpoint(ep);
-            }
-            catch (ClassNotFoundException ex)
-            {
-               log.warn("Cannot load servlet class: " + ejbClass);
-            }
+            service.addEndpoint(ep);
          }
       }
       return dep;

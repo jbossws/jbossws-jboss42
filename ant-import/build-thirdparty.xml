@@ -41,6 +41,7 @@
       <pathelement location="${jboss42.lib}/jboss-jmx.jar"/>
       <pathelement location="${jboss42.lib}/jboss-system.jar"/>
       <pathelement location="${jboss42.lib}/jboss-xml-binding.jar"/>
+      <pathelement location="${jboss42.server.lib}/dom4j.jar"/>
       <pathelement location="${jboss42.server.lib}/jboss.jar"/>
       <pathelement location="${jboss42.server.lib}/jboss-j2ee.jar"/>
       <pathelement location="${jboss42.server.lib}/jboss-ejb3x.jar"/>

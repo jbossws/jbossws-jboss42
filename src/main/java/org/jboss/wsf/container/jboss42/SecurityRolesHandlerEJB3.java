@@ -27,6 +27,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
+import org.dom4j.Element;
 import org.jboss.ejb3.Ejb3ModuleMBean;
 import org.jboss.ejb3.stateless.StatelessContainer;
 import org.jboss.logging.Logger;
@@ -36,8 +37,6 @@ import org.jboss.mx.util.MBeanServerLocator;
 import org.jboss.wsf.spi.deployment.SecurityRolesHandler;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.deployment.WSDeploymentException;
-import org.jboss.wsf.spi.utils.DOMUtils;
-import org.w3c.dom.Element;
 
 /**
  * Generate a service endpoint deployment for EJB endpoints 
@@ -67,9 +66,7 @@ public class SecurityRolesHandlerEJB3 implements SecurityRolesHandler
             {
                for (String role : anRolesAllowed.value())
                {
-                  Element securityRole = (Element)webApp.appendChild(DOMUtils.createElement("security-role"));
-                  Element roleName = (Element)securityRole.appendChild(DOMUtils.createElement("role-name"));
-                  roleName.appendChild(DOMUtils.createTextNode(role));
+                  webApp.addElement("security-role").addElement("role-name").addText(role);
                }
             }
          }

@@ -60,20 +60,11 @@ public class ModifyWebMetaDataDeployer extends AbstractDeployer
          if (ep.getTargetBean() == null)
          {
             String servletName = ep.getName().getKeyProperty(Endpoint.SEPID_PROPERTY_ENDPOINT);
-            String beanName = results.sepTargetMap.get(servletName);
-            if (beanName == null)
+            String beanClassName = results.sepTargetMap.get(servletName);
+            if (beanClassName == null)
                throw new IllegalStateException("Cannot obtain target bean for: " + servletName);
 
-            try
-            {
-               ClassLoader loader = dep.getClassLoader();
-               Class<?> epBean = loader.loadClass(beanName);
-               ep.setTargetBean(epBean);
-            }
-            catch (ClassNotFoundException ex)
-            {
-               log.warn("Cannot load target bean: " + beanName);
-            }
+            ep.setTargetBean(beanClassName);
          }
       }
    }

@@ -26,13 +26,12 @@ package org.jboss.wsf.container.jboss42;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.dom4j.Element;
 import org.jboss.logging.Logger;
 import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.AssemblyDescriptorMetaData;
 import org.jboss.wsf.spi.deployment.SecurityRolesHandler;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
-import org.jboss.wsf.spi.utils.DOMUtils;
-import org.w3c.dom.Element;
 
 /**
  * Generate a service endpoint deployment for EJB endpoints 
@@ -60,9 +59,7 @@ public class SecurityRolesHandlerEJB21 implements SecurityRolesHandler
             Iterator it = securityRoles.keySet().iterator();
             while (it.hasNext())
             {
-               Element securityRole = (Element)webApp.appendChild(DOMUtils.createElement("security-role"));
-               Element roleName = (Element)securityRole.appendChild(DOMUtils.createElement("role-name"));
-               roleName.appendChild(DOMUtils.createTextNode((String)it.next()));
+               webApp.addElement("security-role").addElement("role-name").addText((String)it.next());
             }
          }
       }

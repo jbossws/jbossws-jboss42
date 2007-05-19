@@ -36,7 +36,6 @@ import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsf.spi.metadata.webservices.PortComponentMetaData;
 import org.jboss.wsf.spi.metadata.webservices.WebserviceDescriptionMetaData;
 import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
-import org.jboss.wsf.spi.utils.ObjectNameFactory;
 
 /**
  * A deployer JAXRPC JSE Endpoints
@@ -95,24 +94,20 @@ public class JAXRPCDeployerHookJSE extends AbstractDeployerHookJSE
 
                // If this is a servlet we defer the the bean creation 
                if (javax.servlet.Servlet.class.isAssignableFrom(epBean))
-               {
-                  epBean = null;
-               }
-
-               // Create the endpoint
-               Endpoint ep = createEndpoint();
-               ep.setService(service);
-               ep.setTargetBean(epBean);
-
-               String nameStr = Endpoint.SEPID_DOMAIN + ":" + Endpoint.SEPID_PROPERTY_ENDPOINT + "=" + servletLink;
-               ep.setName(ObjectNameFactory.create(nameStr));
-
-               service.addEndpoint(ep);
+                  servletClass = null;
             }
             catch (ClassNotFoundException ex)
             {
                log.warn("Cannot load servlet class: " + servletClass);
             }
+
+            // Create the endpoint
+            Endpoint ep = createEndpoint();
+            ep.setShortName(servletLink);
+            ep.setService(service);
+            ep.setTargetBean(servletClass);
+
+            service.addEndpoint(ep);
          }
       }
 

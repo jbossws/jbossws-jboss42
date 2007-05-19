@@ -38,7 +38,6 @@ import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.Service;
 import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
-import org.jboss.wsf.spi.utils.ObjectNameFactory;
 
 /**
  * A deployer JAXWS JSE Endpoints
@@ -77,26 +76,13 @@ public class JAXWSDeployerHookJSE extends AbstractDeployerHookJSE
          String servletName = servlet.getServletName();
          String servletClass = servlet.getServletClass();
 
-         try
-         {
-            ClassLoader loader = unit.annotationsCl;
-            Class<?> epBean = loader.loadClass(servletClass.trim());
+         // Create the endpoint
+         Endpoint ep = createEndpoint();
+         ep.setShortName(servletName);
+         ep.setService(service);
+         ep.setTargetBean(servletClass);
 
-            // Create the endpoint
-            Endpoint ep = createEndpoint();
-            ep.setService(service);
-            ep.setTargetBean(epBean);
-            
-            String nameStr = Endpoint.SEPID_DOMAIN + ":" + Endpoint.SEPID_PROPERTY_ENDPOINT + "=" + servletName;
-            ep.setName(ObjectNameFactory.create(nameStr));
-
-            service.addEndpoint(ep);
-         }
-         catch (ClassNotFoundException ex)
-         {
-            log.warn("Cannot load servlet class: " + servletClass);
-            continue;
-         }
+         service.addEndpoint(ep);
       }
 
       return dep;
