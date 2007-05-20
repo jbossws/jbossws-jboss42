@@ -35,7 +35,7 @@ import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
 import org.jboss.wsf.spi.deployment.AbstractDeployer;
 import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.deployment.ServiceEndpointPublisher;
+import org.jboss.wsf.spi.deployment.WebXMLRewriter;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.deployment.WSDeploymentException;
 
@@ -50,11 +50,11 @@ public class WebAppDeployerDeployer extends AbstractDeployer
    // provide logging
    private static Logger log = Logger.getLogger(WebAppDeployerDeployer.class);
 
-   private ServiceEndpointPublisher serviceEndpointPublisher;
+   private WebXMLRewriter webXMLRewriter;
 
-   public void setServiceEndpointPublisher(ServiceEndpointPublisher serviceEndpointPublisher)
+   public void setWebXMLRewriter(WebXMLRewriter serviceEndpointPublisher)
    {
-      this.serviceEndpointPublisher = serviceEndpointPublisher;
+      this.webXMLRewriter = serviceEndpointPublisher;
    }
 
    public void create(Deployment dep)
@@ -72,7 +72,7 @@ public class WebAppDeployerDeployer extends AbstractDeployer
          if (di == null)
             throw new IllegalStateException("Cannot obtain DeploymentInfo from context");
 
-         serviceEndpointPublisher.rewriteWebXml(udi);
+         webXMLRewriter.rewriteWebXml(dep);
 
          // Preserve the repository config
          DeploymentInfo auxdi = new DeploymentInfo(warURL, null, MBeanServerLocator.locateJBoss());

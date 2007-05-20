@@ -47,7 +47,7 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebSecurityMetaData.UnifiedWebReso
  */
 public class WebMetaDataAdapter
 {
-   public UnifiedWebMetaData buildUnifiedWebMetaData(UnifiedDeploymentInfo udi, WebMetaData webMetaData)
+   public static UnifiedWebMetaData buildUnifiedWebMetaData(UnifiedDeploymentInfo udi, WebMetaData webMetaData)
    {
       udi.addAttachment(WebMetaData.class, webMetaData);
 
@@ -61,10 +61,11 @@ public class WebMetaDataAdapter
       umd.setPublishLocationAdapter(getPublishLocationAdpater(webMetaData));
       umd.setSecurityMetaData(getSecurityMetaData(webMetaData.getSecurityContraints()));
 
+      udi.addAttachment(UnifiedWebMetaData.class, umd);
       return umd;
    }
 
-   private PublishLocationAdapter getPublishLocationAdpater(final WebMetaData wmd)
+   private static PublishLocationAdapter getPublishLocationAdpater(final WebMetaData wmd)
    {
       return new PublishLocationAdapter()
       {
@@ -75,7 +76,7 @@ public class WebMetaDataAdapter
       };
    }
 
-   private List<UnifiedWebSecurityMetaData> getSecurityMetaData(final Iterator securityConstraints)
+   private static List<UnifiedWebSecurityMetaData> getSecurityMetaData(final Iterator securityConstraints)
    {
       ArrayList<UnifiedWebSecurityMetaData> unifiedsecurityMetaData = new ArrayList<UnifiedWebSecurityMetaData>();
 
@@ -104,7 +105,7 @@ public class WebMetaDataAdapter
       return unifiedsecurityMetaData;
    }
 
-   private Map<String, String> getServletClassMap(WebMetaData wmd)
+   private static Map<String, String> getServletClassMap(WebMetaData wmd)
    {
       Map<String, String> mappings = new HashMap<String, String>();
       Iterator it = wmd.getServletClassMap().entrySet().iterator();

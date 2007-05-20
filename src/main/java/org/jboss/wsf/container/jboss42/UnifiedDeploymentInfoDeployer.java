@@ -40,13 +40,6 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
  */
 public class UnifiedDeploymentInfoDeployer extends AbstractDeployer
 {
-   private DeploymentInfoAdapter deploymentInfoAdapter;
-
-   public void setDeploymentInfoAdapter(DeploymentInfoAdapter deploymentInfoAdapter)
-   {
-      this.deploymentInfoAdapter = deploymentInfoAdapter;
-   }
-
    @Override
    public void create(Deployment dep)
    {
@@ -61,13 +54,13 @@ public class UnifiedDeploymentInfoDeployer extends AbstractDeployer
          if (type.toString().startsWith("JAXWS"))
          {
             udi = new JAXWSDeployment(type);
-            deploymentInfoAdapter.buildDeploymentInfo(udi, unit);
+            DeploymentInfoAdapter.buildDeploymentInfo(udi, unit);
          }
          else
          {
             WebservicesMetaData wsMetaData = dep.getContext().getAttachment(WebservicesMetaData.class);
             udi = new JAXRPCDeployment(type, wsMetaData);
-            deploymentInfoAdapter.buildDeploymentInfo(udi, unit);
+            DeploymentInfoAdapter.buildDeploymentInfo(udi, unit);
          }
 
          dep.getContext().addAttachment(UnifiedDeploymentInfo.class, udi);

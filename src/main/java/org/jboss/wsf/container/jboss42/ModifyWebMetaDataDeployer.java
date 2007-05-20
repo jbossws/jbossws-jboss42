@@ -26,9 +26,9 @@ package org.jboss.wsf.container.jboss42;
 import org.jboss.wsf.spi.deployment.AbstractDeployer;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.Endpoint;
-import org.jboss.wsf.spi.deployment.ServiceEndpointPublisher;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
-import org.jboss.wsf.spi.deployment.ServiceEndpointPublisher.RewriteResults;
+import org.jboss.wsf.spi.deployment.WebAppDesciptorModifier;
+import org.jboss.wsf.spi.deployment.WebXMLRewriter;
 
 /**
  * A deployer that modifies the web.xml meta data 
@@ -38,11 +38,11 @@ import org.jboss.wsf.spi.deployment.ServiceEndpointPublisher.RewriteResults;
  */
 public class ModifyWebMetaDataDeployer extends AbstractDeployer
 {
-   private ServiceEndpointPublisher serviceEndpointPublisher;
+   private WebXMLRewriter webXMLRewriter;
 
-   public void setServiceEndpointPublisher(ServiceEndpointPublisher serviceEndpointPublisher)
+   public void setWebXMLRewriter(WebXMLRewriter serviceEndpointPublisher)
    {
-      this.serviceEndpointPublisher = serviceEndpointPublisher;
+      this.webXMLRewriter = serviceEndpointPublisher;
    }
 
    public void create(Deployment dep)
@@ -51,7 +51,7 @@ public class ModifyWebMetaDataDeployer extends AbstractDeployer
       if (udi == null)
          throw new IllegalStateException("Cannot obtain unified deployement info");
 
-      RewriteResults results = serviceEndpointPublisher.rewriteWebXml(udi);
+      WebAppDesciptorModifier.RewriteResults results = webXMLRewriter.rewriteWebXml(dep);
 
       // The endpoint may not have a target bean when 
       // <servlet-class> originally contained a javax.servlet.Servlet
