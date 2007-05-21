@@ -30,6 +30,7 @@ import org.jboss.deployment.DeploymentInfo;
 import org.jboss.ejb3.EJBContainer;
 import org.jboss.ejb3.Ejb3ModuleMBean;
 import org.jboss.ejb3.stateless.StatelessContainer;
+import org.jboss.ws.integration.URLLoaderAdapter;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.Service;
@@ -54,8 +55,9 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
    public Deployment createDeployment(DeploymentInfo unit)
    {
       Deployment dep = createDeployment();
+      dep.setRootFile(new URLLoaderAdapter(unit.url));
+      dep.setClassLoader(unit.annotationsCl);
       dep.setType(getDeploymentType());
-      dep.setClassLoader(unit.ucl);
 
       Service service = dep.getService();
 
