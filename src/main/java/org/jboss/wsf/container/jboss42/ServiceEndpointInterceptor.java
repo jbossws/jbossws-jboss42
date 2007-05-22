@@ -60,8 +60,8 @@ public class ServiceEndpointInterceptor extends AbstractInterceptor
       }
 
       // Get the endpoint invocation 
-      org.jboss.wsf.spi.invocation.EndpointInvocation epInv = (org.jboss.wsf.spi.invocation.EndpointInvocation)mi
-            .getValue(org.jboss.wsf.spi.invocation.EndpointInvocation.class.getName());
+      org.jboss.wsf.spi.invocation.Invocation epInv = (org.jboss.wsf.spi.invocation.Invocation)mi
+            .getValue(org.jboss.wsf.spi.invocation.Invocation.class.getName());
 
       // Get the handler callback 
       HandlerCallback callback = (HandlerCallback)mi.getValue(HandlerCallback.class.getName());

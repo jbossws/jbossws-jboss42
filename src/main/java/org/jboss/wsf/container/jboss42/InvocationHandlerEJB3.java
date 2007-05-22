@@ -40,7 +40,7 @@ import org.jboss.injection.lang.reflect.BeanProperty;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.invocation.AbstractInvocationHandler;
-import org.jboss.wsf.spi.invocation.EndpointInvocation;
+import org.jboss.wsf.spi.invocation.Invocation;
 import org.jboss.wsf.spi.invocation.WebServiceContextEJB;
 import org.jboss.wsf.spi.utils.ObjectNameFactory;
 
@@ -81,7 +81,7 @@ public class InvocationHandlerEJB3 extends AbstractInvocationHandler
          throw new WebServiceException("Cannot find service endpoint target: " + objectName);
    }
 
-   public void invoke(Endpoint ep, Object beanInstance, EndpointInvocation epInv) throws Exception
+   public void invoke(Endpoint ep, Object beanInstance, Invocation epInv) throws Exception
    {
       try
       {
@@ -113,7 +113,7 @@ public class InvocationHandlerEJB3 extends AbstractInvocationHandler
       private javax.xml.ws.handler.MessageContext jaxwsMessageContext;
       private javax.xml.rpc.handler.MessageContext jaxrpcMessageContext;
 
-      public CallbackImpl(EndpointInvocation epInv)
+      public CallbackImpl(Invocation epInv)
       {
          jaxrpcMessageContext = epInv.getInvocationContext().getAttachment(javax.xml.rpc.handler.MessageContext.class);
          jaxwsMessageContext = epInv.getInvocationContext().getAttachment(javax.xml.ws.handler.MessageContext.class);
