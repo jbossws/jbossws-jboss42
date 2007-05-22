@@ -26,10 +26,10 @@ package org.jboss.wsf.container.jboss42;
 import javax.xml.rpc.handler.soap.SOAPMessageContext;
 
 import org.jboss.ejb.plugins.AbstractInterceptor;
-import org.jboss.invocation.Invocation;
 import org.jboss.invocation.InvocationKey;
 import org.jboss.logging.Logger;
 import org.jboss.wsf.spi.invocation.HandlerCallback;
+import org.jboss.wsf.spi.invocation.Invocation;
 import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedHandlerMetaData.HandlerType;
 
 /**
@@ -50,24 +50,23 @@ public class ServiceEndpointInterceptor extends AbstractInterceptor
 
    /** Before and after we call the service endpoint bean, we process the handler chains.
     */
-   public Object invoke(final Invocation mi) throws Exception
+   public Object invoke(final org.jboss.invocation.Invocation jbInv) throws Exception
    {
       // If no msgContext, it's not for us
-      SOAPMessageContext msgContext = (SOAPMessageContext)mi.getPayloadValue(InvocationKey.SOAP_MESSAGE_CONTEXT);
+      SOAPMessageContext msgContext = (SOAPMessageContext)jbInv.getPayloadValue(InvocationKey.SOAP_MESSAGE_CONTEXT);
       if (msgContext == null)
       {
-         return getNext().invoke(mi);
+         return getNext().invoke(jbInv);
       }
 
       // Get the endpoint invocation 
-      org.jboss.wsf.spi.invocation.Invocation epInv = (org.jboss.wsf.spi.invocation.Invocation)mi
-            .getValue(org.jboss.wsf.spi.invocation.Invocation.class.getName());
+      Invocation wsInv = (Invocation)jbInv.getValue(Invocation.class.getName());
 
       // Get the handler callback 
-      HandlerCallback callback = (HandlerCallback)mi.getValue(HandlerCallback.class.getName());
+      HandlerCallback callback = (HandlerCallback)jbInv.getValue(HandlerCallback.class.getName());
 
       // Handlers need to be Tx. Therefore we must invoke the handler chain after the TransactionInterceptor.
-      if (callback != null && epInv != null)
+      if (callback != null && wsInv != null)
       {
          try
          {
@@ -81,13 +80,13 @@ public class ServiceEndpointInterceptor extends AbstractInterceptor
                // The SOAPContentElements stored in the EndpointInvocation might have changed after
                // handler processing. Get the updated request payload. This should be a noop if request
                // handlers did not modify the incomming SOAP message.
-               Object[] reqParams = epInv.getArgs();
-               mi.setArguments(reqParams);
-               Object resObj = getNext().invoke(mi);
+               Object[] reqParams = wsInv.getArgs();
+               jbInv.setArguments(reqParams);
+               Object resObj = getNext().invoke(jbInv);
 
                // Setting the message to null should trigger binding of the response message
                msgContext.setMessage(null);
-               epInv.setReturnValue(resObj);
+               wsInv.setReturnValue(resObj);
             }
 
             // call the response handlers
@@ -95,7 +94,7 @@ public class ServiceEndpointInterceptor extends AbstractInterceptor
             handlersPass = handlersPass && callback.callResponseHandlerChain(HandlerType.ENDPOINT);
 
             // update the return value after response handler processing
-            Object resObj = epInv.getReturnValue();
+            Object resObj = wsInv.getReturnValue();
 
             return resObj;
          }
@@ -121,7 +120,7 @@ public class ServiceEndpointInterceptor extends AbstractInterceptor
       else
       {
          log.warn("Handler callback not available");
-         return getNext().invoke(mi);
+         return getNext().invoke(jbInv);
       }
    }
 }
