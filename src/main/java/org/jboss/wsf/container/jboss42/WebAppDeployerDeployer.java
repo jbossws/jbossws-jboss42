@@ -68,7 +68,7 @@ public class WebAppDeployerDeployer extends AbstractDeployer
       log.debug("publishServiceEndpoint: " + warURL);
       try
       {
-         DeploymentInfo di = udi.getAttachment(DeploymentInfo.class);
+         DeploymentInfo di = dep.getContext().getAttachment(DeploymentInfo.class);
          if (di == null)
             throw new IllegalStateException("Cannot obtain DeploymentInfo from context");
 

@@ -32,6 +32,7 @@ import org.jboss.logging.Logger;
 import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.ws.integration.ResourceLoaderAdapter;
+import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 
 /**
@@ -45,14 +46,14 @@ public class DeploymentInfoAdapter
    // logging support
    private static Logger log = Logger.getLogger(DeploymentInfoAdapter.class);
 
-   public static UnifiedDeploymentInfo buildDeploymentInfo(UnifiedDeploymentInfo udi, DeploymentInfo di)
+   public static UnifiedDeploymentInfo buildDeploymentInfo(Deployment dep, UnifiedDeploymentInfo udi, DeploymentInfo di)
    {
-      udi.addAttachment(DeploymentInfo.class, di);
+      dep.getContext().addAttachment(DeploymentInfo.class, di);
 
       if (di.parent != null)
       {
          udi.parent = new UnifiedDeploymentInfo(null);
-         buildDeploymentInfo(udi.parent, di.parent);
+         buildDeploymentInfo(dep, udi.parent, di.parent);
       }
 
       udi.vfRoot = new ResourceLoaderAdapter(di.localCl);
@@ -62,7 +63,7 @@ public class DeploymentInfoAdapter
       udi.classLoader = di.annotationsCl;
       udi.deployedObject = di.deployedObject;
 
-      buildMetaData(udi, di.metaData);
+      buildMetaData(dep, udi, di);
 
       log.debug("UnifiedDeploymentInfo:\n" + udi);
       return udi;
@@ -89,20 +90,20 @@ public class DeploymentInfoAdapter
       return deploymentURL;
    }
 
-   private static void buildMetaData(UnifiedDeploymentInfo udi, Object metaData)
+   private static void buildMetaData(Deployment dep, UnifiedDeploymentInfo udi, DeploymentInfo di)
    {
-      if (metaData instanceof WebMetaData)
+      if (di.metaData instanceof WebMetaData)
       {
-         udi.metaData = WebMetaDataAdapter.buildUnifiedWebMetaData(udi, (WebMetaData)metaData);
+         udi.metaData = WebMetaDataAdapter.buildUnifiedWebMetaData(dep, udi, (WebMetaData)di.metaData);
          udi.webappURL = udi.url;
       }
-      else if (metaData instanceof ApplicationMetaData)
+      else if (di.metaData instanceof ApplicationMetaData)
       {
-         udi.metaData = ApplicationMetaDataAdapter.buildUnifiedApplicationMetaData(udi, (ApplicationMetaData)metaData);
+         udi.metaData = ApplicationMetaDataAdapter.buildUnifiedApplicationMetaData(dep, udi, (ApplicationMetaData)di.metaData);
       }
       else if (udi.deployedObject != null)
       {
-         udi.metaData = ApplicationMetaDataAdaptorEJB3.buildUnifiedApplicationMetaData(udi);
+         udi.metaData = ApplicationMetaDataAdaptorEJB3.buildUnifiedApplicationMetaData(dep, udi);
          ;
       }
    }

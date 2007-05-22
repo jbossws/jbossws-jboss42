@@ -33,6 +33,7 @@ import java.util.Map.Entry;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.metadata.WebSecurityMetaData;
 import org.jboss.metadata.WebSecurityMetaData.WebResourceCollection;
+import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebSecurityMetaData;
@@ -47,9 +48,9 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebSecurityMetaData.UnifiedWebReso
  */
 public class WebMetaDataAdapter
 {
-   public static UnifiedWebMetaData buildUnifiedWebMetaData(UnifiedDeploymentInfo udi, WebMetaData webMetaData)
+   public static UnifiedWebMetaData buildUnifiedWebMetaData(Deployment dep, UnifiedDeploymentInfo udi, WebMetaData webMetaData)
    {
-      udi.addAttachment(WebMetaData.class, webMetaData);
+      dep.getContext().addAttachment(WebMetaData.class, webMetaData);
 
       UnifiedWebMetaData umd = new UnifiedWebMetaData();
       umd.setContextRoot(webMetaData.getContextRoot());
@@ -61,7 +62,7 @@ public class WebMetaDataAdapter
       umd.setPublishLocationAdapter(getPublishLocationAdpater(webMetaData));
       umd.setSecurityMetaData(getSecurityMetaData(webMetaData.getSecurityContraints()));
 
-      udi.addAttachment(UnifiedWebMetaData.class, umd);
+      dep.getContext().addAttachment(UnifiedWebMetaData.class, umd);
       return umd;
    }
 

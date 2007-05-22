@@ -54,13 +54,13 @@ public class UnifiedDeploymentInfoDeployer extends AbstractDeployer
          if (type.toString().startsWith("JAXWS"))
          {
             udi = new JAXWSDeployment(type);
-            DeploymentInfoAdapter.buildDeploymentInfo(udi, unit);
+            DeploymentInfoAdapter.buildDeploymentInfo(dep, udi, unit);
          }
          else
          {
             WebservicesMetaData wsMetaData = dep.getContext().getAttachment(WebservicesMetaData.class);
             udi = new JAXRPCDeployment(type, wsMetaData);
-            DeploymentInfoAdapter.buildDeploymentInfo(udi, unit);
+            DeploymentInfoAdapter.buildDeploymentInfo(dep, udi, unit);
          }
 
          dep.getContext().addAttachment(UnifiedDeploymentInfo.class, udi);

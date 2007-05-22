@@ -34,6 +34,7 @@ import org.jboss.logging.Logger;
 import org.jboss.mx.util.MBeanProxy;
 import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
+import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.deployment.WSDeploymentException;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
@@ -50,7 +51,7 @@ public class ApplicationMetaDataAdaptorEJB3
    // logging support
    private static Logger log = Logger.getLogger(ApplicationMetaDataAdaptorEJB3.class);
 
-   public static UnifiedApplicationMetaData buildUnifiedApplicationMetaData(UnifiedDeploymentInfo udi)
+   public static UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, UnifiedDeploymentInfo udi)
    {
       Ejb3ModuleMBean ejb3Module = getEJB3Module(udi.deployedObject);
 
@@ -70,7 +71,7 @@ public class ApplicationMetaDataAdaptorEJB3
       UnifiedApplicationMetaData umd = new UnifiedApplicationMetaData();
       umd.setEnterpriseBeans(beans);
       
-      udi.addAttachment(UnifiedApplicationMetaData.class, umd);
+      dep.getContext().addAttachment(UnifiedApplicationMetaData.class, umd);
       return umd;
    }
 

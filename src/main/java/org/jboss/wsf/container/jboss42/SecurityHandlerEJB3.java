@@ -28,13 +28,14 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
 import org.dom4j.Element;
+import org.jboss.annotation.security.SecurityDomain;
 import org.jboss.ejb3.Ejb3ModuleMBean;
 import org.jboss.ejb3.stateless.StatelessContainer;
-import org.jboss.logging.Logger;
 import org.jboss.mx.util.MBeanProxy;
 import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
-import org.jboss.wsf.spi.deployment.SecurityRolesHandler;
+import org.jboss.wsf.spi.deployment.Deployment;
+import org.jboss.wsf.spi.deployment.SecurityHandler;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.deployment.WSDeploymentException;
 
@@ -44,16 +45,39 @@ import org.jboss.wsf.spi.deployment.WSDeploymentException;
  * @author Thomas.Diesler@jboss.org
  * @since 12-May-2006
  */
-public class SecurityRolesHandlerEJB3 implements SecurityRolesHandler
+public class SecurityHandlerEJB3 implements SecurityHandler
 {
-   // logging support
-   protected Logger log = Logger.getLogger(SecurityRolesHandlerEJB3.class);
+   public void addSecurityDomain(Element jbossWeb, Deployment dep)
+   {
+      String securityDomain = null;
 
-   /** Add the roles from ejb-jar.xml to the security roles
-    */
-   public void addSecurityRoles(Element webApp, UnifiedDeploymentInfo udi)
+      UnifiedDeploymentInfo udi = dep.getContext().getAttachment(UnifiedDeploymentInfo.class);
+      Ejb3ModuleMBean ejb3Module = getEJB3Module(udi.deployedObject);
+      for (Object manager : ejb3Module.getContainers().values())
+      {
+         if (manager instanceof StatelessContainer)
+         {
+            StatelessContainer container = (StatelessContainer)manager;
+
+            SecurityDomain anSecurityDomain = (SecurityDomain)container.resolveAnnotation(SecurityDomain.class);
+            if (anSecurityDomain != null)
+            {
+               if (securityDomain != null && !securityDomain.equals(anSecurityDomain.value()))
+                  throw new IllegalStateException("Multiple security domains not supported");
+
+               securityDomain = anSecurityDomain.value();
+            }
+         }
+      }
+
+      if (securityDomain != null)
+         jbossWeb.addElement("security-domain").addText("java:/jaas/" + securityDomain);
+   }
+
+   public void addSecurityRoles(Element webApp, Deployment dep)
    {
       // The container objects below provide access to all of the ejb metadata
+      UnifiedDeploymentInfo udi = dep.getContext().getAttachment(UnifiedDeploymentInfo.class);
       Ejb3ModuleMBean ejb3Module = getEJB3Module(udi.deployedObject);
       for (Object manager : ejb3Module.getContainers().values())
       {

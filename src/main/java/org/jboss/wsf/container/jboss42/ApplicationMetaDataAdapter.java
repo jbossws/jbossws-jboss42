@@ -32,6 +32,7 @@ import org.jboss.metadata.BeanMetaData;
 import org.jboss.metadata.EjbPortComponentMetaData;
 import org.jboss.metadata.MessageDrivenMetaData;
 import org.jboss.metadata.SessionMetaData;
+import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
@@ -48,9 +49,9 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData.PublishLocatio
  */
 public class ApplicationMetaDataAdapter 
 {
-   public static UnifiedApplicationMetaData buildUnifiedApplicationMetaData(UnifiedDeploymentInfo udi, ApplicationMetaData apmd)
+   public static UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, UnifiedDeploymentInfo udi, ApplicationMetaData apmd)
    {
-      udi.addAttachment(ApplicationMetaData.class, apmd);
+      dep.getContext().addAttachment(ApplicationMetaData.class, apmd);
       
       UnifiedApplicationMetaData umd = new UnifiedApplicationMetaData();
       buildUnifiedBeanMetaData(umd, apmd);
@@ -60,7 +61,7 @@ public class ApplicationMetaDataAdapter
       umd.setSecurityDomain(apmd.getSecurityDomain());
       umd.setPublishLocationAdapter(getPublishLocationAdpater(apmd));
       
-      udi.addAttachment(UnifiedApplicationMetaData.class, umd);
+      dep.getContext().addAttachment(UnifiedApplicationMetaData.class, umd);
       return umd;
    }
 
