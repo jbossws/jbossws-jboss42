@@ -71,7 +71,12 @@ public class SecurityHandlerEJB3 implements SecurityHandler
       }
 
       if (securityDomain != null)
-         jbossWeb.addElement("security-domain").addText("java:/jaas/" + securityDomain);
+      {
+         if (securityDomain.startsWith("java:/jaas/") == false)
+            securityDomain = "java:/jaas/" + securityDomain;
+         
+         jbossWeb.addElement("security-domain").addText(securityDomain);
+      }
    }
 
    public void addSecurityRoles(Element webApp, Deployment dep)
