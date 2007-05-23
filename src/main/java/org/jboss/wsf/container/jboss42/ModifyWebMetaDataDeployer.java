@@ -59,7 +59,7 @@ public class ModifyWebMetaDataDeployer extends AbstractDeployer
       {
          if (ep.getTargetBean() == null)
          {
-            String servletName = ep.getName().getKeyProperty(Endpoint.SEPID_PROPERTY_ENDPOINT);
+            String servletName = ep.getShortName();
             String beanClassName = results.sepTargetMap.get(servletName);
             if (beanClassName == null)
                throw new IllegalStateException("Cannot obtain target bean for: " + servletName);

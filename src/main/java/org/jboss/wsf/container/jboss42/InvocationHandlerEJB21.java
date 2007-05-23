@@ -70,11 +70,7 @@ public class InvocationHandlerEJB21 extends AbstractInvocationHandler
    {
       super.create(ep);
 
-      ObjectName epName = ep.getName();
-      String ejbName = epName.getKeyProperty(Endpoint.SEPID_PROPERTY_ENDPOINT);
-      if (ejbName == null)
-         throw new WebServiceException("Cannot obtain ejb-link from port component");
-
+      String ejbName = ep.getShortName();
       UnifiedDeploymentInfo udi = ep.getService().getDeployment().getContext().getAttachment(UnifiedDeploymentInfo.class);
       UnifiedApplicationMetaData applMetaData = (UnifiedApplicationMetaData)udi.metaData;
       UnifiedBeanMetaData beanMetaData = (UnifiedBeanMetaData)applMetaData.getBeanByEjbName(ejbName);
