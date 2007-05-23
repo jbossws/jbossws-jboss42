@@ -1,0 +1,21 @@
+<project name="jboss/jbossws-jboss42">
+  
+  <component id="jboss/jbossws-jboss42"
+    description="JBossWS container integration layer" 
+    version="@repository.id@"
+    licenseType="lgpl">
+    
+    <artifact id="jbossws-jboss42.jar"/>
+    <artifact id="jbossws-jboss42-src.zip"/>
+    
+    <import componentref="jboss/jbossws-spi">
+      <compatible version="@repository.id@"/>
+    </import>
+    
+    <export>
+      <include input="jbossws-jboss42.jar"/>
+    </export>
+    
+  </component>
+  
+</project>

@@ -15,6 +15,7 @@
   
   <import file="${basedir}/build/ant-import/build-setup.xml"/>
   
+  <import file="${int.jboss42.dir}/ant-import/build-release.xml"/>
   <import file="${int.jboss42.dir}/ant-import/build-thirdparty.xml"/>
   
   <!-- ================================================================== -->
