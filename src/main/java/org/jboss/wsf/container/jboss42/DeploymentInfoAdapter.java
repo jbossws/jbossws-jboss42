@@ -45,8 +45,27 @@ public class DeploymentInfoAdapter
 {
    // logging support
    private static Logger log = Logger.getLogger(DeploymentInfoAdapter.class);
+   
+   private ApplicationMetaDataAdapterEJB3 applicationMetaDataAdapterEJB3;
+   private AbstractApplicationMetaDataAdapter applicationMetaDataAdapterEJB21;
+   private WebMetaDataAdapter webMetaDataAdapter;
 
-   public static UnifiedDeploymentInfo buildDeploymentInfo(Deployment dep, UnifiedDeploymentInfo udi, DeploymentInfo di)
+   public void setApplicationMetaDataAdapterEJB21(AbstractApplicationMetaDataAdapter applicationMetaDataAdapterEJB21)
+   {
+      this.applicationMetaDataAdapterEJB21 = applicationMetaDataAdapterEJB21;
+   }
+
+   public void setApplicationMetaDataAdapterEJB3(ApplicationMetaDataAdapterEJB3 applicationMetaDataAdapterEJB3)
+   {
+      this.applicationMetaDataAdapterEJB3 = applicationMetaDataAdapterEJB3;
+   }
+
+   public void setWebMetaDataAdapter(WebMetaDataAdapter webMetaDataAdapter)
+   {
+      this.webMetaDataAdapter = webMetaDataAdapter;
+   }
+
+   public UnifiedDeploymentInfo buildDeploymentInfo(Deployment dep, UnifiedDeploymentInfo udi, DeploymentInfo di)
    {
       dep.getContext().addAttachment(DeploymentInfo.class, di);
 
@@ -69,7 +88,7 @@ public class DeploymentInfoAdapter
       return udi;
    }
 
-   private static URL getDeploymentURL(DeploymentInfo di)
+   private URL getDeploymentURL(DeploymentInfo di)
    {
       URL deploymentURL = (di.localUrl != null ? di.localUrl : di.url);
       if ("file".equals(deploymentURL.getProtocol()))
@@ -90,20 +109,20 @@ public class DeploymentInfoAdapter
       return deploymentURL;
    }
 
-   private static void buildMetaData(Deployment dep, UnifiedDeploymentInfo udi, DeploymentInfo di)
+   private void buildMetaData(Deployment dep, UnifiedDeploymentInfo udi, DeploymentInfo di)
    {
       if (di.metaData instanceof WebMetaData)
       {
-         udi.metaData = WebMetaDataAdapter.buildUnifiedWebMetaData(dep, udi, (WebMetaData)di.metaData);
+         udi.metaData = webMetaDataAdapter.buildUnifiedWebMetaData(dep, udi, (WebMetaData)di.metaData);
          udi.webappURL = udi.url;
       }
       else if (di.metaData instanceof ApplicationMetaData)
       {
-         udi.metaData = ApplicationMetaDataAdapter.buildUnifiedApplicationMetaData(dep, udi, (ApplicationMetaData)di.metaData);
+         udi.metaData = applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, udi, (ApplicationMetaData)di.metaData);
       }
       else if (udi.deployedObject != null)
       {
-         udi.metaData = ApplicationMetaDataAdaptorEJB3.buildUnifiedApplicationMetaData(dep, udi);
+         udi.metaData = applicationMetaDataAdapterEJB3.buildUnifiedApplicationMetaData(dep, udi);
          ;
       }
    }

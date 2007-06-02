@@ -23,23 +23,14 @@ package org.jboss.wsf.container.jboss42;
 
 // $Id$
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.BeanMetaData;
 import org.jboss.metadata.EjbPortComponentMetaData;
 import org.jboss.metadata.MessageDrivenMetaData;
 import org.jboss.metadata.SessionMetaData;
-import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedEjbPortComponentMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedMessageDrivenMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedSessionMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData.PublishLocationAdapter;
 
 /**
  * Build container independent application meta data 
@@ -47,52 +38,10 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData.PublishLocatio
  * @author Thomas.Diesler@jboss.org
  * @since 05-May-2006
  */
-public class ApplicationMetaDataAdapter 
+public class ApplicationMetaDataAdapterEJB21 extends AbstractApplicationMetaDataAdapter
 {
-   public static UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, UnifiedDeploymentInfo udi, ApplicationMetaData apmd)
-   {
-      dep.getContext().addAttachment(ApplicationMetaData.class, apmd);
-      
-      UnifiedApplicationMetaData umd = new UnifiedApplicationMetaData();
-      buildUnifiedBeanMetaData(umd, apmd);
-      umd.setConfigName(apmd.getConfigName());
-      umd.setConfigFile(apmd.getConfigFile());
-      umd.setWebServiceContextRoot(apmd.getWebServiceContextRoot());
-      umd.setSecurityDomain(apmd.getSecurityDomain());
-      umd.setPublishLocationAdapter(getPublishLocationAdpater(apmd));
-      
-      dep.getContext().addAttachment(UnifiedApplicationMetaData.class, umd);
-      return umd;
-   }
-
-   private static PublishLocationAdapter getPublishLocationAdpater(final ApplicationMetaData apmd)
-   {
-      return new PublishLocationAdapter ()
-      {
-         public String getWsdlPublishLocationByName(String name)
-         {
-            return apmd.getWsdlPublishLocationByName(name);
-         }
-      };
-   }
-
-   private static void buildUnifiedBeanMetaData(UnifiedApplicationMetaData umd, ApplicationMetaData metaData)
-   {
-      List<UnifiedBeanMetaData> beans = new ArrayList<UnifiedBeanMetaData>();
-      Iterator it = metaData.getEnterpriseBeans();
-      while (it.hasNext())
-      {
-         BeanMetaData bmd = (BeanMetaData)it.next();
-         UnifiedBeanMetaData ubmd = buildUnifiedBeanMetaData(bmd);
-         if (ubmd != null)
-         {
-            beans.add(ubmd);
-         }
-      }
-      umd.setEnterpriseBeans(beans);
-   }
-   
-   private static UnifiedBeanMetaData buildUnifiedBeanMetaData(BeanMetaData bmd)
+   @Override
+   protected UnifiedBeanMetaData buildUnifiedBeanMetaData(BeanMetaData bmd)
    {
       UnifiedBeanMetaData ubmd = null;
       if (bmd instanceof SessionMetaData)

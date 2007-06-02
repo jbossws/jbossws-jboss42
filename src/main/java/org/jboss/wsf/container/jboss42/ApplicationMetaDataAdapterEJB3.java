@@ -46,12 +46,12 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
  * @author Thomas.Diesler@jboss.org
  * @since 14-Apr-2007
  */
-public class ApplicationMetaDataAdaptorEJB3
+public class ApplicationMetaDataAdapterEJB3
 {
    // logging support
-   private static Logger log = Logger.getLogger(ApplicationMetaDataAdaptorEJB3.class);
+   private static Logger log = Logger.getLogger(ApplicationMetaDataAdapterEJB3.class);
 
-   public static UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, UnifiedDeploymentInfo udi)
+   public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, UnifiedDeploymentInfo udi)
    {
       Ejb3ModuleMBean ejb3Module = getEJB3Module(udi.deployedObject);
 
@@ -70,7 +70,7 @@ public class ApplicationMetaDataAdaptorEJB3
 
       UnifiedApplicationMetaData umd = new UnifiedApplicationMetaData();
       umd.setEnterpriseBeans(beans);
-      
+
       dep.getContext().addAttachment(UnifiedApplicationMetaData.class, umd);
       return umd;
    }
