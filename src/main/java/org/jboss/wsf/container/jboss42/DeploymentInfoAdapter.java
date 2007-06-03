@@ -46,9 +46,9 @@ public class DeploymentInfoAdapter
    // logging support
    private static Logger log = Logger.getLogger(DeploymentInfoAdapter.class);
    
-   private ApplicationMetaDataAdapterEJB3 applicationMetaDataAdapterEJB3 = new ApplicationMetaDataAdapterEJB3();
-   private AbstractApplicationMetaDataAdapter applicationMetaDataAdapterEJB21 = new ApplicationMetaDataAdapterEJB21();
-   private WebMetaDataAdapter webMetaDataAdapter = new WebMetaDataAdapter();
+   private ApplicationMetaDataAdapterEJB3 applicationMetaDataAdapterEJB3;
+   private AbstractApplicationMetaDataAdapter applicationMetaDataAdapterEJB21;
+   private WebMetaDataAdapter webMetaDataAdapter;
 
    public void setApplicationMetaDataAdapterEJB21(AbstractApplicationMetaDataAdapter adapter)
    {
