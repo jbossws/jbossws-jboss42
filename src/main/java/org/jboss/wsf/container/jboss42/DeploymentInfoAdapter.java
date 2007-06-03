@@ -34,6 +34,7 @@ import org.jboss.metadata.WebMetaData;
 import org.jboss.ws.integration.ResourceLoaderAdapter;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
+import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 
 /**
  * Build container independent deployment info. 
@@ -120,10 +121,9 @@ public class DeploymentInfoAdapter
       {
          udi.metaData = applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, udi, (ApplicationMetaData)di.metaData);
       }
-      else if (udi.deployedObject != null)
+      else if (udi.type == DeploymentType.JAXRPC_EJB3 || udi.type == DeploymentType.JAXWS_EJB3)
       {
          udi.metaData = applicationMetaDataAdapterEJB3.buildUnifiedApplicationMetaData(dep, udi);
-         ;
       }
    }
 }
