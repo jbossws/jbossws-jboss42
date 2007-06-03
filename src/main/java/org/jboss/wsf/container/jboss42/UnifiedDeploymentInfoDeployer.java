@@ -40,11 +40,11 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
  */
 public class UnifiedDeploymentInfoDeployer extends AbstractDeployer
 {
-   private DeploymentInfoAdapter deploymentInfoAdapter;
+   private DeploymentInfoAdapter deploymentInfoAdapter = new DeploymentInfoAdapter();
    
-   public void setDeploymentInfoAdapter(DeploymentInfoAdapter deploymentInfoAdapter)
+   public void setDeploymentInfoAdapter(DeploymentInfoAdapter adapter)
    {
-      this.deploymentInfoAdapter = deploymentInfoAdapter;
+      this.deploymentInfoAdapter = adapter;
    }
 
    @Override

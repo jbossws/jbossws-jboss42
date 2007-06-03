@@ -46,23 +46,23 @@ public class DeploymentInfoAdapter
    // logging support
    private static Logger log = Logger.getLogger(DeploymentInfoAdapter.class);
    
-   private ApplicationMetaDataAdapterEJB3 applicationMetaDataAdapterEJB3;
-   private AbstractApplicationMetaDataAdapter applicationMetaDataAdapterEJB21;
-   private WebMetaDataAdapter webMetaDataAdapter;
+   private ApplicationMetaDataAdapterEJB3 applicationMetaDataAdapterEJB3 = new ApplicationMetaDataAdapterEJB3();
+   private AbstractApplicationMetaDataAdapter applicationMetaDataAdapterEJB21 = new ApplicationMetaDataAdapterEJB21();
+   private WebMetaDataAdapter webMetaDataAdapter = new WebMetaDataAdapter();
 
-   public void setApplicationMetaDataAdapterEJB21(AbstractApplicationMetaDataAdapter applicationMetaDataAdapterEJB21)
+   public void setApplicationMetaDataAdapterEJB21(AbstractApplicationMetaDataAdapter adapter)
    {
-      this.applicationMetaDataAdapterEJB21 = applicationMetaDataAdapterEJB21;
+      this.applicationMetaDataAdapterEJB21 = adapter;
    }
 
-   public void setApplicationMetaDataAdapterEJB3(ApplicationMetaDataAdapterEJB3 applicationMetaDataAdapterEJB3)
+   public void setApplicationMetaDataAdapterEJB3(ApplicationMetaDataAdapterEJB3 adapter)
    {
-      this.applicationMetaDataAdapterEJB3 = applicationMetaDataAdapterEJB3;
+      this.applicationMetaDataAdapterEJB3 = adapter;
    }
 
-   public void setWebMetaDataAdapter(WebMetaDataAdapter webMetaDataAdapter)
+   public void setWebMetaDataAdapter(WebMetaDataAdapter adapter)
    {
-      this.webMetaDataAdapter = webMetaDataAdapter;
+      this.webMetaDataAdapter = adapter;
    }
 
    public UnifiedDeploymentInfo buildDeploymentInfo(Deployment dep, UnifiedDeploymentInfo udi, DeploymentInfo di)
