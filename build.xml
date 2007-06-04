@@ -28,6 +28,7 @@
   <property name="jbws42.java.dir" value="${jbws42.src.dir}/java"/>
   <property name="jbws42.resources.dir" value="${jbws42.src.dir}/resources"/>
   <property name="jbws42.output.dir" value="${jbws42.dir}/output"/>
+  <property name="jbws42.output.apidocs.dir" value="${jbws42.output.dir}/apidocs"/>
   <property name="jbws42.output.classes.dir" value="${jbws42.output.dir}/classes"/>
   <property name="jbws42.output.etc.dir" value="${jbws42.output.dir}/etc"/>
   <property name="jbws42.output.lib.dir" value="${jbws42.output.dir}/lib"/>
@@ -113,7 +114,23 @@
     </zip>
     
   </target>
-  
+
+	<!-- Generate the JavaDoc -->
+   <target name="javadoc" depends="init" description="Generate the Javadoc">
+
+		<mkdir dir="${jbws42.output.apidocs.dir}"/>
+      <javadoc destdir="${jbws42.output.apidocs.dir}" author="true" version="true" use="true" windowtitle="JBossWS API">
+         <classpath>
+				<path refid="jbws42.integration.classpath"/>
+			</classpath>
+         <packageset dir="${jbws42.java.dir}" defaultexcludes="yes">
+            <include name="org/jboss/wsf/**"/>
+         </packageset>
+         <doctitle><![CDATA[<h1>JBoss Web Service Framework - Container integration AS 4.0</h1>]]></doctitle>
+         <tag name="todo" scope="all" description="To do:"/>
+		</javadoc>
+   </target>
+
   <!-- ================================================================== -->
   <!-- Miscellaneous                                                       -->
   <!-- ================================================================== -->
