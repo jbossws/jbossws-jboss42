@@ -71,8 +71,8 @@ public class ServiceEndpointInterceptor extends AbstractInterceptor
          try
          {
             // call the request handlers
-            boolean handlersPass = callback.callRequestHandlerChain(HandlerType.ENDPOINT);
-            handlersPass = handlersPass && callback.callRequestHandlerChain(HandlerType.POST);
+            boolean handlersPass = callback.callRequestHandlerChain(wsInv, HandlerType.ENDPOINT);
+            handlersPass = handlersPass && callback.callRequestHandlerChain(wsInv, HandlerType.POST);
 
             // Call the next interceptor in the chain
             if (handlersPass)
@@ -90,8 +90,8 @@ public class ServiceEndpointInterceptor extends AbstractInterceptor
             }
 
             // call the response handlers
-            handlersPass = callback.callResponseHandlerChain(HandlerType.POST);
-            handlersPass = handlersPass && callback.callResponseHandlerChain(HandlerType.ENDPOINT);
+            handlersPass = callback.callResponseHandlerChain(wsInv, HandlerType.POST);
+            handlersPass = handlersPass && callback.callResponseHandlerChain(wsInv, HandlerType.ENDPOINT);
 
             // update the return value after response handler processing
             Object resObj = wsInv.getReturnValue();
@@ -103,8 +103,8 @@ public class ServiceEndpointInterceptor extends AbstractInterceptor
             try
             {
                // call the fault handlers
-               boolean handlersPass = callback.callFaultHandlerChain(HandlerType.POST, ex);
-               handlersPass = handlersPass && callback.callFaultHandlerChain(HandlerType.ENDPOINT, ex);
+               boolean handlersPass = callback.callFaultHandlerChain(wsInv, HandlerType.POST, ex);
+               handlersPass = handlersPass && callback.callFaultHandlerChain(wsInv, HandlerType.ENDPOINT, ex);
             }
             catch (Exception subEx)
             {
