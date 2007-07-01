@@ -114,12 +114,12 @@ public class DeploymentInfoAdapter
    {
       if (di.metaData instanceof WebMetaData)
       {
-         udi.metaData = webMetaDataAdapter.buildUnifiedWebMetaData(dep, udi, (WebMetaData)di.metaData);
+         udi.metaData = webMetaDataAdapter.buildUnifiedWebMetaData(dep, udi, di);
          udi.webappURL = udi.url;
       }
       else if (di.metaData instanceof ApplicationMetaData)
       {
-         udi.metaData = applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, udi, (ApplicationMetaData)di.metaData);
+         udi.metaData = applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, udi, di);
       }
       else if (udi.type == DeploymentType.JAXRPC_EJB3 || udi.type == DeploymentType.JAXWS_EJB3)
       {

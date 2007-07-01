@@ -30,6 +30,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.jboss.deployment.DeploymentInfo;
+import org.jboss.deployment.J2eeApplicationMetaData;
+import org.jboss.deployment.J2eeModuleMetaData;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.metadata.WebSecurityMetaData;
 import org.jboss.metadata.WebSecurityMetaData.WebResourceCollection;
@@ -48,19 +51,37 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebSecurityMetaData.UnifiedWebReso
  */
 public class WebMetaDataAdapter
 {
-   public UnifiedWebMetaData buildUnifiedWebMetaData(Deployment dep, UnifiedDeploymentInfo udi, WebMetaData webMetaData)
+   public UnifiedWebMetaData buildUnifiedWebMetaData(Deployment dep, UnifiedDeploymentInfo udi, DeploymentInfo di)
    {
-      dep.getContext().addAttachment(WebMetaData.class, webMetaData);
-
+      String contextRoot = null;
+      
+      WebMetaData wmd = (WebMetaData)di.metaData;
+      dep.getContext().addAttachment(WebMetaData.class, wmd);
+      
+      if (di.parent != null)
+      {
+         J2eeApplicationMetaData appmd = (J2eeApplicationMetaData)di.parent.metaData;
+         Iterator it = appmd.getModules();
+         while (it.hasNext())
+         {
+            J2eeModuleMetaData module = (J2eeModuleMetaData)it.next();
+            if (module.getFileName().equals(udi.simpleName))
+               contextRoot = module.getWebContext();
+         }
+      }
+      
+      if (contextRoot == null)
+         contextRoot = wmd.getContextRoot();
+      
       UnifiedWebMetaData umd = new UnifiedWebMetaData();
-      umd.setContextRoot(webMetaData.getContextRoot());
-      umd.setServletMappings(webMetaData.getServletMappings());
-      umd.setServletClassNames(getServletClassMap(webMetaData));
-      umd.setConfigName(webMetaData.getConfigName());
-      umd.setConfigFile(webMetaData.getConfigFile());
-      umd.setSecurityDomain(webMetaData.getSecurityDomain());
-      umd.setPublishLocationAdapter(getPublishLocationAdpater(webMetaData));
-      umd.setSecurityMetaData(getSecurityMetaData(webMetaData.getSecurityContraints()));
+      umd.setContextRoot(contextRoot);
+      umd.setServletMappings(wmd.getServletMappings());
+      umd.setServletClassNames(getServletClassMap(wmd));
+      umd.setConfigName(wmd.getConfigName());
+      umd.setConfigFile(wmd.getConfigFile());
+      umd.setSecurityDomain(wmd.getSecurityDomain());
+      umd.setPublishLocationAdapter(getPublishLocationAdpater(wmd));
+      umd.setSecurityMetaData(getSecurityMetaData(wmd.getSecurityContraints()));
 
       dep.getContext().addAttachment(UnifiedWebMetaData.class, umd);
       return umd;

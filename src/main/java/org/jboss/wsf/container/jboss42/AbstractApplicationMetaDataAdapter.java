@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jboss.deployment.DeploymentInfo;
 import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.BeanMetaData;
 import org.jboss.wsf.spi.deployment.Deployment;
@@ -43,8 +44,9 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData.PublishLocatio
  */
 public abstract class AbstractApplicationMetaDataAdapter
 {
-   public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, UnifiedDeploymentInfo udi, ApplicationMetaData apmd)
+   public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, UnifiedDeploymentInfo udi, DeploymentInfo di)
    {
+      ApplicationMetaData apmd = (ApplicationMetaData)di.metaData;
       dep.getContext().addAttachment(ApplicationMetaData.class, apmd);
 
       UnifiedApplicationMetaData umd = new UnifiedApplicationMetaData();

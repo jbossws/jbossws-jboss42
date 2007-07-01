@@ -39,6 +39,7 @@ import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.deployment.WSDeploymentException;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.UnifiedSessionMetaData;
 
 /**
  * Build container independent application meta data 
@@ -61,10 +62,10 @@ public class ApplicationMetaDataAdapterEJB3
          if (container instanceof StatelessContainer)
          {
             StatelessContainer slc = (StatelessContainer)container;
-            UnifiedBeanMetaData uslc = new UnifiedBeanMetaData();
-            uslc.setEjbName(slc.getEjbName());
-            uslc.setEjbClass(slc.getBeanClassName());
-            beans.add(uslc);
+            UnifiedBeanMetaData usmd = new UnifiedSessionMetaData();
+            usmd.setEjbName(slc.getEjbName());
+            usmd.setEjbClass(slc.getBeanClassName());
+            beans.add(usmd);
          }
       }
 

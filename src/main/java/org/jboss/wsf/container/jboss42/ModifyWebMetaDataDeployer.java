@@ -57,14 +57,14 @@ public class ModifyWebMetaDataDeployer extends AbstractDeployer
       // <servlet-class> originally contained a javax.servlet.Servlet
       for (Endpoint ep : dep.getService().getEndpoints())
       {
-         if (ep.getTargetBean() == null)
+         if (ep.getTargetBeanName() == null)
          {
             String servletName = ep.getShortName();
             String beanClassName = results.sepTargetMap.get(servletName);
             if (beanClassName == null)
                throw new IllegalStateException("Cannot obtain target bean for: " + servletName);
 
-            ep.setTargetBean(beanClassName);
+            ep.setTargetBeanName(beanClassName);
          }
       }
    }

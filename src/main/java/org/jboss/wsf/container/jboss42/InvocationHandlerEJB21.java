@@ -52,7 +52,7 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
 import org.jboss.wsf.spi.utils.ObjectNameFactory;
 
 /**
- * Handles invocations on EJB3 endpoints.
+ * Handles invocations on EJB21 endpoints.
  *
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
@@ -119,7 +119,7 @@ public class InvocationHandlerEJB21 extends AbstractInvocationHandler
 
    }
 
-   public void invoke(Endpoint ep, Object beanInstance, Invocation inv) throws Exception
+   public void invoke(Endpoint ep, Invocation inv) throws Exception
    {
       log.debug("Invoke: " + inv.getJavaMethod().getName());
 

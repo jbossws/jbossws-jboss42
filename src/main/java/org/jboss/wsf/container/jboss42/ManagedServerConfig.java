@@ -44,9 +44,6 @@ public class ManagedServerConfig extends BasicServerConfig implements ManagedSer
 
    public void create() throws Exception
    {
-      log.debug("WebServiceHost: " + getWebServiceHost());
-      log.debug("WebServicePort: " + getWebServicePort());
-      log.debug("WebServiceSecurePort: " + getWebServiceSecurePort());
       MBeanServer server = getMBeanServer();
       if (server != null)
       {
