@@ -117,13 +117,13 @@ public class DeploymentInfoAdapter
          udi.metaData = webMetaDataAdapter.buildUnifiedWebMetaData(dep, udi, di);
          udi.webappURL = udi.url;
       }
-      else if (di.metaData instanceof ApplicationMetaData)
-      {
-         udi.metaData = applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, udi, di);
-      }
       else if (udi.type == DeploymentType.JAXRPC_EJB3 || udi.type == DeploymentType.JAXWS_EJB3)
       {
          udi.metaData = applicationMetaDataAdapterEJB3.buildUnifiedApplicationMetaData(dep, udi);
+      }
+      else if (di.metaData instanceof ApplicationMetaData)
+      {
+         udi.metaData = applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, udi, di);
       }
    }
 }

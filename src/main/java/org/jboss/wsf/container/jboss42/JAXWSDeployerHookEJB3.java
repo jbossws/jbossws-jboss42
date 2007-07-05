@@ -55,7 +55,7 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
    public Deployment createDeployment(DeploymentInfo unit)
    {
       Deployment dep = createDeployment();
-      dep.setRootFile(new URLLoaderAdapter(unit.url));
+      dep.setRootFile(new URLLoaderAdapter(unit.localUrl));
       dep.setClassLoader(unit.annotationsCl);
       dep.setType(getDeploymentType());
 
