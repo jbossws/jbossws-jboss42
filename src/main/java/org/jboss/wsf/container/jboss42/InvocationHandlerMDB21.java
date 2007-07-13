@@ -27,7 +27,7 @@ import java.lang.reflect.Method;
 
 import org.jboss.logging.Logger;
 import org.jboss.wsf.spi.deployment.Endpoint;
-import org.jboss.wsf.spi.invocation.AbstractInvocationHandler;
+import org.jboss.wsf.spi.invocation.BasicInvocationHandler;
 import org.jboss.wsf.spi.invocation.Invocation;
 import org.jboss.wsf.spi.invocation.InvocationContext;
 
@@ -37,7 +37,7 @@ import org.jboss.wsf.spi.invocation.InvocationContext;
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class InvocationHandlerMDB21 extends AbstractInvocationHandler
+public class InvocationHandlerMDB21 extends BasicInvocationHandler
 {
    // provide logging
    private static final Logger log = Logger.getLogger(InvocationHandlerMDB21.class);

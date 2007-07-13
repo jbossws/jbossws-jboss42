@@ -21,10 +21,10 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-//$Id$
+//$Id: UnifiedDeploymentInfoDeployer.java 3407 2007-06-03 16:06:36Z thomas.diesler@jboss.com $
 
 import org.jboss.deployment.DeploymentInfo;
-import org.jboss.wsf.spi.deployment.AbstractDeployer;
+import org.jboss.wsf.spi.deployment.DeploymentAspect;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.JAXRPCDeployment;
 import org.jboss.wsf.spi.deployment.JAXWSDeployment;
@@ -38,7 +38,7 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class UnifiedDeploymentInfoDeployer extends AbstractDeployer
+public class UnifiedDeploymentInfoDeploymentAspect extends DeploymentAspect
 {
    private DeploymentInfoAdapter deploymentInfoAdapter;
    

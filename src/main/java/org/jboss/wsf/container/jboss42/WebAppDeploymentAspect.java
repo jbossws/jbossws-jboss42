@@ -21,7 +21,7 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-// $Id$
+// $Id: WebAppDeployerDeployer.java 3183 2007-05-22 13:06:13Z thomas.diesler@jboss.com $
 
 import java.net.URL;
 
@@ -33,7 +33,7 @@ import org.jboss.logging.Logger;
 import org.jboss.mx.util.MBeanProxy;
 import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
-import org.jboss.wsf.spi.deployment.AbstractDeployer;
+import org.jboss.wsf.spi.deployment.DeploymentAspect;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.WebXMLRewriter;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
@@ -45,10 +45,10 @@ import org.jboss.wsf.spi.deployment.WSDeploymentException;
  * @author Thomas.Diesler@jboss.org
  * @since 12-May-2006
  */
-public class WebAppDeployerDeployer extends AbstractDeployer
+public class WebAppDeploymentAspect extends DeploymentAspect
 {
    // provide logging
-   private static Logger log = Logger.getLogger(WebAppDeployerDeployer.class);
+   private static Logger log = Logger.getLogger(WebAppDeploymentAspect.class);
 
    private WebXMLRewriter webXMLRewriter;
 
@@ -59,29 +59,32 @@ public class WebAppDeployerDeployer extends AbstractDeployer
 
    public void create(Deployment dep)
    {
-      UnifiedDeploymentInfo udi = dep.getContext().getAttachment(UnifiedDeploymentInfo.class);
-      if (udi == null)
-         throw new IllegalStateException("Cannot obtain unified deployement info");
-
-      URL warURL = udi.webappURL;
-
-      log.debug("publishServiceEndpoint: " + warURL);
-      try
+      if (dep.getType().toString().endsWith("EJB21") || dep.getType().toString().endsWith("EJB3"))
       {
-         DeploymentInfo di = dep.getContext().getAttachment(DeploymentInfo.class);
-         if (di == null)
-            throw new IllegalStateException("Cannot obtain DeploymentInfo from context");
+         UnifiedDeploymentInfo udi = dep.getContext().getAttachment(UnifiedDeploymentInfo.class);
+         if (udi == null)
+            throw new IllegalStateException("Cannot obtain unified deployement info");
 
-         webXMLRewriter.rewriteWebXml(dep);
+         URL warURL = udi.webappURL;
 
-         // Preserve the repository config
-         DeploymentInfo auxdi = new DeploymentInfo(warURL, null, MBeanServerLocator.locateJBoss());
-         auxdi.repositoryConfig = di.getTopRepositoryConfig();
-         getMainDeployer().deploy(auxdi);
-      }
-      catch (Exception ex)
-      {
-         WSDeploymentException.rethrow(ex);
+         log.debug("publishServiceEndpoint: " + warURL);
+         try
+         {
+            DeploymentInfo di = dep.getContext().getAttachment(DeploymentInfo.class);
+            if (di == null)
+               throw new IllegalStateException("Cannot obtain DeploymentInfo from context");
+
+            webXMLRewriter.rewriteWebXml(dep);
+
+            // Preserve the repository config
+            DeploymentInfo auxdi = new DeploymentInfo(warURL, null, MBeanServerLocator.locateJBoss());
+            auxdi.repositoryConfig = di.getTopRepositoryConfig();
+            getMainDeployer().deploy(auxdi);
+         }
+         catch (Exception ex)
+         {
+            WSDeploymentException.rethrow(ex);
+         }
       }
    }
 

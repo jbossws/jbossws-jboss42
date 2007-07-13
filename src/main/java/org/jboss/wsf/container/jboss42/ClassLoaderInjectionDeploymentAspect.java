@@ -21,11 +21,11 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-//$Id$
+//$Id: ClassLoaderInjectionDeployer.java 3147 2007-05-19 15:35:46Z thomas.diesler@jboss.com $
 
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.metadata.WebMetaData;
-import org.jboss.wsf.spi.deployment.AbstractDeployer;
+import org.jboss.wsf.spi.deployment.DeploymentAspect;
 import org.jboss.wsf.spi.deployment.Deployment;
 
 /**
@@ -34,7 +34,7 @@ import org.jboss.wsf.spi.deployment.Deployment;
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class ClassLoaderInjectionDeployer extends AbstractDeployer
+public class ClassLoaderInjectionDeploymentAspect extends DeploymentAspect
 {
    @Override
    public void create(Deployment dep)

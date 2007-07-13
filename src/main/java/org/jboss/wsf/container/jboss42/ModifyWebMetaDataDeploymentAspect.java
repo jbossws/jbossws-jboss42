@@ -21,12 +21,11 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-//$Id$
+//$Id: ModifyWebMetaDataDeployer.java 3772 2007-07-01 19:29:13Z thomas.diesler@jboss.com $
 
-import org.jboss.wsf.spi.deployment.AbstractDeployer;
 import org.jboss.wsf.spi.deployment.Deployment;
+import org.jboss.wsf.spi.deployment.DeploymentAspect;
 import org.jboss.wsf.spi.deployment.Endpoint;
-import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.deployment.WebAppDesciptorModifier;
 import org.jboss.wsf.spi.deployment.WebXMLRewriter;
 
@@ -36,7 +35,7 @@ import org.jboss.wsf.spi.deployment.WebXMLRewriter;
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class ModifyWebMetaDataDeployer extends AbstractDeployer
+public class ModifyWebMetaDataDeploymentAspect extends DeploymentAspect
 {
    private WebXMLRewriter webXMLRewriter;
 
@@ -47,10 +46,6 @@ public class ModifyWebMetaDataDeployer extends AbstractDeployer
 
    public void create(Deployment dep)
    {
-      UnifiedDeploymentInfo udi = dep.getContext().getAttachment(UnifiedDeploymentInfo.class);
-      if (udi == null)
-         throw new IllegalStateException("Cannot obtain unified deployement info");
-
       WebAppDesciptorModifier.RewriteResults results = webXMLRewriter.rewriteWebXml(dep);
 
       // The endpoint may not have a target bean when 

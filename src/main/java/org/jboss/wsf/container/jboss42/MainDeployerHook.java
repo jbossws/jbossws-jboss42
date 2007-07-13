@@ -43,7 +43,7 @@ public class MainDeployerHook extends AbstractDeployerHook
       Deployment dep = (Deployment)unit.context.get(Deployment.class);
       if (dep != null)
       {
-         deployerManager.deploy(dep);
+         deploymentAspectManager.deploy(dep);
       }
    }
 
@@ -55,7 +55,7 @@ public class MainDeployerHook extends AbstractDeployerHook
       Deployment dep = (Deployment)unit.context.get(Deployment.class);
       if (dep != null)
       {
-         deployerManager.undeploy(dep);
+         deploymentAspectManager.undeploy(dep);
       }
    }
 }

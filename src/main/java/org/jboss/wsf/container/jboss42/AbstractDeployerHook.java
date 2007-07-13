@@ -33,12 +33,11 @@ import org.jboss.logging.Logger;
 import org.jboss.mx.util.MBeanProxy;
 import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
-import org.jboss.wsf.container.jboss42.DeployerHook;
-import org.jboss.wsf.container.jboss42.DeployerInterceptorMBean;
-import org.jboss.wsf.spi.deployment.DeployerManager;
+import org.jboss.wsf.spi.deployment.BasicDeployment;
+import org.jboss.wsf.spi.deployment.BasicEndpoint;
 import org.jboss.wsf.spi.deployment.Deployment;
+import org.jboss.wsf.spi.deployment.DeploymentAspectManager;
 import org.jboss.wsf.spi.deployment.Endpoint;
-import org.jboss.wsf.spi.deployment.Service;
 import org.jboss.wsf.spi.deployment.WSDeploymentException;
 
 /**
@@ -52,16 +51,15 @@ public abstract class AbstractDeployerHook implements DeployerHook
    // provide logging
    protected final Logger log = Logger.getLogger(getClass());
 
-   protected DeployerManager deployerManager;
+   protected DeploymentAspectManager deploymentAspectManager;
    private List<ObjectName> phaseOneInterceptors;
    private List<ObjectName> phaseTwoInterceptors;
-   private String deploymentClass;
-   private String serviceClass;
-   private String endpointClass;
+   private String deploymentClass = BasicDeployment.class.getName();
+   private String endpointClass = BasicEndpoint.class.getName();
 
-   public void setDeployerManager(DeployerManager deploymentManager)
+   public void setDeploymentAspectManager(DeploymentAspectManager manager)
    {
-      this.deployerManager = deploymentManager;
+      this.deploymentAspectManager = manager;
    }
 
    public void setDeploymentClass(String deploymentClass)
@@ -72,11 +70,6 @@ public abstract class AbstractDeployerHook implements DeployerHook
    public void setEndpointClass(String endpointClass)
    {
       this.endpointClass = endpointClass;
-   }
-
-   public void setServiceClass(String serviceClass)
-   {
-      this.serviceClass = serviceClass;
    }
 
    public Deployment createDeployment()
@@ -90,20 +83,6 @@ public abstract class AbstractDeployerHook implements DeployerHook
       catch (Exception ex)
       {
          throw new WSDeploymentException("Cannot load Deployment class: " + deploymentClass);
-      }
-   }
-
-   public Service createService()
-   {
-      try
-      {
-         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-         Class<?> clazz = loader.loadClass(serviceClass);
-         return (Service)clazz.newInstance();
-      }
-      catch (Exception ex)
-      {
-         throw new WSDeploymentException("Cannot load Service class: " + serviceClass);
       }
    }
 
