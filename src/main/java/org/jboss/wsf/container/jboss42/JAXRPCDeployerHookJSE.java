@@ -61,7 +61,8 @@ public class JAXRPCDeployerHookJSE extends AbstractDeployerHookJSE
    {
       Deployment dep = createDeployment();
       dep.setRootFile(new URLLoaderAdapter(unit.localUrl));
-      dep.setClassLoader(unit.annotationsCl);
+      dep.setInitialClassLoader(unit.annotationsCl);
+      dep.setRuntimeClassLoader(null);
       dep.setType(getDeploymentType());
 
       Service service = dep.getService();
@@ -91,7 +92,7 @@ public class JAXRPCDeployerHookJSE extends AbstractDeployerHookJSE
 
             try
             {
-               ClassLoader loader = dep.getClassLoader();
+               ClassLoader loader = dep.getInitialClassLoader();
                Class<?> epBean = loader.loadClass(servletClass.trim());
 
                // If this is a servlet we defer the the bean creation 

@@ -60,7 +60,8 @@ public class JAXWSDeployerHookJSE extends AbstractDeployerHookJSE
    {
       Deployment dep = createDeployment();
       dep.setRootFile(new URLLoaderAdapter(unit.localUrl));
-      dep.setClassLoader(unit.annotationsCl);
+      dep.setInitialClassLoader(unit.annotationsCl);
+      dep.setRuntimeClassLoader(null);
       dep.setType(getDeploymentType());
 
       Service service = dep.getService();

@@ -55,7 +55,8 @@ public class JAXRPCDeployerHookEJB21 extends AbstractDeployerHookEJB
    {
       Deployment dep = createDeployment();
       dep.setRootFile(new URLLoaderAdapter(unit.localUrl));
-      dep.setClassLoader(unit.annotationsCl);
+      dep.setInitialClassLoader(unit.annotationsCl);
+      dep.setRuntimeClassLoader(unit.ucl);
       dep.setType(getDeploymentType());
 
       Service service = dep.getService();
