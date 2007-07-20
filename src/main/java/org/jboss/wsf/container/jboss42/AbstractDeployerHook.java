@@ -23,22 +23,18 @@ package org.jboss.wsf.container.jboss42;
 
 //$Id$
 
-import java.util.List;
-
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.logging.Logger;
 import org.jboss.mx.util.MBeanProxy;
 import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
-import org.jboss.wsf.spi.deployment.BasicDeployment;
-import org.jboss.wsf.spi.deployment.BasicEndpoint;
-import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.deployment.DeploymentAspectManager;
-import org.jboss.wsf.spi.deployment.Endpoint;
-import org.jboss.wsf.spi.deployment.WSDeploymentException;
+import org.jboss.wsf.spi.SPIProvider;
+import org.jboss.wsf.spi.SPIProviderResolver;
+import org.jboss.wsf.spi.deployment.*;
+
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import java.util.List;
 
 /**
  * An abstract web service deployer.
@@ -54,35 +50,32 @@ public abstract class AbstractDeployerHook implements DeployerHook
    protected DeploymentAspectManager deploymentAspectManager;
    private List<ObjectName> phaseOneInterceptors;
    private List<ObjectName> phaseTwoInterceptors;
-   private String deploymentClass = BasicDeployment.class.getName();
-   private String endpointClass = BasicEndpoint.class.getName();
+
+   private DeploymentModelFactory deploymentModelFactory;
+
+   public AbstractDeployerHook()
+   {
+      SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
+      deploymentModelFactory = spiProvider.getSPI(DeploymentModelFactory.class);
+
+      if(null == deploymentModelFactory)
+         throw new IllegalStateException("Unable to create spi.deployment.DeploymentModelFactory");
+   }
 
    public void setDeploymentAspectManager(DeploymentAspectManager manager)
    {
       this.deploymentAspectManager = manager;
    }
 
-   public void setDeploymentClass(String deploymentClass)
-   {
-      this.deploymentClass = deploymentClass;
-   }
-
-   public void setEndpointClass(String endpointClass)
-   {
-      this.endpointClass = endpointClass;
-   }
-
    public Deployment createDeployment()
    {
       try
       {
-         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-         Class<?> clazz = loader.loadClass(deploymentClass);
-         return (Deployment)clazz.newInstance();
+         return deploymentModelFactory.createDeployment();
       }
       catch (Exception ex)
       {
-         throw new WSDeploymentException("Cannot load Deployment class: " + deploymentClass);
+         throw new WSFDeploymentException("Cannot load spi.deployment.Deployment class", ex);
       }
    }
 
@@ -90,13 +83,11 @@ public abstract class AbstractDeployerHook implements DeployerHook
    {
       try
       {
-         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-         Class<?> clazz = loader.loadClass(endpointClass);
-         return (Endpoint)clazz.newInstance();
+         return deploymentModelFactory.createEndpoint();
       }
       catch (Exception ex)
       {
-         throw new WSDeploymentException("Cannot load Endpoint class: " + endpointClass);
+         throw new WSFDeploymentException("Cannot load spi.deployment.Endpoint class", ex);
       }
    }
 
@@ -132,7 +123,7 @@ public abstract class AbstractDeployerHook implements DeployerHook
                interceptor.addPhaseOneHook(this);
             }
          }
-         
+
          if (phaseTwoInterceptors != null)
          {
             for (ObjectName oname : phaseTwoInterceptors)
@@ -144,10 +135,10 @@ public abstract class AbstractDeployerHook implements DeployerHook
       }
       catch (MBeanProxyCreationException e)
       {
-         throw new WSDeploymentException(e);
+         throw new WSFDeploymentException(e);
       }
    }
-   
+
    /** Add the hooks to the interceptors
     */
    public void stop()
@@ -163,7 +154,7 @@ public abstract class AbstractDeployerHook implements DeployerHook
                interceptor.removePhaseOneHook(this);
             }
          }
-         
+
          if (phaseTwoInterceptors != null)
          {
             for (ObjectName oname : phaseTwoInterceptors)
@@ -175,7 +166,7 @@ public abstract class AbstractDeployerHook implements DeployerHook
       }
       catch (MBeanProxyCreationException e)
       {
-         throw new WSDeploymentException(e);
+         throw new WSFDeploymentException(e);
       }
    }
 }

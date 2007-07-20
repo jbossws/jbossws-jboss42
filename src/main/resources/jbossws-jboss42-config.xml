@@ -74,17 +74,17 @@
   <!-- 
     Each DeploymentAspectManger maintains a list of DeploymentAspects
   -->
-  <bean name="WSDeploymentAspectManagerJSE" class="org.jboss.wsf.spi.deployment.BasicDeploymentAspectManager">
+  <bean name="WSDeploymentAspectManagerJSE" class="org.jboss.wsf.framework.deployment.BasicDeploymentAspectManager">
     <property name="name">WSDeploymentAspectManagerJSE</property>
   </bean>
-  <bean name="WSDeploymentAspectManagerEJB" class="org.jboss.wsf.spi.deployment.BasicDeploymentAspectManager">
+  <bean name="WSDeploymentAspectManagerEJB" class="org.jboss.wsf.framework.deployment.BasicDeploymentAspectManager">
     <property name="name">WSDeploymentAspectManagerEJB</property>
   </bean>
   
   <!-- 
     The container deployment aspects
   --> 
-  <bean name="WSContextRootDeploymentAspect" class="org.jboss.wsf.spi.deployment.BackwardCompatibleContextRootDeploymentAspect">
+  <bean name="WSContextRootDeploymentAspect" class="org.jboss.wsf.framework.deployment.BackwardCompatibleContextRootDeploymentAspect">
     <property name="requires">ContainerMetaData</property>
     <property name="provides">ContextRoot</property>
   </bean>
@@ -94,32 +94,32 @@
     <property name="provides">EndpointAddress</property>
   </bean>
   
-  <bean name="WSEndpointHandlerDeploymentAspect" class="org.jboss.wsf.spi.deployment.EndpointHandlerDeploymentAspect">
+  <bean name="WSEndpointHandlerDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointHandlerDeploymentAspect">
     <property name="provides">ContainerEndpointHandler</property>
     <property name="invocationHandler">
       <map keyClass="java.lang.String" valueClass="java.lang.String">
         <entry><key>JAXRPC_EJB21</key><value>org.jboss.wsf.container.jboss42.InvocationHandlerEJB21</value></entry>
         <entry><key>JAXRPC_MDB21</key><value>org.jboss.wsf.container.jboss42.InvocationHandlerMDB21</value></entry>
-        <entry><key>JAXWS_JSE</key><value>org.jboss.wsf.spi.invocation.InvocationHandlerJSE</value></entry>
+        <entry><key>JAXWS_JSE</key><value>org.jboss.wsf.spi.invocation.DefaultInvocationHandlerJAXWS</value></entry>
         <entry><key>JAXWS_EJB3</key><value>org.jboss.wsf.container.jboss42.InvocationHandlerEJB3</value></entry>
       </map>
     </property>
   </bean>
   
-  <bean name="WSEndpointLifecycleDeploymentAspect" class="org.jboss.wsf.spi.deployment.EndpointLifecycleDeploymentAspect">
+  <bean name="WSEndpointLifecycleDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointLifecycleDeploymentAspect">
     <property name="requires">LAST_DEPLOYMENT_ASPECT</property>
   </bean>
 
-  <bean name="WSEndpointMetricsDeploymentAspect" class="org.jboss.wsf.spi.deployment.EndpointMetricsDeploymentAspect">
+  <bean name="WSEndpointMetricsDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointMetricsDeploymentAspect">
     <property name="endpointMetrics"><inject bean="WSEndpointMetrics"/></property>
   </bean>
   
-  <bean name="WSEndpointNameDeploymentAspect" class="org.jboss.wsf.spi.deployment.EndpointNameDeploymentAspect">
+  <bean name="WSEndpointNameDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointNameDeploymentAspect">
     <property name="requires">URLPattern</property>
     <property name="provides">EndpointName</property>
   </bean>
   
-  <bean name="WSEndpointRegistryDeploymentAspect" class="org.jboss.wsf.spi.deployment.EndpointRegistryDeploymentAspect">
+  <bean name="WSEndpointRegistryDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointRegistryDeploymentAspect">
     <property name="requires">EndpointName, StackEndpointHandler</property>
     <property name="provides">RegisteredEndpoint</property>
   </bean>
@@ -134,7 +134,7 @@
     <property name="deploymentInfoAdapter"><inject bean="WSDeploymentInfoAdapter"/></property>
   </bean>
   
-  <bean name="WSURLPatternDeploymentAspect" class="org.jboss.wsf.spi.deployment.BackwardCompatibleURLPatternDeploymentAspect">
+  <bean name="WSURLPatternDeploymentAspect" class="org.jboss.wsf.framework.deployment.BackwardCompatibleURLPatternDeploymentAspect">
     <property name="requires">ContextRoot, ContainerMetaData</property>
     <property name="provides">URLPattern</property>
   </bean>
@@ -144,7 +144,7 @@
     <property name="webXMLRewriter"><inject bean="WSWebXMLRewriter"/></property>
   </bean>
   
-  <bean name="WSWebAppGeneratorDeploymentAspect" class="org.jboss.wsf.spi.deployment.WebAppGeneratorDeploymentAspect">
+  <bean name="WSWebAppGeneratorDeploymentAspect" class="org.jboss.wsf.framework.deployment.WebAppGeneratorDeploymentAspect">
     <property name="requires">URLPattern</property>
     <property name="provides">WebMetaData</property>
     <property name="securityHandlerEJB21"><inject bean="WSSecurityHandlerEJB21"/></property>
@@ -159,17 +159,17 @@
     <property name="applicationMetaDataAdapterEJB3"><inject bean="WSApplicationMetaDataAdapterEJB3"/></property>
     <property name="webMetaDataAdapter"><inject bean="WSWebMetaDataAdapter"/></property>
   </bean>
-  <bean name="WSEndpointMetrics" class="org.jboss.wsf.spi.management.BasicEndpointMetrics"/>
+  <bean name="WSEndpointMetrics" class="org.jboss.wsf.framework.management.BasicEndpointMetrics"/>
   <bean name="WSSecurityHandlerEJB21" class="org.jboss.wsf.container.jboss42.SecurityHandlerEJB21"/>
   <bean name="WSSecurityHandlerEJB3" class="org.jboss.wsf.container.jboss42.SecurityHandlerEJB3"/>
-  <bean name="WSWebAppDesciptorModifier" class="org.jboss.wsf.spi.deployment.WebAppDesciptorModifierImpl"/>
+  <bean name="WSWebAppDesciptorModifier" class="org.jboss.wsf.framework.deployment.DefaultWebAppDesciptorModifierImpl"/>
   <bean name="WSWebMetaDataAdapter" class="org.jboss.wsf.container.jboss42.WebMetaDataAdapter"/>
-  <bean name="WSWebXMLRewriter" class="org.jboss.wsf.spi.deployment.WebXMLRewriter">
+  <bean name="WSWebXMLRewriter" class="org.jboss.wsf.framework.deployment.WebXMLRewriterImpl">
     <property name="desciptorModifier"><inject bean="WSWebAppDesciptorModifier"/></property>
   </bean>
   
   <!-- Deployment aspect installers -->  
-  <bean name="WSDeploymentAspectInstallerJSE" class="org.jboss.wsf.spi.deployment.DeploymentAspectInstaller">
+  <bean name="WSDeploymentAspectInstallerJSE" class="org.jboss.wsf.framework.deployment.DeploymentAspectInstaller">
     <property name="manager"><inject bean="WSDeploymentAspectManagerJSE"/></property>
     <property name="aspects">
       <set class="java.util.HashSet" elementClass="org.jboss.wsf.spi.deployment.DeploymentAspect">
@@ -186,7 +186,7 @@
       </set>
     </property>
   </bean>
-  <bean name="WSDeploymentAspectInstallerEJB" class="org.jboss.wsf.spi.deployment.DeploymentAspectInstaller">
+  <bean name="WSDeploymentAspectInstallerEJB" class="org.jboss.wsf.framework.deployment.DeploymentAspectInstaller">
     <property name="manager"><inject bean="WSDeploymentAspectManagerEJB"/></property>
     <property name="aspects">
       <set class="java.util.HashSet" elementClass="org.jboss.wsf.spi.deployment.DeploymentAspect">

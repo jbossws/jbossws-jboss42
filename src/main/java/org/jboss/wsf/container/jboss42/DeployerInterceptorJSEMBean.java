@@ -23,7 +23,7 @@ package org.jboss.wsf.container.jboss42;
 
 import javax.management.ObjectName;
 
-import org.jboss.wsf.spi.utils.ObjectNameFactory;
+import org.jboss.wsf.common.ObjectNameFactory;
 
 /**
  * MBean interface.

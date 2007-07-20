@@ -23,11 +23,7 @@ package org.jboss.wsf.container.jboss42;
 
 //$Id: ModifyWebMetaDataDeployer.java 3772 2007-07-01 19:29:13Z thomas.diesler@jboss.com $
 
-import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.deployment.DeploymentAspect;
-import org.jboss.wsf.spi.deployment.Endpoint;
-import org.jboss.wsf.spi.deployment.WebAppDesciptorModifier;
-import org.jboss.wsf.spi.deployment.WebXMLRewriter;
+import org.jboss.wsf.spi.deployment.*;
 
 /**
  * A deployer that modifies the web.xml meta data 
@@ -46,7 +42,7 @@ public class ModifyWebMetaDataDeploymentAspect extends DeploymentAspect
 
    public void create(Deployment dep)
    {
-      WebAppDesciptorModifier.RewriteResults results = webXMLRewriter.rewriteWebXml(dep);
+      RewriteResults results = webXMLRewriter.rewriteWebXml(dep);
 
       // The endpoint may not have a target bean when 
       // <servlet-class> originally contained a javax.servlet.Servlet

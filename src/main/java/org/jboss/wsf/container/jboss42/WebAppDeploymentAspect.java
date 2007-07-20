@@ -33,11 +33,8 @@ import org.jboss.logging.Logger;
 import org.jboss.mx.util.MBeanProxy;
 import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
-import org.jboss.wsf.spi.deployment.DeploymentAspect;
-import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.WebXMLRewriter;
-import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
-import org.jboss.wsf.spi.deployment.WSDeploymentException;
+import org.jboss.wsf.spi.deployment.*;
 
 /**
  * Publish the HTTP service endpoint to Tomcat 
@@ -83,7 +80,7 @@ public class WebAppDeploymentAspect extends DeploymentAspect
          }
          catch (Exception ex)
          {
-            WSDeploymentException.rethrow(ex);
+            WSFDeploymentException.rethrow(ex);
          }
       }
    }
@@ -108,7 +105,7 @@ public class WebAppDeploymentAspect extends DeploymentAspect
       }
       catch (Exception ex)
       {
-         WSDeploymentException.rethrow(ex);
+         WSFDeploymentException.rethrow(ex);
       }
    }
 

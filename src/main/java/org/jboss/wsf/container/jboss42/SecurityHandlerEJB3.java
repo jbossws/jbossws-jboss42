@@ -37,7 +37,7 @@ import org.jboss.mx.util.MBeanServerLocator;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.SecurityHandler;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
-import org.jboss.wsf.spi.deployment.WSDeploymentException;
+import org.jboss.wsf.spi.deployment.WSFDeploymentException;
 
 /**
  * Generate a service endpoint deployment for EJB endpoints 
@@ -110,13 +110,13 @@ public class SecurityHandlerEJB3 implements SecurityHandler
          MBeanServer server = MBeanServerLocator.locateJBoss();
          ejb3Module = (Ejb3ModuleMBean)MBeanProxy.get(Ejb3ModuleMBean.class, objectName, server);
          if (ejb3Module == null)
-            throw new WSDeploymentException("Cannot obtain EJB3 module: " + objectName);
+            throw new WSFDeploymentException("Cannot obtain EJB3 module: " + objectName);
 
          return ejb3Module;
       }
       catch (MBeanProxyCreationException ex)
       {
-         throw new WSDeploymentException("Cannot obtain proxy to EJB3 module");
+         throw new WSFDeploymentException("Cannot obtain proxy to EJB3 module");
       }
    }
 }

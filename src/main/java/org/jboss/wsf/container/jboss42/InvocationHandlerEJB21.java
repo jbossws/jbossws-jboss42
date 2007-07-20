@@ -23,15 +23,6 @@ package org.jboss.wsf.container.jboss42;
 
 // $Id$
 
-import java.lang.reflect.Method;
-import java.security.Principal;
-
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.xml.rpc.handler.MessageContext;
-import javax.xml.rpc.handler.soap.SOAPMessageContext;
-import javax.xml.ws.WebServiceException;
-
 import org.jboss.ejb.EjbModule;
 import org.jboss.ejb.Interceptor;
 import org.jboss.ejb.StatelessSessionContainer;
@@ -40,24 +31,29 @@ import org.jboss.invocation.InvocationType;
 import org.jboss.invocation.PayloadKey;
 import org.jboss.logging.Logger;
 import org.jboss.mx.util.MBeanServerLocator;
+import org.jboss.wsf.common.ObjectNameFactory;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
-import org.jboss.wsf.spi.invocation.BasicInvocationHandler;
-import org.jboss.wsf.spi.invocation.HandlerCallback;
-import org.jboss.wsf.spi.invocation.Invocation;
-import org.jboss.wsf.spi.invocation.SecurityAdaptor;
-import org.jboss.wsf.spi.invocation.SecurityAdaptorFactory;
+import org.jboss.wsf.spi.invocation.*;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
-import org.jboss.wsf.spi.utils.ObjectNameFactory;
+
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.xml.rpc.handler.MessageContext;
+import javax.xml.rpc.handler.soap.SOAPMessageContext;
+import javax.xml.ws.WebServiceException;
+import java.lang.reflect.Method;
+import java.security.Principal;
 
 /**
  * Handles invocations on EJB21 endpoints.
+ * Used with jboss40 and jboss42.
  *
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class InvocationHandlerEJB21 extends BasicInvocationHandler
+public class InvocationHandlerEJB21 extends InvocationHandler
 {
    // provide logging
    private static final Logger log = Logger.getLogger(InvocationHandlerEJB21.class);
@@ -66,10 +62,21 @@ public class InvocationHandlerEJB21 extends BasicInvocationHandler
    private MBeanServer server;
    private ObjectName objectName;
 
-   public void create(Endpoint ep)
+   /**
+    * Used from both 40 and 42.
+    * Therefore it's not package protected...    
+    */
+   public InvocationHandlerEJB21()
    {
-      super.create(ep);
+   }
 
+   public Invocation createInvocation()
+   {
+      return new Invocation();
+   }
+
+   public void init(Endpoint ep)
+   {
       String ejbName = ep.getShortName();
       UnifiedDeploymentInfo udi = ep.getService().getDeployment().getContext().getAttachment(UnifiedDeploymentInfo.class);
       UnifiedApplicationMetaData applMetaData = (UnifiedApplicationMetaData)udi.metaData;

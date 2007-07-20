@@ -23,12 +23,6 @@ package org.jboss.wsf.container.jboss42;
 
 // $Id$
 
-import java.lang.reflect.Method;
-
-import javax.ejb.EJBContext;
-import javax.management.ObjectName;
-import javax.xml.ws.WebServiceException;
-
 import org.jboss.aop.Dispatcher;
 import org.jboss.aop.MethodInfo;
 import org.jboss.ejb3.BeanContext;
@@ -37,12 +31,17 @@ import org.jboss.ejb3.EJBContainerInvocation;
 import org.jboss.ejb3.stateless.StatelessBeanContext;
 import org.jboss.ejb3.stateless.StatelessContainer;
 import org.jboss.injection.lang.reflect.BeanProperty;
+import org.jboss.wsf.common.ObjectNameFactory;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
-import org.jboss.wsf.spi.invocation.BasicInvocationHandler;
-import org.jboss.wsf.spi.invocation.Invocation;
-import org.jboss.wsf.spi.invocation.WebServiceContextEJB;
-import org.jboss.wsf.spi.utils.ObjectNameFactory;
+import org.jboss.wsf.spi.invocation.*;
+import org.jboss.wsf.spi.SPIProvider;
+import org.jboss.wsf.spi.SPIProviderResolver;
+
+import javax.ejb.EJBContext;
+import javax.management.ObjectName;
+import javax.xml.ws.WebServiceException;
+import java.lang.reflect.Method;
 
 /**
  * Handles invocations on EJB3 endpoints.
@@ -50,14 +49,21 @@ import org.jboss.wsf.spi.utils.ObjectNameFactory;
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class InvocationHandlerEJB3 extends BasicInvocationHandler
+public class InvocationHandlerEJB3 extends InvocationHandler
 {
    private ObjectName objectName;
 
-   public void create(Endpoint ep)
+   InvocationHandlerEJB3()
    {
-      super.create(ep);
+   }
 
+   public Invocation createInvocation()
+   {
+      return new Invocation();
+   }
+
+   public void init(Endpoint ep)
+   {
       String ejbName = ep.getShortName();
       UnifiedDeploymentInfo udi = ep.getService().getDeployment().getContext().getAttachment(UnifiedDeploymentInfo.class);
       String nameStr = "jboss.j2ee:name=" + ejbName + ",service=EJB3,jar=" + udi.simpleName;
@@ -67,11 +73,6 @@ public class InvocationHandlerEJB3 extends BasicInvocationHandler
       }
 
       objectName = ObjectNameFactory.create(nameStr.toString());
-   }
-
-   public void start(Endpoint ep)
-   {
-      super.start(ep);
 
       Dispatcher dispatcher = Dispatcher.singleton;
       if (dispatcher.getRegistered(objectName.getCanonicalName()) == null)
@@ -125,7 +126,10 @@ public class InvocationHandlerEJB3 extends BasicInvocationHandler
          if (beanProp != null)
          {
             EJBContext ejbCtx = beanCtx.getEJBContext();
-            beanProp.set(beanCtx.getInstance(), new WebServiceContextEJB(jaxwsMessageContext, ejbCtx));
+            SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
+            ExtendableWebServiceContext wsContext = spiProvider.getSPI(InvocationModelFactory.class).createWebServiceContext(InvocationType.JAXWS_EJB3, jaxwsMessageContext);
+            wsContext.addAttachment(EJBContext.class, ejbCtx);
+            beanProp.set(beanCtx.getInstance(), wsContext);
          }
       }
 

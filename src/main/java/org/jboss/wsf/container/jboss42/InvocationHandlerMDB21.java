@@ -23,13 +23,13 @@ package org.jboss.wsf.container.jboss42;
 
 // $Id: InvocationHandlerEJB21.java 3524 2007-06-09 17:28:37Z thomas.diesler@jboss.com $
 
-import java.lang.reflect.Method;
-
 import org.jboss.logging.Logger;
 import org.jboss.wsf.spi.deployment.Endpoint;
-import org.jboss.wsf.spi.invocation.BasicInvocationHandler;
 import org.jboss.wsf.spi.invocation.Invocation;
 import org.jboss.wsf.spi.invocation.InvocationContext;
+import org.jboss.wsf.spi.invocation.InvocationHandler;
+
+import java.lang.reflect.Method;
 
 /**
  * Handles invocations on MDB EJB21 endpoints.
@@ -37,11 +37,21 @@ import org.jboss.wsf.spi.invocation.InvocationContext;
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class InvocationHandlerMDB21 extends BasicInvocationHandler
+public class InvocationHandlerMDB21 extends InvocationHandler
 {
    // provide logging
    private static final Logger log = Logger.getLogger(InvocationHandlerMDB21.class);
-   
+
+   public Invocation createInvocation()
+   {
+      return new Invocation();
+   }
+
+   public void init(Endpoint ep)
+   {
+
+   }
+
    public void invoke(Endpoint ep, Invocation epInv) throws Exception
    {
       log.debug("Invoke: " + epInv.getJavaMethod().getName());
