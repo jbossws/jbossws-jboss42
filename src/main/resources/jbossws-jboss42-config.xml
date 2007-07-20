@@ -89,7 +89,7 @@
     <property name="provides">ContextRoot</property>
   </bean>
   
-  <bean name="WSEndpointAddressDeploymentAspect" class="org.jboss.wsf.spi.deployment.EndpointAddressDeploymentAspect">
+  <bean name="WSEndpointAddressDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointAddressDeploymentAspect">
     <property name="requires">URLPattern</property>
     <property name="provides">EndpointAddress</property>
   </bean>
