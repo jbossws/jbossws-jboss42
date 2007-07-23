@@ -91,15 +91,7 @@
   </bean>
   
   <bean name="WSEndpointHandlerDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointHandlerDeploymentAspect">
-    <property name="provides">ContainerEndpointHandler</property>
-    <property name="invocationHandler">
-      <map keyClass="java.lang.String" valueClass="java.lang.String">
-        <entry><key>JAXRPC_EJB21</key><value>org.jboss.wsf.container.jboss42.InvocationHandlerEJB21</value></entry>
-        <entry><key>JAXRPC_MDB21</key><value>org.jboss.wsf.container.jboss42.InvocationHandlerMDB21</value></entry>
-        <entry><key>JAXWS_JSE</key><value>org.jboss.wsf.spi.invocation.DefaultInvocationHandlerJAXWS</value></entry>
-        <entry><key>JAXWS_EJB3</key><value>org.jboss.wsf.container.jboss42.InvocationHandlerEJB3</value></entry>
-      </map>
-    </property>
+    <property name="provides">ContainerEndpointHandler</property>   
   </bean>
   
   <bean name="WSEndpointLifecycleDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointLifecycleDeploymentAspect">
