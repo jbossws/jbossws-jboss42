@@ -39,7 +39,6 @@
     Register DeployerHooks with JBoss deployers 
   -->
   <bean name="WSDeployerHook_JAXRPC_JSE" class="org.jboss.wsf.container.jboss42.JAXRPCDeployerHookJSE">
-    <property name="deploymentAspectManager"><inject bean="WSDeploymentAspectManagerJSE"/></property>
     <property name="phaseOneInterceptors">
       <list class="java.util.LinkedList" elementClass="javax.management.ObjectName">
         <value>jboss.ws:service=DeployerInterceptorJSE</value>
@@ -47,7 +46,6 @@
     </property>
   </bean>
   <bean name="WSDeployerHook_JAXRPC_EJB21" class="org.jboss.wsf.container.jboss42.JAXRPCDeployerHookEJB21">
-    <property name="deploymentAspectManager"><inject bean="WSDeploymentAspectManagerEJB"/></property>
     <property name="phaseTwoInterceptors">
       <list class="java.util.LinkedList" elementClass="javax.management.ObjectName">
         <value>jboss.ws:service=DeployerInterceptorEJB21</value>
@@ -55,7 +53,6 @@
     </property>
   </bean>
   <bean name="WSDeployerHook_JAXWS_JSE" class="org.jboss.wsf.container.jboss42.JAXWSDeployerHookJSE">
-    <property name="deploymentAspectManager"><inject bean="WSDeploymentAspectManagerJSE"/></property>
     <property name="phaseOneInterceptors">
       <list class="java.util.LinkedList" elementClass="javax.management.ObjectName">
         <value>jboss.ws:service=DeployerInterceptorJSE</value>
@@ -63,7 +60,6 @@
     </property>
   </bean>
   <bean name="WSDeployerHook_JAXWS_EJB3" class="org.jboss.wsf.container.jboss42.JAXWSDeployerHookEJB3">
-    <property name="deploymentAspectManager"><inject bean="WSDeploymentAspectManagerEJB"/></property>
     <property name="phaseTwoInterceptors">
       <list class="java.util.LinkedList" elementClass="javax.management.ObjectName">
         <value>jboss.ws:service=DeployerInterceptorEJB3</value>
