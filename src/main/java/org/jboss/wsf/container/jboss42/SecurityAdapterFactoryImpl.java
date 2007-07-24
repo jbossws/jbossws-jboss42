@@ -21,42 +21,17 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-// $Id$
-
-import java.security.Principal;
-
-import org.jboss.security.SecurityAssociation;
+import org.jboss.wsf.spi.invocation.SecurityAdaptorFactory;
 import org.jboss.wsf.spi.invocation.SecurityAdaptor;
 
 /**
- * A JBoss specific SecurityAssociationAdaptor 
- *
- * @author Thomas.Diesler@jboss.org
- * @since 05-May-2006
+ * @author Heiko.Braun@jboss.com
+ *         Created: Jul 24, 2007
  */
-public class SecurityAdaptorImpl implements SecurityAdaptor
+public class SecurityAdapterFactoryImpl extends SecurityAdaptorFactory
 {
-   SecurityAdaptorImpl()
+   public SecurityAdaptor createSecurityAdapter()
    {
-   }
-
-   public Principal getPrincipal()
-   {
-      return SecurityAssociation.getPrincipal();
-   }
-   
-   public void setPrincipal(Principal pricipal)
-   {
-      SecurityAssociation.setPrincipal(pricipal);
-   }
-
-   public Object getCredential()
-   {
-      return SecurityAssociation.getCredential();
-   }
-
-   public void setCredential(Object credential)
-   {
-      SecurityAssociation.setCredential(credential);
+      return new SecurityAdaptorImpl(); 
    }
 }

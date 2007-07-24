@@ -20,7 +20,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="42-server" />
-    <orderEntry type="module" module-name="42-system" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -33,6 +32,7 @@
     <orderEntry type="library" name="jboss-system" level="project" />
     <orderEntry type="library" name="jboss-jmx" level="project" />
     <orderEntry type="library" name="jboss-system-jmx" level="project" />
+    <orderEntry type="module" module-name="jbossws-core" />
     <orderEntryProperties />
   </component>
 </module>
