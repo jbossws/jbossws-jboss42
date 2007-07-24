@@ -24,7 +24,7 @@ package org.jboss.wsf.container.jboss42;
 import org.jboss.wsf.spi.deployment.DeploymentAspectManagerFactory;
 import org.jboss.wsf.spi.deployment.DeploymentAspectManager;
 import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.framework.KernelAwareSPIFactory;
+import org.jboss.wsf.common.KernelAwareSPIFactory;
 import org.jboss.logging.Logger;
 
 /**
