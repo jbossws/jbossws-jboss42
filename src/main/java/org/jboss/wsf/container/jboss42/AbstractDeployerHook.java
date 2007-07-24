@@ -48,24 +48,27 @@ public abstract class AbstractDeployerHook implements DeployerHook
    protected final Logger log = Logger.getLogger(getClass());
 
    protected DeploymentAspectManager deploymentAspectManager;
+   private DeploymentModelFactory deploymentModelFactory;
+
    private List<ObjectName> phaseOneInterceptors;
    private List<ObjectName> phaseTwoInterceptors;
 
-   private DeploymentModelFactory deploymentModelFactory;
-
-   public AbstractDeployerHook()
+   /**
+    * MC callback in create step
+    * @throws Exception
+    */
+   public void create() throws Exception
    {
       SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
       deploymentModelFactory = spiProvider.getSPI(DeploymentModelFactory.class);
+      deploymentAspectManager = spiProvider.getSPI(DeploymentAspectManagerFactory.class).createDeploymentAspectManager(getDeploymentType());
 
       if(null == deploymentModelFactory)
          throw new IllegalStateException("Unable to create spi.deployment.DeploymentModelFactory");
-   }
 
-   public void setDeploymentAspectManager(DeploymentAspectManager manager)
-   {
-      this.deploymentAspectManager = manager;
-   }
+      if(null == deploymentAspectManager)
+         throw new IllegalStateException("Unable to create spi.deployment.DeploymentAspectManager");
+   }  
 
    public Deployment createDeployment()
    {
