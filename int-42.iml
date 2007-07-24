@@ -30,6 +30,9 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jboss-system" level="project" />
+    <orderEntry type="library" name="jboss-jmx" level="project" />
+    <orderEntry type="library" name="jboss-system-jmx" level="project" />
     <orderEntryProperties />
   </component>
 </module>

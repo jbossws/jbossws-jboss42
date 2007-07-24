@@ -47,34 +47,39 @@ public abstract class AbstractDeployerHook implements DeployerHook
    // provide logging
    protected final Logger log = Logger.getLogger(getClass());
 
-   protected DeploymentAspectManager deploymentAspectManager;
+   private DeploymentAspectManager deploymentAspectManager;
    private DeploymentModelFactory deploymentModelFactory;
 
    private List<ObjectName> phaseOneInterceptors;
    private List<ObjectName> phaseTwoInterceptors;
 
-   /**
-    * MC callback in create step
-    * @throws Exception
-    */
-   public void create() throws Exception
+   public DeploymentAspectManager getDeploymentAspectManager()
    {
-      SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
-      deploymentModelFactory = spiProvider.getSPI(DeploymentModelFactory.class);
-      deploymentAspectManager = spiProvider.getSPI(DeploymentAspectManagerFactory.class).createDeploymentAspectManager(getDeploymentType());
-
-      if(null == deploymentModelFactory)
-         throw new IllegalStateException("Unable to create spi.deployment.DeploymentModelFactory");
-
       if(null == deploymentAspectManager)
-         throw new IllegalStateException("Unable to create spi.deployment.DeploymentAspectManager");
-   }  
+      {
+         SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
+         deploymentAspectManager = spiProvider.getSPI(DeploymentAspectManagerFactory.class).createDeploymentAspectManager(getDeploymentType());
+      }
+
+      return deploymentAspectManager;
+   }
+
+   public DeploymentModelFactory getDeploymentModelFactory()
+   {
+      if(null == deploymentModelFactory)
+      {
+         SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
+         deploymentModelFactory = spiProvider.getSPI(DeploymentModelFactory.class);
+      }
+
+      return deploymentModelFactory;
+   }
 
    public Deployment createDeployment()
    {
       try
       {
-         return deploymentModelFactory.createDeployment();
+         return getDeploymentModelFactory().createDeployment();
       }
       catch (Exception ex)
       {
@@ -86,7 +91,7 @@ public abstract class AbstractDeployerHook implements DeployerHook
    {
       try
       {
-         return deploymentModelFactory.createEndpoint();
+         return getDeploymentModelFactory().createEndpoint();
       }
       catch (Exception ex)
       {
@@ -115,6 +120,7 @@ public abstract class AbstractDeployerHook implements DeployerHook
     */
    public void start()
    {
+
       MBeanServer server = MBeanServerLocator.locateJBoss();
       try
       {
@@ -172,4 +178,8 @@ public abstract class AbstractDeployerHook implements DeployerHook
          throw new WSFDeploymentException(e);
       }
    }
+
+   /** Get the deployment type this deployer can handle
+    */
+   public abstract Deployment.DeploymentType getDeploymentType();
 }

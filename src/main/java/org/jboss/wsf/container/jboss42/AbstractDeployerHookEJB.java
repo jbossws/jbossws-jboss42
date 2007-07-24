@@ -21,6 +21,8 @@
  */
 package org.jboss.wsf.container.jboss42;
 
+import org.jboss.wsf.spi.deployment.Deployment;
+
 //$Id$
 
 /**
@@ -31,4 +33,5 @@ package org.jboss.wsf.container.jboss42;
  */
 public abstract class AbstractDeployerHookEJB extends ArchiveDeployerHook
 {
+   
 }
