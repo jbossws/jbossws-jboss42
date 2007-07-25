@@ -61,12 +61,7 @@ public class InvocationModelFactoryImpl extends InvocationModelFactory
 
       return handler;
    }
-
-   public InvocationContext createInvocationContext(InvocationType type)
-   {
-     throw new IllegalArgumentException("Not implemented");
-   }
-
+   
    public ExtendableWebServiceContext createWebServiceContext(InvocationType type, MessageContext messageContext)
    {
       ExtendableWebServiceContext context = null;
