@@ -57,7 +57,7 @@ public class UnifiedDeploymentInfoDeploymentAspect extends DeploymentAspect
          if (unit == null)
             throw new IllegalStateException("Cannot obtain deployment unit");
 
-         DeploymentType type = dep.getDeploymentType();
+         DeploymentType type = dep.getType();
          if (type.toString().startsWith("JAXWS"))
          {
             udi = new JAXWSDeployment(type);

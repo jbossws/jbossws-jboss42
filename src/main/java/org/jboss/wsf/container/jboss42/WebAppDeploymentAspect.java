@@ -56,7 +56,7 @@ public class WebAppDeploymentAspect extends DeploymentAspect
 
    public void create(Deployment dep)
    {
-      if (dep.getDeploymentType().toString().endsWith("EJB21") || dep.getDeploymentType().toString().endsWith("EJB3"))
+      if (dep.getType().toString().endsWith("EJB21") || dep.getType().toString().endsWith("EJB3"))
       {
          UnifiedDeploymentInfo udi = dep.getContext().getAttachment(UnifiedDeploymentInfo.class);
          if (udi == null)
