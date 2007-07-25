@@ -27,41 +27,10 @@ import javax.xml.ws.handler.MessageContext;
 
 /**
  * @author Heiko.Braun@jboss.com
- *         Created: Jul 19, 2007
+ *         Created: Jul 25, 2007
  */
-public class InvocationModelFactoryImpl extends InvocationModelFactory
+public class WebServiceContextFactoryImpl extends WebServiceContextFactory
 {
-   public InvocationHandler createInvocationHandler(InvocationType type)
-   {
-     InvocationHandler handler = null;
-
-      switch(type)
-      {
-         case JAXRPC_JSE:
-            handler = new DefaultInvocationHandlerJAXRPC();
-            break;
-         case JAXRPC_EJB21:
-            handler = new InvocationHandlerEJB21();
-            break;
-         case JAXRPC_MDB21:
-            handler = new InvocationHandlerMDB21();
-            break;
-         case JAXWS_JSE:
-            handler = new DefaultInvocationHandlerJAXWS();
-            break;
-         case JAXWS_EJB21:
-            handler = new InvocationHandlerEJB21();
-            break;
-         case JAXWS_EJB3:
-            handler = new InvocationHandlerEJB3();
-      }
-
-      if(null == handler)
-         throw new IllegalArgumentException("Unable to resolve spi.invocation.InvocationHandler for type " +type);
-
-      return handler;
-   }
-   
    public ExtendableWebServiceContext createWebServiceContext(InvocationType type, MessageContext messageContext)
    {
       ExtendableWebServiceContext context = null;
