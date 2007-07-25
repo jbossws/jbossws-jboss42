@@ -72,16 +72,15 @@ public class DeploymentInfoAdapter
 
       if (di.parent != null)
       {
-         udi.parent = new UnifiedDeploymentInfo(null);
-         buildDeploymentInfo(dep, udi.parent, di.parent);
+         udi.setParent(new UnifiedDeploymentInfo(null));
+         buildDeploymentInfo(dep, udi.getParent(), di.parent);
       }
 
-      udi.vfRoot = new ResourceLoaderAdapter(di.localCl);
-      udi.name = di.getCanonicalName();
-      udi.simpleName = di.shortName;
-      udi.url = getDeploymentURL(di);
-      udi.classLoader = di.annotationsCl;
-      udi.deployedObject = di.deployedObject;
+      udi.setVfRoot(new ResourceLoaderAdapter(di.localCl));
+      udi.setSimpleName(di.shortName);
+      udi.setUrl(getDeploymentURL(di));
+      udi.setClassLoader(di.annotationsCl);
+      udi.setDeployedObject(di.deployedObject);
 
       buildMetaData(dep, udi, di);
 
@@ -114,16 +113,16 @@ public class DeploymentInfoAdapter
    {
       if (di.metaData instanceof WebMetaData)
       {
-         udi.metaData = webMetaDataAdapter.buildUnifiedWebMetaData(dep, udi, di);
-         udi.webappURL = udi.url;
+         udi.setMetaData(webMetaDataAdapter.buildUnifiedWebMetaData(dep, udi, di));
+         udi.setWebappURL(udi.getUrl());
       }
-      else if (udi.type == DeploymentType.JAXRPC_EJB3 || udi.type == DeploymentType.JAXWS_EJB3)
+      else if (dep.getDeploymentType() == DeploymentType.JAXRPC_EJB3 || dep.getDeploymentType() == DeploymentType.JAXWS_EJB3)
       {
-         udi.metaData = applicationMetaDataAdapterEJB3.buildUnifiedApplicationMetaData(dep, udi);
+         udi.setMetaData(applicationMetaDataAdapterEJB3.buildUnifiedApplicationMetaData(dep, udi));
       }
       else if (di.metaData instanceof ApplicationMetaData)
       {
-         udi.metaData = applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, udi, di);
+         udi.setMetaData(applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, udi, di));
       }
    }
 }

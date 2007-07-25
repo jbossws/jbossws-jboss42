@@ -66,10 +66,10 @@ public class InvocationHandlerEJB3 extends InvocationHandler
    {
       String ejbName = ep.getShortName();
       UnifiedDeploymentInfo udi = ep.getService().getDeployment().getContext().getAttachment(UnifiedDeploymentInfo.class);
-      String nameStr = "jboss.j2ee:name=" + ejbName + ",service=EJB3,jar=" + udi.simpleName;
-      if (udi.parent != null)
+      String nameStr = "jboss.j2ee:name=" + ejbName + ",service=EJB3,jar=" + udi.getSimpleName();
+      if (udi.getParent() != null)
       {
-         nameStr += ",ear=" + udi.parent.simpleName;
+         nameStr += ",ear=" + udi.getParent().getSimpleName();
       }
 
       objectName = ObjectNameFactory.create(nameStr.toString());

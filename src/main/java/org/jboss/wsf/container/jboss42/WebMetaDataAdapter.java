@@ -65,7 +65,7 @@ public class WebMetaDataAdapter
          while (it.hasNext())
          {
             J2eeModuleMetaData module = (J2eeModuleMetaData)it.next();
-            if (module.getFileName().equals(udi.simpleName))
+            if (module.getFileName().equals(udi.getSimpleName()))
                contextRoot = module.getWebContext();
          }
       }

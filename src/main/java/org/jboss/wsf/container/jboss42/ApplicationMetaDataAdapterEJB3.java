@@ -54,7 +54,7 @@ public class ApplicationMetaDataAdapterEJB3
 
    public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, UnifiedDeploymentInfo udi)
    {
-      Ejb3ModuleMBean ejb3Module = getEJB3Module(udi.deployedObject);
+      Ejb3ModuleMBean ejb3Module = getEJB3Module(udi.getDeployedObject());
 
       ArrayList<UnifiedBeanMetaData> beans = new ArrayList<UnifiedBeanMetaData>();
       for (Object container : ejb3Module.getContainers().values())

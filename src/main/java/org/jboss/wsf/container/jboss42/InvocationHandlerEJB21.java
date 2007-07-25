@@ -81,7 +81,7 @@ public class InvocationHandlerEJB21 extends InvocationHandler
    {
       String ejbName = ep.getShortName();
       UnifiedDeploymentInfo udi = ep.getService().getDeployment().getContext().getAttachment(UnifiedDeploymentInfo.class);
-      UnifiedApplicationMetaData applMetaData = (UnifiedApplicationMetaData)udi.metaData;
+      UnifiedApplicationMetaData applMetaData = (UnifiedApplicationMetaData)udi.getMetaData();
       UnifiedBeanMetaData beanMetaData = (UnifiedBeanMetaData)applMetaData.getBeanByEjbName(ejbName);
       if (beanMetaData == null)
          throw new WebServiceException("Cannot obtain ejb meta data for: " + ejbName);

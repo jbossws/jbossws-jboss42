@@ -58,7 +58,7 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
       dep.setRootFile(new URLLoaderAdapter(unit.localUrl));
       dep.setInitialClassLoader(unit.annotationsCl);
       dep.setRuntimeClassLoader(unit.ucl);
-      dep.setType(getDeploymentType());
+      dep.setDeploymentType(getDeploymentType());
 
       Service service = dep.getService();
 

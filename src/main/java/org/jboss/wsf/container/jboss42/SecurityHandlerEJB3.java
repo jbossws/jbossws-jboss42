@@ -52,7 +52,7 @@ public class SecurityHandlerEJB3 implements SecurityHandler
       String securityDomain = null;
 
       UnifiedDeploymentInfo udi = dep.getContext().getAttachment(UnifiedDeploymentInfo.class);
-      Ejb3ModuleMBean ejb3Module = getEJB3Module(udi.deployedObject);
+      Ejb3ModuleMBean ejb3Module = getEJB3Module(udi.getDeployedObject());
       for (Object manager : ejb3Module.getContainers().values())
       {
          if (manager instanceof StatelessContainer)
@@ -83,7 +83,7 @@ public class SecurityHandlerEJB3 implements SecurityHandler
    {
       // The container objects below provide access to all of the ejb metadata
       UnifiedDeploymentInfo udi = dep.getContext().getAttachment(UnifiedDeploymentInfo.class);
-      Ejb3ModuleMBean ejb3Module = getEJB3Module(udi.deployedObject);
+      Ejb3ModuleMBean ejb3Module = getEJB3Module(udi.getDeployedObject());
       for (Object manager : ejb3Module.getContainers().values())
       {
          if (manager instanceof StatelessContainer)
