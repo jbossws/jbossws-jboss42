@@ -24,6 +24,8 @@ package org.jboss.wsf.container.jboss42;
 //$Id: ModifyWebMetaDataDeployer.java 3772 2007-07-01 19:29:13Z thomas.diesler@jboss.com $
 
 import org.jboss.wsf.spi.deployment.*;
+import org.jboss.wsf.framework.deployment.WebXMLRewriter;
+import org.jboss.wsf.framework.deployment.RewriteResults;
 
 /**
  * A deployer that modifies the web.xml meta data 
