@@ -32,6 +32,7 @@ import org.jboss.logging.Logger;
 import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.ws.integration.ResourceLoaderAdapter;
+import org.jboss.wsf.framework.deployment.WebXMLRewriter;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
@@ -115,7 +116,7 @@ public class DeploymentInfoAdapter
       if (di.metaData instanceof WebMetaData)
       {
          webMetaDataAdapter.buildUnifiedWebMetaData(dep, udi, di);
-         udi.setWebappURL(udi.getUrl());
+         dep.getContext().setProperty(WebXMLRewriter.WEBAPP_URL, udi.getUrl());
       }
       else if (dep.getType() == DeploymentType.JAXRPC_EJB3 || dep.getType() == DeploymentType.JAXWS_EJB3)
       {

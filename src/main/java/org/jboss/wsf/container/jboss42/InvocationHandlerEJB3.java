@@ -23,6 +23,12 @@ package org.jboss.wsf.container.jboss42;
 
 // $Id$
 
+import java.lang.reflect.Method;
+
+import javax.ejb.EJBContext;
+import javax.management.ObjectName;
+import javax.xml.ws.WebServiceException;
+
 import org.jboss.aop.Dispatcher;
 import org.jboss.aop.MethodInfo;
 import org.jboss.ejb3.BeanContext;
@@ -32,16 +38,15 @@ import org.jboss.ejb3.stateless.StatelessBeanContext;
 import org.jboss.ejb3.stateless.StatelessContainer;
 import org.jboss.injection.lang.reflect.BeanProperty;
 import org.jboss.wsf.common.ObjectNameFactory;
-import org.jboss.wsf.spi.deployment.Endpoint;
-import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
-import org.jboss.wsf.spi.invocation.*;
 import org.jboss.wsf.spi.SPIProvider;
 import org.jboss.wsf.spi.SPIProviderResolver;
-
-import javax.ejb.EJBContext;
-import javax.management.ObjectName;
-import javax.xml.ws.WebServiceException;
-import java.lang.reflect.Method;
+import org.jboss.wsf.spi.deployment.Endpoint;
+import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
+import org.jboss.wsf.spi.invocation.ExtendableWebServiceContext;
+import org.jboss.wsf.spi.invocation.Invocation;
+import org.jboss.wsf.spi.invocation.InvocationHandler;
+import org.jboss.wsf.spi.invocation.InvocationType;
+import org.jboss.wsf.spi.invocation.WebServiceContextFactory;
 
 /**
  * Handles invocations on EJB3 endpoints.
