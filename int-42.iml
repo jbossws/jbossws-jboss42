@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4" relativePaths="true" type="JAVA_MODULE">
   <component name="ModuleRootManager" />
-  <component name="NewModuleRootManager">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
@@ -33,6 +33,7 @@
     <orderEntry type="library" name="jboss-jmx" level="project" />
     <orderEntry type="library" name="jboss-system-jmx" level="project" />
     <orderEntry type="module" module-name="jbossws-core" />
+    <orderEntry type="library" name="jaxws-api" level="application" />
     <orderEntryProperties />
   </component>
 </module>
