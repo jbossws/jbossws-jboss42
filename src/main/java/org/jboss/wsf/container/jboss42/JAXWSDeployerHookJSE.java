@@ -57,30 +57,30 @@ public class JAXWSDeployerHookJSE extends AbstractDeployerHookJSE
    }
 
    @Override
-   public Deployment createDeployment(DeploymentInfo unit)
+   public Deployment createDeployment(DeploymentInfo di)
    {
-      ArchiveDeployment dep = createDeployment(unit.annotationsCl);
-      dep.setRootFile(new URLLoaderAdapter(unit.localUrl));
+      ArchiveDeployment dep = newDeployment(di);
+      dep.setRootFile(new URLLoaderAdapter(di.localUrl));
       dep.setRuntimeClassLoader(null);
       dep.setType(getDeploymentType());
 
       Service service = dep.getService();
 
-      WebMetaData webMetaData = (WebMetaData)unit.metaData;
+      WebMetaData webMetaData = (WebMetaData)di.metaData;
       if (webMetaData == null)
          throw new IllegalStateException("Deployment unit does not contain web meta data");
 
       // Copy the attachments
       dep.getContext().addAttachment(WebMetaData.class, webMetaData);
 
-      List<Servlet> servlets = getRelevantServlets(webMetaData, unit.annotationsCl);
+      List<Servlet> servlets = getRelevantServlets(webMetaData, di.annotationsCl);
       for (Servlet servlet : servlets)
       {
          String servletName = servlet.getServletName();
          String servletClass = servlet.getServletClass();
 
          // Create the endpoint
-         Endpoint ep = createEndpoint();
+         Endpoint ep = newEndpoint();
          ep.setShortName(servletName);
          ep.setService(service);
          ep.setTargetBeanName(servletClass);

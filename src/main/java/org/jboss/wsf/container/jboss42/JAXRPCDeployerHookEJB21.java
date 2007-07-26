@@ -54,7 +54,7 @@ public class JAXRPCDeployerHookEJB21 extends AbstractDeployerHookEJB
    @Override
    public Deployment createDeployment(DeploymentInfo di)
    {
-      ArchiveDeployment dep = createDeployment(di.annotationsCl);
+      ArchiveDeployment dep = newDeployment(di);
       dep.setRootFile(new URLLoaderAdapter(di.localUrl));
       dep.setRuntimeClassLoader(di.ucl);
       dep.setType(getDeploymentType());
@@ -88,7 +88,7 @@ public class JAXRPCDeployerHookEJB21 extends AbstractDeployerHookEJB
             String ejbClass = beanMetaData.getEjbClass();
             
             // Create the endpoint
-            Endpoint ep = createEndpoint();
+            Endpoint ep = newEndpoint();
             ep.setShortName(ejbLink);
             ep.setService(service);
             ep.setTargetBeanName(ejbClass);

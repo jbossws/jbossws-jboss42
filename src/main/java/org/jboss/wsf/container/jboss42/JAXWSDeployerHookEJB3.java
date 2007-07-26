@@ -55,7 +55,7 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
    @Override
    public Deployment createDeployment(DeploymentInfo di)
    {
-      ArchiveDeployment dep = createDeployment(di.annotationsCl);
+      ArchiveDeployment dep = newDeployment(di);
       dep.setRootFile(new URLLoaderAdapter(di.localUrl));
       dep.setRuntimeClassLoader(di.ucl);
       dep.setType(getDeploymentType());
@@ -74,7 +74,7 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
                String epBean = container.getBeanClassName();
 
                // Create the endpoint
-               Endpoint ep = createEndpoint();
+               Endpoint ep = newEndpoint();
                ep.setShortName(ejbName);
                ep.setService(service);
                ep.setTargetBeanName(epBean);

@@ -31,8 +31,7 @@ import org.jboss.deployment.DeploymentInfo;
 import org.jboss.logging.Logger;
 import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.WebMetaData;
-import org.jboss.ws.integration.ResourceLoaderAdapter;
-import org.jboss.wsf.framework.deployment.WebXMLRewriter;
+import org.jboss.wsf.spi.deployment.ArchiveDeployment;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
@@ -79,8 +78,8 @@ public class DeploymentInfoAdapter
          buildDeploymentInfo(dep, udi.getParent(), di.parent);
       }
 
-      udi.setVfRoot(new ResourceLoaderAdapter(di.localCl));
-      udi.setSimpleName(di.shortName);
+      //udi.setVfRoot(new ResourceLoaderAdapter(di.localCl));
+      //udi.setSimpleName(di.shortName);
       udi.setUrl(getDeploymentURL(di));
 
       if (di.deployedObject != null)

@@ -60,7 +60,7 @@ public class JAXRPCDeployerHookJSE extends AbstractDeployerHookJSE
    @Override
    public Deployment createDeployment(DeploymentInfo di)
    {
-      ArchiveDeployment dep = createDeployment(di.annotationsCl);
+      ArchiveDeployment dep = newDeployment(di);
       dep.setRootFile(new URLLoaderAdapter(di.localUrl));
       dep.setRuntimeClassLoader(null);
       dep.setType(getDeploymentType());
@@ -105,7 +105,7 @@ public class JAXRPCDeployerHookJSE extends AbstractDeployerHookJSE
             }
 
             // Create the endpoint
-            Endpoint ep = createEndpoint();
+            Endpoint ep = newEndpoint();
             ep.setShortName(servletLink);
             ep.setService(service);
             ep.setTargetBeanName(servletClass);

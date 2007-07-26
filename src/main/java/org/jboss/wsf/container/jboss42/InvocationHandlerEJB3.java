@@ -40,6 +40,7 @@ import org.jboss.injection.lang.reflect.BeanProperty;
 import org.jboss.wsf.common.ObjectNameFactory;
 import org.jboss.wsf.spi.SPIProvider;
 import org.jboss.wsf.spi.SPIProviderResolver;
+import org.jboss.wsf.spi.deployment.ArchiveDeployment;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.invocation.ExtendableWebServiceContext;
@@ -70,11 +71,11 @@ public class InvocationHandlerEJB3 extends InvocationHandler
    public void init(Endpoint ep)
    {
       String ejbName = ep.getShortName();
-      UnifiedDeploymentInfo udi = ep.getService().getDeployment().getContext().getAttachment(UnifiedDeploymentInfo.class);
-      String nameStr = "jboss.j2ee:name=" + ejbName + ",service=EJB3,jar=" + udi.getSimpleName();
-      if (udi.getParent() != null)
+      ArchiveDeployment dep = (ArchiveDeployment)ep.getService().getDeployment();
+      String nameStr = "jboss.j2ee:name=" + ejbName + ",service=EJB3,jar=" + dep.getSimpleName();
+      if (dep.getParent() != null)
       {
-         nameStr += ",ear=" + udi.getParent().getSimpleName();
+         nameStr += ",ear=" + dep.getParent().getSimpleName();
       }
 
       objectName = ObjectNameFactory.create(nameStr.toString());

@@ -75,12 +75,19 @@ public abstract class AbstractDeployerHook implements DeployerHook
       return deploymentModelFactory;
    }
 
-   public ArchiveDeployment createDeployment(ClassLoader initialLoader)
+   public ArchiveDeployment newDeployment(DeploymentInfo di)
    {
       try
       {
          DeploymentModelFactory factory = getDeploymentModelFactory();
-         return (ArchiveDeployment)factory.createDeployment(initialLoader);
+         ArchiveDeployment dep = (ArchiveDeployment)factory.createDeployment(di.shortName, di.annotationsCl);
+         if (di.parent != null)
+         {
+            DeploymentInfo parentInfo = di.parent;
+            ArchiveDeployment parentDep = (ArchiveDeployment)factory.createDeployment(parentInfo.shortName, parentInfo.annotationsCl);
+            dep.setParent(parentDep);
+         }
+         return dep;
       }
       catch (Exception ex)
       {
@@ -88,7 +95,7 @@ public abstract class AbstractDeployerHook implements DeployerHook
       }
    }
 
-   public Endpoint createEndpoint()
+   public Endpoint newEndpoint()
    {
       try
       {
