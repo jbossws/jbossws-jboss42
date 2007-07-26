@@ -31,7 +31,6 @@ import org.jboss.deployment.DeploymentInfo;
 import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.BeanMetaData;
 import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData.PublishLocationAdapter;
@@ -44,7 +43,7 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData.PublishLocatio
  */
 public abstract class AbstractApplicationMetaDataAdapter
 {
-   public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, UnifiedDeploymentInfo udi, DeploymentInfo di)
+   public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, DeploymentInfo di)
    {
       ApplicationMetaData apmd = (ApplicationMetaData)di.metaData;
       dep.getContext().addAttachment(ApplicationMetaData.class, apmd);

@@ -35,7 +35,6 @@ import org.jboss.mx.util.MBeanProxy;
 import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
 import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.deployment.WSFDeploymentException;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
@@ -51,12 +50,14 @@ public class ApplicationMetaDataAdapterEJB3
 {
    // logging support
    private static Logger log = Logger.getLogger(ApplicationMetaDataAdapterEJB3.class);
+   
+   public static final String DEPLOYED_OBJECT = "org.jboss.ws.ejb3.deployed.object";
 
-   public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, UnifiedDeploymentInfo udi)
+   public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep)
    {
       UnifiedApplicationMetaData appMetaData = null;
       
-      ObjectName oname = (ObjectName)dep.getContext().getProperty("DeployedObject");
+      ObjectName oname = (ObjectName)dep.getContext().getProperty(DEPLOYED_OBJECT);
       
       // jboss.j2ee:service=EJB3,module=some-ejb3.jar
       if (oname != null && oname.getDomain().equals("jboss.j2ee") && "EJB3".equals(oname.getKeyProperty("service")))

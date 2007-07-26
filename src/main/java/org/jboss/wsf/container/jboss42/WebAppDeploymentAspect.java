@@ -58,10 +58,6 @@ public class WebAppDeploymentAspect extends DeploymentAspect
    {
       if (dep.getType().toString().endsWith("EJB21") || dep.getType().toString().endsWith("EJB3"))
       {
-         UnifiedDeploymentInfo udi = dep.getContext().getAttachment(UnifiedDeploymentInfo.class);
-         if (udi == null)
-            throw new IllegalStateException("Cannot obtain unified deployement info");
-
          URL warURL = (URL)dep.getContext().getProperty(WebXMLRewriter.WEBAPP_URL);
 
          log.debug("publishServiceEndpoint: " + warURL);
@@ -87,14 +83,10 @@ public class WebAppDeploymentAspect extends DeploymentAspect
 
    public void destroy(Deployment dep)
    {
-      UnifiedDeploymentInfo udi = dep.getContext().getAttachment(UnifiedDeploymentInfo.class);
-      if (udi == null)
-         throw new IllegalStateException("Cannot obtain unified deployement info");
-
       URL warURL = (URL)dep.getContext().getProperty(WebXMLRewriter.WEBAPP_URL);
       if (warURL == null)
       {
-         log.error("Cannot obtain warURL for: " + udi);
+         log.error("Cannot obtain warURL");
          return;
       }
 

@@ -36,9 +36,7 @@ import org.jboss.deployment.J2eeModuleMetaData;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.metadata.WebSecurityMetaData;
 import org.jboss.metadata.WebSecurityMetaData.WebResourceCollection;
-import org.jboss.wsf.framework.deployment.WebXMLRewriter;
 import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebSecurityMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebMetaData.PublishLocationAdapter;
@@ -52,7 +50,7 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebSecurityMetaData.UnifiedWebReso
  */
 public class WebMetaDataAdapter
 {
-   public UnifiedWebMetaData buildUnifiedWebMetaData(Deployment dep, UnifiedDeploymentInfo udi, DeploymentInfo di)
+   public UnifiedWebMetaData buildUnifiedWebMetaData(Deployment dep, DeploymentInfo di)
    {
       String contextRoot = null;
       
@@ -84,8 +82,6 @@ public class WebMetaDataAdapter
       webMetaData.setPublishLocationAdapter(getPublishLocationAdpater(wmd));
       webMetaData.setSecurityMetaData(getSecurityMetaData(wmd.getSecurityContraints()));
       
-      dep.getContext().setProperty(WebXMLRewriter.WEBAPP_URL, udi.getUrl());
-
       return webMetaData;
    }
 

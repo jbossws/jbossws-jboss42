@@ -36,7 +36,6 @@ import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.SecurityHandler;
-import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.deployment.WSFDeploymentException;
 
 /**
@@ -51,7 +50,7 @@ public class SecurityHandlerEJB3 implements SecurityHandler
    {
       String securityDomain = null;
 
-      ObjectName deployedObject = (ObjectName)dep.getContext().getProperty("DeployedObject");
+      ObjectName deployedObject = (ObjectName)dep.getContext().getProperty(ApplicationMetaDataAdapterEJB3.DEPLOYED_OBJECT);
       Ejb3ModuleMBean ejb3Module = getEJB3Module(deployedObject);
       for (Object manager : ejb3Module.getContainers().values())
       {
@@ -82,7 +81,7 @@ public class SecurityHandlerEJB3 implements SecurityHandler
    public void addSecurityRoles(Element webApp, Deployment dep)
    {
       // The container objects below provide access to all of the ejb metadata
-      ObjectName deployedObject = (ObjectName)dep.getContext().getProperty("DeployedObject");
+      ObjectName deployedObject = (ObjectName)dep.getContext().getProperty(ApplicationMetaDataAdapterEJB3.DEPLOYED_OBJECT);
       Ejb3ModuleMBean ejb3Module = getEJB3Module(deployedObject);
       for (Object manager : ejb3Module.getContainers().values())
       {

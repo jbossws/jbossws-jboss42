@@ -24,13 +24,8 @@ package org.jboss.wsf.container.jboss42;
 //$Id: UnifiedDeploymentInfoDeployer.java 3407 2007-06-03 16:06:36Z thomas.diesler@jboss.com $
 
 import org.jboss.deployment.DeploymentInfo;
-import org.jboss.wsf.spi.deployment.DeploymentAspect;
 import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.deployment.JAXRPCDeployment;
-import org.jboss.wsf.spi.deployment.JAXWSDeployment;
-import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
-import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
-import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
+import org.jboss.wsf.spi.deployment.DeploymentAspect;
 
 /**
  * A deployer that builds the UnifiedDeploymentInfo 
@@ -41,7 +36,7 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
 public class UnifiedDeploymentInfoDeploymentAspect extends DeploymentAspect
 {
    private DeploymentInfoAdapter deploymentInfoAdapter;
-   
+
    public void setDeploymentInfoAdapter(DeploymentInfoAdapter adapter)
    {
       this.deploymentInfoAdapter = adapter;
@@ -50,27 +45,10 @@ public class UnifiedDeploymentInfoDeploymentAspect extends DeploymentAspect
    @Override
    public void create(Deployment dep)
    {
-      UnifiedDeploymentInfo udi = dep.getContext().getAttachment(UnifiedDeploymentInfo.class);
-      if (udi == null)
-      {
-         DeploymentInfo unit = dep.getContext().getAttachment(DeploymentInfo.class);
-         if (unit == null)
-            throw new IllegalStateException("Cannot obtain deployment unit");
+      DeploymentInfo di = dep.getContext().getAttachment(DeploymentInfo.class);
+      if (di == null)
+         throw new IllegalStateException("Cannot obtain deployment info");
 
-         DeploymentType type = dep.getType();
-         if (type.toString().startsWith("JAXWS"))
-         {
-            udi = new JAXWSDeployment(type);
-            deploymentInfoAdapter.buildDeploymentInfo(dep, udi, unit);
-         }
-         else
-         {
-            WebservicesMetaData wsMetaData = dep.getContext().getAttachment(WebservicesMetaData.class);
-            udi = new JAXRPCDeployment(type, wsMetaData);
-            deploymentInfoAdapter.buildDeploymentInfo(dep, udi, unit);
-         }
-
-         dep.getContext().addAttachment(UnifiedDeploymentInfo.class, udi);
-      }
+      deploymentInfoAdapter.buildDeploymentInfo(dep, di);
    }
 }
