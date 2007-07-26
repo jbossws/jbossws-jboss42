@@ -75,11 +75,12 @@ public abstract class AbstractDeployerHook implements DeployerHook
       return deploymentModelFactory;
    }
 
-   public Deployment createDeployment(ClassLoader initialLoader)
+   public ArchiveDeployment createDeployment(ClassLoader initialLoader)
    {
       try
       {
-         return getDeploymentModelFactory().createDeployment(initialLoader);
+         DeploymentModelFactory factory = getDeploymentModelFactory();
+         return (ArchiveDeployment)factory.createDeployment(initialLoader);
       }
       catch (Exception ex)
       {

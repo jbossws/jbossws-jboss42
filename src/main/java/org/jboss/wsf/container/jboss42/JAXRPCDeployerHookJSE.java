@@ -30,6 +30,7 @@ import java.util.Map.Entry;
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.ws.integration.URLLoaderAdapter;
+import org.jboss.wsf.spi.deployment.ArchiveDeployment;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.Service;
@@ -59,7 +60,7 @@ public class JAXRPCDeployerHookJSE extends AbstractDeployerHookJSE
    @Override
    public Deployment createDeployment(DeploymentInfo di)
    {
-      Deployment dep = createDeployment(di.annotationsCl);
+      ArchiveDeployment dep = createDeployment(di.annotationsCl);
       dep.setRootFile(new URLLoaderAdapter(di.localUrl));
       dep.setRuntimeClassLoader(null);
       dep.setType(getDeploymentType());

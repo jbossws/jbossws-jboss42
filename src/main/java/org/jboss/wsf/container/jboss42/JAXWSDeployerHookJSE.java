@@ -35,6 +35,7 @@ import javax.xml.ws.WebServiceProvider;
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.ws.integration.URLLoaderAdapter;
+import org.jboss.wsf.spi.deployment.ArchiveDeployment;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.Service;
@@ -58,7 +59,7 @@ public class JAXWSDeployerHookJSE extends AbstractDeployerHookJSE
    @Override
    public Deployment createDeployment(DeploymentInfo unit)
    {
-      Deployment dep = createDeployment(unit.annotationsCl);
+      ArchiveDeployment dep = createDeployment(unit.annotationsCl);
       dep.setRootFile(new URLLoaderAdapter(unit.localUrl));
       dep.setRuntimeClassLoader(null);
       dep.setType(getDeploymentType());
