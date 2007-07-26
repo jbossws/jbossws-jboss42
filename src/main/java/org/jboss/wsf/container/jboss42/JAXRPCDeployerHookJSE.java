@@ -57,21 +57,20 @@ public class JAXRPCDeployerHookJSE extends AbstractDeployerHookJSE
     * Create an endpoint for every servlet-link in webservices.xml
     */
    @Override
-   public Deployment createDeployment(DeploymentInfo unit)
+   public Deployment createDeployment(DeploymentInfo di)
    {
-      Deployment dep = createDeployment();
-      dep.setRootFile(new URLLoaderAdapter(unit.localUrl));
-      dep.setInitialClassLoader(unit.annotationsCl);
+      Deployment dep = createDeployment(di.annotationsCl);
+      dep.setRootFile(new URLLoaderAdapter(di.localUrl));
       dep.setRuntimeClassLoader(null);
       dep.setType(getDeploymentType());
 
       Service service = dep.getService();
 
-      WebMetaData webMetaData = (WebMetaData)unit.metaData;
+      WebMetaData webMetaData = (WebMetaData)di.metaData;
       if (webMetaData == null)
          throw new IllegalStateException("Deployment unit does not contain web meta data");
 
-      WebservicesMetaData wsMetaData = getWebservicesMetaData(unit, "WEB-INF/webservices.xml");
+      WebservicesMetaData wsMetaData = getWebservicesMetaData(di, "WEB-INF/webservices.xml");
       if (wsMetaData == null)
          throw new IllegalStateException("Deployment unit does not contain webservices meta data");
 

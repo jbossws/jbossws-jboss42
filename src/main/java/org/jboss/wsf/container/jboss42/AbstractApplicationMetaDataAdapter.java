@@ -49,16 +49,14 @@ public abstract class AbstractApplicationMetaDataAdapter
       ApplicationMetaData apmd = (ApplicationMetaData)di.metaData;
       dep.getContext().addAttachment(ApplicationMetaData.class, apmd);
 
-      UnifiedApplicationMetaData umd = new UnifiedApplicationMetaData();
-      buildUnifiedBeanMetaData(umd, apmd);
-      umd.setConfigName(apmd.getConfigName());
-      umd.setConfigFile(apmd.getConfigFile());
-      umd.setWebServiceContextRoot(apmd.getWebServiceContextRoot());
-      umd.setSecurityDomain(apmd.getSecurityDomain());
-      umd.setPublishLocationAdapter(getPublishLocationAdpater(apmd));
-
-      dep.getContext().addAttachment(UnifiedApplicationMetaData.class, umd);
-      return umd;
+      UnifiedApplicationMetaData appMetaData = new UnifiedApplicationMetaData();
+      buildUnifiedBeanMetaData(appMetaData, apmd);
+      appMetaData.setConfigName(apmd.getConfigName());
+      appMetaData.setConfigFile(apmd.getConfigFile());
+      appMetaData.setWebServiceContextRoot(apmd.getWebServiceContextRoot());
+      appMetaData.setSecurityDomain(apmd.getSecurityDomain());
+      appMetaData.setPublishLocationAdapter(getPublishLocationAdpater(apmd));
+      return appMetaData;
    }
 
    protected PublishLocationAdapter getPublishLocationAdpater(final ApplicationMetaData apmd)

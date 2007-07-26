@@ -36,6 +36,8 @@ import org.jboss.wsf.framework.deployment.WebXMLRewriter;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
+import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebMetaData;
 
 /**
  * Build container independent deployment info. 
@@ -47,7 +49,7 @@ public class DeploymentInfoAdapter
 {
    // logging support
    private static Logger log = Logger.getLogger(DeploymentInfoAdapter.class);
-   
+
    private ApplicationMetaDataAdapterEJB3 applicationMetaDataAdapterEJB3;
    private AbstractApplicationMetaDataAdapter applicationMetaDataAdapterEJB21;
    private WebMetaDataAdapter webMetaDataAdapter;
@@ -80,7 +82,7 @@ public class DeploymentInfoAdapter
       udi.setVfRoot(new ResourceLoaderAdapter(di.localCl));
       udi.setSimpleName(di.shortName);
       udi.setUrl(getDeploymentURL(di));
-      
+
       if (di.deployedObject != null)
          dep.getContext().setProperty("DeployedObject", di.deployedObject);
 
@@ -115,16 +117,21 @@ public class DeploymentInfoAdapter
    {
       if (di.metaData instanceof WebMetaData)
       {
-         webMetaDataAdapter.buildUnifiedWebMetaData(dep, udi, di);
-         dep.getContext().setProperty(WebXMLRewriter.WEBAPP_URL, udi.getUrl());
+         UnifiedWebMetaData webMetaData = webMetaDataAdapter.buildUnifiedWebMetaData(dep, udi, di);
+         if (webMetaData != null)
+            dep.getContext().addAttachment(UnifiedWebMetaData.class, webMetaData);
       }
       else if (dep.getType() == DeploymentType.JAXRPC_EJB3 || dep.getType() == DeploymentType.JAXWS_EJB3)
       {
-         applicationMetaDataAdapterEJB3.buildUnifiedApplicationMetaData(dep, udi);
+         UnifiedApplicationMetaData appMetaData = applicationMetaDataAdapterEJB3.buildUnifiedApplicationMetaData(dep, udi);
+         if (appMetaData != null)
+            dep.getContext().addAttachment(UnifiedApplicationMetaData.class, appMetaData);
       }
       else if (di.metaData instanceof ApplicationMetaData)
       {
-         applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, udi, di);
+         UnifiedApplicationMetaData appMetaData = applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, udi, di);
+         if (appMetaData != null)
+            dep.getContext().addAttachment(UnifiedApplicationMetaData.class, appMetaData);
       }
    }
 }

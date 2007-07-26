@@ -36,6 +36,7 @@ import org.jboss.deployment.J2eeModuleMetaData;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.metadata.WebSecurityMetaData;
 import org.jboss.metadata.WebSecurityMetaData.WebResourceCollection;
+import org.jboss.wsf.framework.deployment.WebXMLRewriter;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.UnifiedDeploymentInfo;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebMetaData;
@@ -73,18 +74,19 @@ public class WebMetaDataAdapter
       if (contextRoot == null)
          contextRoot = wmd.getContextRoot();
       
-      UnifiedWebMetaData umd = new UnifiedWebMetaData();
-      umd.setContextRoot(contextRoot);
-      umd.setServletMappings(wmd.getServletMappings());
-      umd.setServletClassNames(getServletClassMap(wmd));
-      umd.setConfigName(wmd.getConfigName());
-      umd.setConfigFile(wmd.getConfigFile());
-      umd.setSecurityDomain(wmd.getSecurityDomain());
-      umd.setPublishLocationAdapter(getPublishLocationAdpater(wmd));
-      umd.setSecurityMetaData(getSecurityMetaData(wmd.getSecurityContraints()));
+      UnifiedWebMetaData webMetaData = new UnifiedWebMetaData();
+      webMetaData.setContextRoot(contextRoot);
+      webMetaData.setServletMappings(wmd.getServletMappings());
+      webMetaData.setServletClassNames(getServletClassMap(wmd));
+      webMetaData.setConfigName(wmd.getConfigName());
+      webMetaData.setConfigFile(wmd.getConfigFile());
+      webMetaData.setSecurityDomain(wmd.getSecurityDomain());
+      webMetaData.setPublishLocationAdapter(getPublishLocationAdpater(wmd));
+      webMetaData.setSecurityMetaData(getSecurityMetaData(wmd.getSecurityContraints()));
+      
+      dep.getContext().setProperty(WebXMLRewriter.WEBAPP_URL, udi.getUrl());
 
-      dep.getContext().addAttachment(UnifiedWebMetaData.class, umd);
-      return umd;
+      return webMetaData;
    }
 
    private PublishLocationAdapter getPublishLocationAdpater(final WebMetaData wmd)

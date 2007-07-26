@@ -52,17 +52,16 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
    }
 
    @Override
-   public Deployment createDeployment(DeploymentInfo unit)
+   public Deployment createDeployment(DeploymentInfo di)
    {
-      Deployment dep = createDeployment();
-      dep.setRootFile(new URLLoaderAdapter(unit.localUrl));
-      dep.setInitialClassLoader(unit.annotationsCl);
-      dep.setRuntimeClassLoader(unit.ucl);
+      Deployment dep = createDeployment(di.annotationsCl);
+      dep.setRootFile(new URLLoaderAdapter(di.localUrl));
+      dep.setRuntimeClassLoader(di.ucl);
       dep.setType(getDeploymentType());
 
       Service service = dep.getService();
 
-      Ejb3ModuleMBean ejb3Module = ApplicationMetaDataAdapterEJB3.getEJB3Module(unit.deployedObject);
+      Ejb3ModuleMBean ejb3Module = ApplicationMetaDataAdapterEJB3.getEJB3Module(di.deployedObject);
       for (Object manager : ejb3Module.getContainers().values())
       {
          if (manager instanceof EJBContainer)

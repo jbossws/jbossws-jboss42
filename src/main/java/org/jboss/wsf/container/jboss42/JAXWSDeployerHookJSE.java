@@ -58,9 +58,8 @@ public class JAXWSDeployerHookJSE extends AbstractDeployerHookJSE
    @Override
    public Deployment createDeployment(DeploymentInfo unit)
    {
-      Deployment dep = createDeployment();
+      Deployment dep = createDeployment(unit.annotationsCl);
       dep.setRootFile(new URLLoaderAdapter(unit.localUrl));
-      dep.setInitialClassLoader(unit.annotationsCl);
       dep.setRuntimeClassLoader(null);
       dep.setType(getDeploymentType());
 

@@ -51,21 +51,20 @@ public class JAXRPCDeployerHookEJB21 extends AbstractDeployerHookEJB
    }
 
    @Override
-   public Deployment createDeployment(DeploymentInfo unit)
+   public Deployment createDeployment(DeploymentInfo di)
    {
-      Deployment dep = createDeployment();
-      dep.setRootFile(new URLLoaderAdapter(unit.localUrl));
-      dep.setInitialClassLoader(unit.annotationsCl);
-      dep.setRuntimeClassLoader(unit.ucl);
+      Deployment dep = createDeployment(di.annotationsCl);
+      dep.setRootFile(new URLLoaderAdapter(di.localUrl));
+      dep.setRuntimeClassLoader(di.ucl);
       dep.setType(getDeploymentType());
 
       Service service = dep.getService();
 
-      ApplicationMetaData appmd = (ApplicationMetaData)unit.metaData;
+      ApplicationMetaData appmd = (ApplicationMetaData)di.metaData;
       if (appmd == null)
          throw new IllegalStateException("Deployment unit does not contain application meta data");
 
-      WebservicesMetaData wsMetaData = getWebservicesMetaData(unit, null);
+      WebservicesMetaData wsMetaData = getWebservicesMetaData(di, null);
       if (wsMetaData == null)
          throw new IllegalStateException("Deployment unit does not contain webservices meta data");
 

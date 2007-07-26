@@ -54,27 +54,32 @@ public class ApplicationMetaDataAdapterEJB3
 
    public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, UnifiedDeploymentInfo udi)
    {
-      ObjectName deployedObject = (ObjectName)dep.getContext().getProperty("DeployedObject");
-      Ejb3ModuleMBean ejb3Module = getEJB3Module(deployedObject);
-
-      ArrayList<UnifiedBeanMetaData> beans = new ArrayList<UnifiedBeanMetaData>();
-      for (Object container : ejb3Module.getContainers().values())
+      UnifiedApplicationMetaData appMetaData = null;
+      
+      ObjectName oname = (ObjectName)dep.getContext().getProperty("DeployedObject");
+      
+      // jboss.j2ee:service=EJB3,module=some-ejb3.jar
+      if (oname != null && oname.getDomain().equals("jboss.j2ee") && "EJB3".equals(oname.getKeyProperty("service")))
       {
-         if (container instanceof StatelessContainer)
+         Ejb3ModuleMBean ejb3Module = getEJB3Module(oname);
+
+         ArrayList<UnifiedBeanMetaData> beans = new ArrayList<UnifiedBeanMetaData>();
+         for (Object container : ejb3Module.getContainers().values())
          {
-            StatelessContainer slc = (StatelessContainer)container;
-            UnifiedBeanMetaData usmd = new UnifiedSessionMetaData();
-            usmd.setEjbName(slc.getEjbName());
-            usmd.setEjbClass(slc.getBeanClassName());
-            beans.add(usmd);
+            if (container instanceof StatelessContainer)
+            {
+               StatelessContainer slc = (StatelessContainer)container;
+               UnifiedBeanMetaData usmd = new UnifiedSessionMetaData();
+               usmd.setEjbName(slc.getEjbName());
+               usmd.setEjbClass(slc.getBeanClassName());
+               beans.add(usmd);
+            }
          }
+
+         appMetaData = new UnifiedApplicationMetaData();
+         appMetaData.setEnterpriseBeans(beans);
       }
-
-      UnifiedApplicationMetaData umd = new UnifiedApplicationMetaData();
-      umd.setEnterpriseBeans(beans);
-
-      dep.getContext().addAttachment(UnifiedApplicationMetaData.class, umd);
-      return umd;
+      return appMetaData;
    }
 
    static Ejb3ModuleMBean getEJB3Module(ObjectName objectName)
