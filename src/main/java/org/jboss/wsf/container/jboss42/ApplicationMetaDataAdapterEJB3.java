@@ -57,7 +57,7 @@ public class ApplicationMetaDataAdapterEJB3
    {
       UnifiedApplicationMetaData appMetaData = null;
       
-      ObjectName oname = (ObjectName)dep.getContext().getProperty(DEPLOYED_OBJECT);
+      ObjectName oname = (ObjectName)dep.getProperty(DEPLOYED_OBJECT);
       
       // jboss.j2ee:service=EJB3,module=some-ejb3.jar
       if (oname != null && oname.getDomain().equals("jboss.j2ee") && "EJB3".equals(oname.getKeyProperty("service")))

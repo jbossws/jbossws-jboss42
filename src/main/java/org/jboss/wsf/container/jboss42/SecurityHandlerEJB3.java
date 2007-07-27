@@ -50,7 +50,7 @@ public class SecurityHandlerEJB3 implements SecurityHandler
    {
       String securityDomain = null;
 
-      ObjectName deployedObject = (ObjectName)dep.getContext().getProperty(ApplicationMetaDataAdapterEJB3.DEPLOYED_OBJECT);
+      ObjectName deployedObject = (ObjectName)dep.getProperty(ApplicationMetaDataAdapterEJB3.DEPLOYED_OBJECT);
       Ejb3ModuleMBean ejb3Module = getEJB3Module(deployedObject);
       for (Object manager : ejb3Module.getContainers().values())
       {
@@ -81,7 +81,7 @@ public class SecurityHandlerEJB3 implements SecurityHandler
    public void addSecurityRoles(Element webApp, Deployment dep)
    {
       // The container objects below provide access to all of the ejb metadata
-      ObjectName deployedObject = (ObjectName)dep.getContext().getProperty(ApplicationMetaDataAdapterEJB3.DEPLOYED_OBJECT);
+      ObjectName deployedObject = (ObjectName)dep.getProperty(ApplicationMetaDataAdapterEJB3.DEPLOYED_OBJECT);
       Ejb3ModuleMBean ejb3Module = getEJB3Module(deployedObject);
       for (Object manager : ejb3Module.getContainers().values())
       {

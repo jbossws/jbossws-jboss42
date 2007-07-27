@@ -45,7 +45,7 @@ public class UnifiedDeploymentInfoDeploymentAspect extends DeploymentAspect
    @Override
    public void create(Deployment dep)
    {
-      DeploymentInfo di = dep.getContext().getAttachment(DeploymentInfo.class);
+      DeploymentInfo di = dep.getAttachment(DeploymentInfo.class);
       if (di == null)
          throw new IllegalStateException("Cannot obtain deployment info");
 

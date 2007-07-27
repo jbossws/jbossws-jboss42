@@ -46,7 +46,7 @@ public abstract class AbstractApplicationMetaDataAdapter
    public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, DeploymentInfo di)
    {
       ApplicationMetaData apmd = (ApplicationMetaData)di.metaData;
-      dep.getContext().addAttachment(ApplicationMetaData.class, apmd);
+      dep.addAttachment(ApplicationMetaData.class, apmd);
 
       UnifiedApplicationMetaData appMetaData = new UnifiedApplicationMetaData();
       buildUnifiedBeanMetaData(appMetaData, apmd);

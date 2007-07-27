@@ -71,7 +71,7 @@ public class JAXWSDeployerHookJSE extends AbstractDeployerHookJSE
          throw new IllegalStateException("Deployment unit does not contain web meta data");
 
       // Copy the attachments
-      dep.getContext().addAttachment(WebMetaData.class, webMetaData);
+      dep.addAttachment(WebMetaData.class, webMetaData);
 
       List<Servlet> servlets = getRelevantServlets(webMetaData, di.annotationsCl);
       for (Servlet servlet : servlets)

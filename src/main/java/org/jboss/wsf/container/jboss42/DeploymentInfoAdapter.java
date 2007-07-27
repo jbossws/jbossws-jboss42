@@ -33,7 +33,6 @@ import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.wsf.framework.deployment.WebXMLRewriter;
 import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.deployment.DeploymentContext;
 import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebMetaData;
@@ -70,30 +69,28 @@ public class DeploymentInfoAdapter
 
    public void buildDeploymentInfo(Deployment dep, DeploymentInfo di)
    {
-      DeploymentContext ctx = dep.getContext();
-      
-      ctx.addAttachment(DeploymentInfo.class, di);
-      ctx.setProperty(ApplicationMetaDataAdapterEJB3.DEPLOYED_OBJECT, di.deployedObject);
+      dep.addAttachment(DeploymentInfo.class, di);
+      dep.setProperty(ApplicationMetaDataAdapterEJB3.DEPLOYED_OBJECT, di.deployedObject);
 
       if (di.metaData instanceof WebMetaData)
       {
          UnifiedWebMetaData webMetaData = webMetaDataAdapter.buildUnifiedWebMetaData(dep, di);
          if (webMetaData != null)
-            ctx.addAttachment(UnifiedWebMetaData.class, webMetaData);
+            dep.addAttachment(UnifiedWebMetaData.class, webMetaData);
          
-         ctx.setProperty(WebXMLRewriter.WEBAPP_URL, getDeploymentURL(di));
+         dep.setProperty(WebXMLRewriter.WEBAPP_URL, getDeploymentURL(di));
       }
       else if (dep.getType() == DeploymentType.JAXRPC_EJB3 || dep.getType() == DeploymentType.JAXWS_EJB3)
       {
          UnifiedApplicationMetaData appMetaData = applicationMetaDataAdapterEJB3.buildUnifiedApplicationMetaData(dep);
          if (appMetaData != null)
-            ctx.addAttachment(UnifiedApplicationMetaData.class, appMetaData);
+            dep.addAttachment(UnifiedApplicationMetaData.class, appMetaData);
       }
       else if (di.metaData instanceof ApplicationMetaData)
       {
          UnifiedApplicationMetaData appMetaData = applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, di);
          if (appMetaData != null)
-            ctx.addAttachment(UnifiedApplicationMetaData.class, appMetaData);
+            dep.addAttachment(UnifiedApplicationMetaData.class, appMetaData);
       }
    }
 

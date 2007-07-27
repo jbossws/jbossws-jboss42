@@ -70,8 +70,8 @@ public class JAXRPCDeployerHookEJB21 extends AbstractDeployerHookEJB
          throw new IllegalStateException("Deployment unit does not contain webservices meta data");
 
       // Copy the attachments
-      dep.getContext().addAttachment(WebservicesMetaData.class, wsMetaData);
-      dep.getContext().addAttachment(ApplicationMetaData.class, appmd);
+      dep.addAttachment(WebservicesMetaData.class, wsMetaData);
+      dep.addAttachment(ApplicationMetaData.class, appmd);
 
       for (WebserviceDescriptionMetaData wsd : wsMetaData.getWebserviceDescriptions())
       {

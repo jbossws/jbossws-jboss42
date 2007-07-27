@@ -43,7 +43,7 @@ public class SecurityHandlerEJB21 implements SecurityHandler
 {
    public void addSecurityDomain(Element jbossWeb, Deployment dep)
    {
-      UnifiedApplicationMetaData appMetaData = dep.getContext().getAttachment(UnifiedApplicationMetaData.class);
+      UnifiedApplicationMetaData appMetaData = dep.getAttachment(UnifiedApplicationMetaData.class);
       if (appMetaData == null)
          throw new IllegalStateException("Cannot obtain application meta data");
 
@@ -60,7 +60,7 @@ public class SecurityHandlerEJB21 implements SecurityHandler
    public void addSecurityRoles(Element webApp, Deployment dep)
    {
       // Fix: http://jira.jboss.org/jira/browse/JBWS-309
-      ApplicationMetaData applMetaData = dep.getContext().getAttachment(ApplicationMetaData.class);
+      ApplicationMetaData applMetaData = dep.getAttachment(ApplicationMetaData.class);
       AssemblyDescriptorMetaData assemblyDescriptor = applMetaData.getAssemblyDescriptor();
       if (assemblyDescriptor != null)
       {

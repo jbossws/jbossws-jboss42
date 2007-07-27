@@ -58,12 +58,12 @@ public class WebAppDeploymentAspect extends DeploymentAspect
    {
       if (dep.getType().toString().endsWith("EJB21") || dep.getType().toString().endsWith("EJB3"))
       {
-         URL warURL = (URL)dep.getContext().getProperty(WebXMLRewriter.WEBAPP_URL);
+         URL warURL = (URL)dep.getProperty(WebXMLRewriter.WEBAPP_URL);
 
          log.debug("publishServiceEndpoint: " + warURL);
          try
          {
-            DeploymentInfo di = dep.getContext().getAttachment(DeploymentInfo.class);
+            DeploymentInfo di = dep.getAttachment(DeploymentInfo.class);
             if (di == null)
                throw new IllegalStateException("Cannot obtain DeploymentInfo from context");
 
@@ -83,7 +83,7 @@ public class WebAppDeploymentAspect extends DeploymentAspect
 
    public void destroy(Deployment dep)
    {
-      URL warURL = (URL)dep.getContext().getProperty(WebXMLRewriter.WEBAPP_URL);
+      URL warURL = (URL)dep.getProperty(WebXMLRewriter.WEBAPP_URL);
       if (warURL == null)
       {
          log.error("Cannot obtain warURL");

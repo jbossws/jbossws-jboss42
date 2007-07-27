@@ -55,7 +55,7 @@ public class WebMetaDataAdapter
       String contextRoot = null;
       
       WebMetaData wmd = (WebMetaData)di.metaData;
-      dep.getContext().addAttachment(WebMetaData.class, wmd);
+      dep.addAttachment(WebMetaData.class, wmd);
       
       if (di.parent != null)
       {
