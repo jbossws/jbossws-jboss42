@@ -62,7 +62,7 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
 
       Service service = dep.getService();
 
-      Ejb3ModuleMBean ejb3Module = ApplicationMetaDataAdapterEJB3.getEJB3Module(di.deployedObject);
+      Ejb3ModuleMBean ejb3Module = EJBArchiveMetaDataAdapterEJB3.getEJB3Module(di.deployedObject);
       for (Object manager : ejb3Module.getContainers().values())
       {
          if (manager instanceof EJBContainer)
@@ -93,7 +93,7 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
       boolean isWebserviceDeployment = false;
 
       // Check if the ejb3 contains annotated endpoints
-      Ejb3ModuleMBean ejb3Module = ApplicationMetaDataAdapterEJB3.getEJB3Module(unit.deployedObject);
+      Ejb3ModuleMBean ejb3Module = EJBArchiveMetaDataAdapterEJB3.getEJB3Module(unit.deployedObject);
       for (Object manager : ejb3Module.getContainers().values())
       {
          if (manager instanceof EJBContainer)

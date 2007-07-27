@@ -31,9 +31,9 @@ import org.jboss.deployment.DeploymentInfo;
 import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.BeanMetaData;
 import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData.PublishLocationAdapter;
+import org.jboss.wsf.spi.metadata.j2ee.EJBArchiveMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.EJBMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.EJBArchiveMetaData.PublishLocationAdapter;
 
 /**
  * Build container independent application meta data 
@@ -41,14 +41,14 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData.PublishLocatio
  * @author Thomas.Diesler@jboss.org
  * @since 05-May-2006
  */
-public abstract class AbstractApplicationMetaDataAdapter
+public abstract class EJBArchiveMetaDataAdapter
 {
-   public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep, DeploymentInfo di)
+   public EJBArchiveMetaData buildUnifiedApplicationMetaData(Deployment dep, DeploymentInfo di)
    {
       ApplicationMetaData apmd = (ApplicationMetaData)di.metaData;
       dep.addAttachment(ApplicationMetaData.class, apmd);
 
-      UnifiedApplicationMetaData appMetaData = new UnifiedApplicationMetaData();
+      EJBArchiveMetaData appMetaData = new EJBArchiveMetaData();
       buildUnifiedBeanMetaData(appMetaData, apmd);
       appMetaData.setConfigName(apmd.getConfigName());
       appMetaData.setConfigFile(apmd.getConfigFile());
@@ -69,14 +69,14 @@ public abstract class AbstractApplicationMetaDataAdapter
       };
    }
 
-   protected void buildUnifiedBeanMetaData(UnifiedApplicationMetaData umd, ApplicationMetaData metaData)
+   protected void buildUnifiedBeanMetaData(EJBArchiveMetaData umd, ApplicationMetaData metaData)
    {
-      List<UnifiedBeanMetaData> beans = new ArrayList<UnifiedBeanMetaData>();
+      List<EJBMetaData> beans = new ArrayList<EJBMetaData>();
       Iterator it = metaData.getEnterpriseBeans();
       while (it.hasNext())
       {
          BeanMetaData bmd = (BeanMetaData)it.next();
-         UnifiedBeanMetaData ubmd = buildUnifiedBeanMetaData(bmd);
+         EJBMetaData ubmd = buildUnifiedBeanMetaData(bmd);
          if (ubmd != null)
          {
             beans.add(ubmd);
@@ -85,5 +85,5 @@ public abstract class AbstractApplicationMetaDataAdapter
       umd.setEnterpriseBeans(beans);
    }
 
-   protected abstract UnifiedBeanMetaData buildUnifiedBeanMetaData(BeanMetaData bmd);
+   protected abstract EJBMetaData buildUnifiedBeanMetaData(BeanMetaData bmd);
 }

@@ -36,9 +36,9 @@ import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.WSFDeploymentException;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedSessionMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.EJBArchiveMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.EJBMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.SLSBMetaData;
 
 /**
  * Build container independent application meta data 
@@ -46,16 +46,16 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedSessionMetaData;
  * @author Thomas.Diesler@jboss.org
  * @since 14-Apr-2007
  */
-public class ApplicationMetaDataAdapterEJB3
+public class EJBArchiveMetaDataAdapterEJB3
 {
    // logging support
-   private static Logger log = Logger.getLogger(ApplicationMetaDataAdapterEJB3.class);
+   private static Logger log = Logger.getLogger(EJBArchiveMetaDataAdapterEJB3.class);
    
    public static final String DEPLOYED_OBJECT = "org.jboss.ws.ejb3.deployed.object";
 
-   public UnifiedApplicationMetaData buildUnifiedApplicationMetaData(Deployment dep)
+   public EJBArchiveMetaData buildUnifiedApplicationMetaData(Deployment dep)
    {
-      UnifiedApplicationMetaData appMetaData = null;
+      EJBArchiveMetaData appMetaData = null;
       
       ObjectName oname = (ObjectName)dep.getProperty(DEPLOYED_OBJECT);
       
@@ -64,20 +64,20 @@ public class ApplicationMetaDataAdapterEJB3
       {
          Ejb3ModuleMBean ejb3Module = getEJB3Module(oname);
 
-         ArrayList<UnifiedBeanMetaData> beans = new ArrayList<UnifiedBeanMetaData>();
+         ArrayList<EJBMetaData> beans = new ArrayList<EJBMetaData>();
          for (Object container : ejb3Module.getContainers().values())
          {
             if (container instanceof StatelessContainer)
             {
                StatelessContainer slc = (StatelessContainer)container;
-               UnifiedBeanMetaData usmd = new UnifiedSessionMetaData();
+               EJBMetaData usmd = new SLSBMetaData();
                usmd.setEjbName(slc.getEjbName());
                usmd.setEjbClass(slc.getBeanClassName());
                beans.add(usmd);
             }
          }
 
-         appMetaData = new UnifiedApplicationMetaData();
+         appMetaData = new EJBArchiveMetaData();
          appMetaData.setEnterpriseBeans(beans);
       }
       return appMetaData;

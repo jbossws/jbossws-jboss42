@@ -37,10 +37,10 @@ import org.jboss.metadata.WebMetaData;
 import org.jboss.metadata.WebSecurityMetaData;
 import org.jboss.metadata.WebSecurityMetaData.WebResourceCollection;
 import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebSecurityMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebMetaData.PublishLocationAdapter;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebSecurityMetaData.UnifiedWebResourceCollection;
+import org.jboss.wsf.spi.metadata.j2ee.JSEArchiveMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.JSESecurityMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.JSEArchiveMetaData.PublishLocationAdapter;
+import org.jboss.wsf.spi.metadata.j2ee.JSESecurityMetaData.JSEResourceCollection;
 
 /**
  * Build container independent web meta data 
@@ -48,9 +48,9 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebSecurityMetaData.UnifiedWebReso
  * @author Thomas.Diesler@jboss.org
  * @since 05-May-2006
  */
-public class WebMetaDataAdapter
+public class JSEArchiveMetaDataAdapter
 {
-   public UnifiedWebMetaData buildUnifiedWebMetaData(Deployment dep, DeploymentInfo di)
+   public JSEArchiveMetaData buildUnifiedWebMetaData(Deployment dep, DeploymentInfo di)
    {
       String contextRoot = null;
       
@@ -72,7 +72,7 @@ public class WebMetaDataAdapter
       if (contextRoot == null)
          contextRoot = wmd.getContextRoot();
       
-      UnifiedWebMetaData webMetaData = new UnifiedWebMetaData();
+      JSEArchiveMetaData webMetaData = new JSEArchiveMetaData();
       webMetaData.setContextRoot(contextRoot);
       webMetaData.setServletMappings(wmd.getServletMappings());
       webMetaData.setServletClassNames(getServletClassMap(wmd));
@@ -96,15 +96,15 @@ public class WebMetaDataAdapter
       };
    }
 
-   private List<UnifiedWebSecurityMetaData> getSecurityMetaData(final Iterator securityConstraints)
+   private List<JSESecurityMetaData> getSecurityMetaData(final Iterator securityConstraints)
    {
-      ArrayList<UnifiedWebSecurityMetaData> unifiedsecurityMetaData = new ArrayList<UnifiedWebSecurityMetaData>();
+      ArrayList<JSESecurityMetaData> unifiedsecurityMetaData = new ArrayList<JSESecurityMetaData>();
 
       while (securityConstraints.hasNext())
       {
          WebSecurityMetaData securityMetaData = (WebSecurityMetaData)securityConstraints.next();
 
-         UnifiedWebSecurityMetaData current = new UnifiedWebSecurityMetaData();
+         JSESecurityMetaData current = new JSESecurityMetaData();
          unifiedsecurityMetaData.add(current);
 
          current.setTransportGuarantee(securityMetaData.getTransportGuarantee());
@@ -113,7 +113,7 @@ public class WebMetaDataAdapter
          for (Object webResourceObj : resources.values())
          {
             WebResourceCollection webResource = (WebResourceCollection)webResourceObj;
-            UnifiedWebResourceCollection currentResource = current.addWebResource(webResource.getName());
+            JSEResourceCollection currentResource = current.addWebResource(webResource.getName());
             for (String currentPattern : webResource.getUrlPatterns())
             {
                currentResource.addPattern(currentPattern);

@@ -50,8 +50,8 @@ import org.jboss.wsf.spi.invocation.Invocation;
 import org.jboss.wsf.spi.invocation.InvocationHandler;
 import org.jboss.wsf.spi.invocation.SecurityAdaptor;
 import org.jboss.wsf.spi.invocation.SecurityAdaptorFactory;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.EJBArchiveMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.EJBMetaData;
 
 /**
  * Handles invocations on EJB21 endpoints.
@@ -86,8 +86,8 @@ public class InvocationHandlerEJB21 extends InvocationHandler
    {
       String ejbName = ep.getShortName();
       Deployment dep = ep.getService().getDeployment();
-      UnifiedApplicationMetaData apMetaData = dep.getAttachment(UnifiedApplicationMetaData.class);
-      UnifiedBeanMetaData beanMetaData = (UnifiedBeanMetaData)apMetaData.getBeanByEjbName(ejbName);
+      EJBArchiveMetaData apMetaData = dep.getAttachment(EJBArchiveMetaData.class);
+      EJBMetaData beanMetaData = (EJBMetaData)apMetaData.getBeanByEjbName(ejbName);
       if (beanMetaData == null)
          throw new WebServiceException("Cannot obtain ejb meta data for: " + ejbName);
 

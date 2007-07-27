@@ -31,7 +31,7 @@ import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.AssemblyDescriptorMetaData;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.SecurityHandler;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.EJBArchiveMetaData;
 
 /**
  * Generate a service endpoint deployment for EJB endpoints 
@@ -43,7 +43,7 @@ public class SecurityHandlerEJB21 implements SecurityHandler
 {
    public void addSecurityDomain(Element jbossWeb, Deployment dep)
    {
-      UnifiedApplicationMetaData appMetaData = dep.getAttachment(UnifiedApplicationMetaData.class);
+      EJBArchiveMetaData appMetaData = dep.getAttachment(EJBArchiveMetaData.class);
       if (appMetaData == null)
          throw new IllegalStateException("Cannot obtain application meta data");
 

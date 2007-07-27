@@ -27,10 +27,10 @@ import org.jboss.metadata.BeanMetaData;
 import org.jboss.metadata.EjbPortComponentMetaData;
 import org.jboss.metadata.MessageDrivenMetaData;
 import org.jboss.metadata.SessionMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedBeanMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedEjbPortComponentMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedMessageDrivenMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedSessionMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.EJBMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.EJBSecurityMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.MDBMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.SLSBMetaData;
 
 /**
  * Build container independent application meta data 
@@ -38,20 +38,20 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedSessionMetaData;
  * @author Thomas.Diesler@jboss.org
  * @since 05-May-2006
  */
-public class ApplicationMetaDataAdapterEJB21 extends AbstractApplicationMetaDataAdapter
+public class EJBArchiveMetaDataAdapterEJB21 extends EJBArchiveMetaDataAdapter
 {
    @Override
-   protected UnifiedBeanMetaData buildUnifiedBeanMetaData(BeanMetaData bmd)
+   protected EJBMetaData buildUnifiedBeanMetaData(BeanMetaData bmd)
    {
-      UnifiedBeanMetaData ubmd = null;
+      EJBMetaData ubmd = null;
       if (bmd instanceof SessionMetaData)
       {
-         ubmd = new UnifiedSessionMetaData();
+         ubmd = new SLSBMetaData();
       }
       else if (bmd instanceof MessageDrivenMetaData)
       {
-         ubmd = new UnifiedMessageDrivenMetaData();
-         ((UnifiedMessageDrivenMetaData)ubmd).setDestinationJndiName(((MessageDrivenMetaData)bmd).getDestinationJndiName());
+         ubmd = new MDBMetaData();
+         ((MDBMetaData)ubmd).setDestinationJndiName(((MessageDrivenMetaData)bmd).getDestinationJndiName());
       }
 
       if (ubmd != null)
@@ -67,13 +67,13 @@ public class ApplicationMetaDataAdapterEJB21 extends AbstractApplicationMetaData
          EjbPortComponentMetaData pcmd = bmd.getPortComponent();
          if (pcmd != null)
          {
-            UnifiedEjbPortComponentMetaData upcmd = new UnifiedEjbPortComponentMetaData();
-            upcmd.setPortComponentName(pcmd.getPortComponentName());
-            upcmd.setPortComponentURI(pcmd.getPortComponentURI());
-            upcmd.setAuthMethod(pcmd.getAuthMethod());
-            upcmd.setTransportGuarantee(pcmd.getTransportGuarantee());
-            upcmd.setSecureWSDLAccess(pcmd.getSecureWSDLAccess());
-            ubmd.setPortComponent(upcmd);
+            ubmd.setPortComponentName(pcmd.getPortComponentName());
+            ubmd.setPortComponentURI(pcmd.getPortComponentURI());
+            EJBSecurityMetaData smd = new EJBSecurityMetaData();
+            smd.setAuthMethod(pcmd.getAuthMethod());
+            smd.setTransportGuarantee(pcmd.getTransportGuarantee());
+            smd.setSecureWSDLAccess(pcmd.getSecureWSDLAccess());
+            ubmd.setSecurityMetaData(smd);
          }
       }
       return ubmd;

@@ -33,13 +33,13 @@ import org.jboss.wsf.spi.deployment.DeploymentAspect;
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class UnifiedDeploymentInfoDeploymentAspect extends DeploymentAspect
+public class ContainerMetaDataDeploymentAspect extends DeploymentAspect
 {
-   private DeploymentInfoAdapter deploymentInfoAdapter;
+   private ContainerMetaDataAdapter metaDataAdapter;
 
-   public void setDeploymentInfoAdapter(DeploymentInfoAdapter adapter)
+   public void setMetaDataAdapter(ContainerMetaDataAdapter adapter)
    {
-      this.deploymentInfoAdapter = adapter;
+      this.metaDataAdapter = adapter;
    }
 
    @Override
@@ -49,6 +49,6 @@ public class UnifiedDeploymentInfoDeploymentAspect extends DeploymentAspect
       if (di == null)
          throw new IllegalStateException("Cannot obtain deployment info");
 
-      deploymentInfoAdapter.buildDeploymentInfo(dep, di);
+      metaDataAdapter.buildContainerMetaData(dep, di);
    }
 }

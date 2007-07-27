@@ -34,8 +34,8 @@ import org.jboss.metadata.WebMetaData;
 import org.jboss.wsf.framework.deployment.WebXMLRewriter;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedApplicationMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.EJBArchiveMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.JSEArchiveMetaData;
 
 /**
  * Build container independent deployment info. 
@@ -43,54 +43,54 @@ import org.jboss.wsf.spi.metadata.j2ee.UnifiedWebMetaData;
  * @author Thomas.Diesler@jboss.org
  * @since 05-May-2006
  */
-public class DeploymentInfoAdapter
+public class ContainerMetaDataAdapter
 {
    // logging support
-   private static Logger log = Logger.getLogger(DeploymentInfoAdapter.class);
+   private static Logger log = Logger.getLogger(ContainerMetaDataAdapter.class);
 
-   private ApplicationMetaDataAdapterEJB3 applicationMetaDataAdapterEJB3;
-   private AbstractApplicationMetaDataAdapter applicationMetaDataAdapterEJB21;
-   private WebMetaDataAdapter webMetaDataAdapter;
+   private EJBArchiveMetaDataAdapterEJB3 applicationMetaDataAdapterEJB3;
+   private EJBArchiveMetaDataAdapter applicationMetaDataAdapterEJB21;
+   private JSEArchiveMetaDataAdapter webMetaDataAdapter;
 
-   public void setApplicationMetaDataAdapterEJB21(AbstractApplicationMetaDataAdapter adapter)
+   public void setApplicationMetaDataAdapterEJB21(EJBArchiveMetaDataAdapter adapter)
    {
       this.applicationMetaDataAdapterEJB21 = adapter;
    }
 
-   public void setApplicationMetaDataAdapterEJB3(ApplicationMetaDataAdapterEJB3 adapter)
+   public void setApplicationMetaDataAdapterEJB3(EJBArchiveMetaDataAdapterEJB3 adapter)
    {
       this.applicationMetaDataAdapterEJB3 = adapter;
    }
 
-   public void setWebMetaDataAdapter(WebMetaDataAdapter adapter)
+   public void setWebMetaDataAdapter(JSEArchiveMetaDataAdapter adapter)
    {
       this.webMetaDataAdapter = adapter;
    }
 
-   public void buildDeploymentInfo(Deployment dep, DeploymentInfo di)
+   public void buildContainerMetaData(Deployment dep, DeploymentInfo di)
    {
       dep.addAttachment(DeploymentInfo.class, di);
-      dep.setProperty(ApplicationMetaDataAdapterEJB3.DEPLOYED_OBJECT, di.deployedObject);
+      dep.setProperty(EJBArchiveMetaDataAdapterEJB3.DEPLOYED_OBJECT, di.deployedObject);
 
       if (di.metaData instanceof WebMetaData)
       {
-         UnifiedWebMetaData webMetaData = webMetaDataAdapter.buildUnifiedWebMetaData(dep, di);
+         JSEArchiveMetaData webMetaData = webMetaDataAdapter.buildUnifiedWebMetaData(dep, di);
          if (webMetaData != null)
-            dep.addAttachment(UnifiedWebMetaData.class, webMetaData);
+            dep.addAttachment(JSEArchiveMetaData.class, webMetaData);
          
          dep.setProperty(WebXMLRewriter.WEBAPP_URL, getDeploymentURL(di));
       }
       else if (dep.getType() == DeploymentType.JAXRPC_EJB3 || dep.getType() == DeploymentType.JAXWS_EJB3)
       {
-         UnifiedApplicationMetaData appMetaData = applicationMetaDataAdapterEJB3.buildUnifiedApplicationMetaData(dep);
+         EJBArchiveMetaData appMetaData = applicationMetaDataAdapterEJB3.buildUnifiedApplicationMetaData(dep);
          if (appMetaData != null)
-            dep.addAttachment(UnifiedApplicationMetaData.class, appMetaData);
+            dep.addAttachment(EJBArchiveMetaData.class, appMetaData);
       }
       else if (di.metaData instanceof ApplicationMetaData)
       {
-         UnifiedApplicationMetaData appMetaData = applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, di);
+         EJBArchiveMetaData appMetaData = applicationMetaDataAdapterEJB21.buildUnifiedApplicationMetaData(dep, di);
          if (appMetaData != null)
-            dep.addAttachment(UnifiedApplicationMetaData.class, appMetaData);
+            dep.addAttachment(EJBArchiveMetaData.class, appMetaData);
       }
    }
 
