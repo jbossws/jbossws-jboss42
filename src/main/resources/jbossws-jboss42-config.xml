@@ -150,9 +150,9 @@
   <bean name="WSEndpointMetrics" class="org.jboss.wsf.framework.management.BasicEndpointMetrics"/>
   <bean name="WSSecurityHandlerEJB21" class="org.jboss.wsf.container.jboss42.SecurityHandlerEJB21"/>
   <bean name="WSSecurityHandlerEJB3" class="org.jboss.wsf.container.jboss42.SecurityHandlerEJB3"/>
-  <bean name="WSWebAppDesciptorModifier" class="org.jboss.wsf.framework.deployment.DefaultWebAppDesciptorModifierImpl"/>
+  <bean name="WSWebAppDesciptorModifier" class="org.jboss.wsf.container.jboss42.DefaultWebAppDesciptorModifierImpl"/>
   <bean name="WSWebMetaDataAdapter" class="org.jboss.wsf.container.jboss42.JSEArchiveMetaDataAdapter"/>
-  <bean name="WSWebXMLRewriter" class="org.jboss.wsf.framework.deployment.WebXMLRewriterImpl">
+  <bean name="WSWebXMLRewriter" class="org.jboss.wsf.container.jboss42.WebXMLRewriterImpl">
     <property name="desciptorModifier"><inject bean="WSWebAppDesciptorModifier"/></property>
   </bean>
   

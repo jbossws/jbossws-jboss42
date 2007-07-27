@@ -23,18 +23,18 @@ package org.jboss.wsf.container.jboss42;
 
 // $Id: WebAppDeployerDeployer.java 3183 2007-05-22 13:06:13Z thomas.diesler@jboss.com $
 
-import java.net.URL;
-
-import javax.management.MBeanServer;
-
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.deployment.MainDeployerMBean;
 import org.jboss.logging.Logger;
 import org.jboss.mx.util.MBeanProxy;
 import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
-import org.jboss.wsf.framework.deployment.WebXMLRewriter;
-import org.jboss.wsf.spi.deployment.*;
+import org.jboss.wsf.spi.deployment.Deployment;
+import org.jboss.wsf.spi.deployment.DeploymentAspect;
+import org.jboss.wsf.spi.deployment.WSFDeploymentException;
+
+import javax.management.MBeanServer;
+import java.net.URL;
 
 /**
  * Publish the HTTP service endpoint to Tomcat 
@@ -47,9 +47,9 @@ public class WebAppDeploymentAspect extends DeploymentAspect
    // provide logging
    private static Logger log = Logger.getLogger(WebAppDeploymentAspect.class);
 
-   private WebXMLRewriter webXMLRewriter;
+   private WebXMLRewriterImpl webXMLRewriter;
 
-   public void setWebXMLRewriter(WebXMLRewriter serviceEndpointPublisher)
+   public void setWebXMLRewriter(WebXMLRewriterImpl serviceEndpointPublisher)
    {
       this.webXMLRewriter = serviceEndpointPublisher;
    }
@@ -58,7 +58,7 @@ public class WebAppDeploymentAspect extends DeploymentAspect
    {
       if (dep.getType().toString().endsWith("EJB21") || dep.getType().toString().endsWith("EJB3"))
       {
-         URL warURL = (URL)dep.getProperty(WebXMLRewriter.WEBAPP_URL);
+         URL warURL = (URL)dep.getProperty("org.jboss.ws.webapp.url");
 
          log.debug("publishServiceEndpoint: " + warURL);
          try
@@ -83,7 +83,7 @@ public class WebAppDeploymentAspect extends DeploymentAspect
 
    public void destroy(Deployment dep)
    {
-      URL warURL = (URL)dep.getProperty(WebXMLRewriter.WEBAPP_URL);
+      URL warURL = (URL)dep.getProperty("org.jboss.ws.webapp.url");
       if (warURL == null)
       {
          log.error("Cannot obtain warURL");

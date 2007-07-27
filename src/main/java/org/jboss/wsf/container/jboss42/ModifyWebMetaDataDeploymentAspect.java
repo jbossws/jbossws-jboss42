@@ -23,9 +23,9 @@ package org.jboss.wsf.container.jboss42;
 
 //$Id: ModifyWebMetaDataDeployer.java 3772 2007-07-01 19:29:13Z thomas.diesler@jboss.com $
 
-import org.jboss.wsf.spi.deployment.*;
-import org.jboss.wsf.framework.deployment.WebXMLRewriter;
-import org.jboss.wsf.framework.deployment.RewriteResults;
+import org.jboss.wsf.spi.deployment.Deployment;
+import org.jboss.wsf.spi.deployment.DeploymentAspect;
+import org.jboss.wsf.spi.deployment.Endpoint;
 
 /**
  * A deployer that modifies the web.xml meta data 
@@ -35,9 +35,9 @@ import org.jboss.wsf.framework.deployment.RewriteResults;
  */
 public class ModifyWebMetaDataDeploymentAspect extends DeploymentAspect
 {
-   private WebXMLRewriter webXMLRewriter;
+   private WebXMLRewriterImpl webXMLRewriter;
 
-   public void setWebXMLRewriter(WebXMLRewriter serviceEndpointPublisher)
+   public void setWebXMLRewriter(WebXMLRewriterImpl serviceEndpointPublisher)
    {
       this.webXMLRewriter = serviceEndpointPublisher;
    }

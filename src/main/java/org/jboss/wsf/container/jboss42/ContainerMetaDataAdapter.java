@@ -23,19 +23,18 @@ package org.jboss.wsf.container.jboss42;
 
 // $Id$
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.logging.Logger;
 import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.WebMetaData;
-import org.jboss.wsf.framework.deployment.WebXMLRewriter;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsf.spi.metadata.j2ee.EJBArchiveMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.JSEArchiveMetaData;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Build container independent deployment info. 
@@ -78,7 +77,7 @@ public class ContainerMetaDataAdapter
          if (webMetaData != null)
             dep.addAttachment(JSEArchiveMetaData.class, webMetaData);
          
-         dep.setProperty(WebXMLRewriter.WEBAPP_URL, getDeploymentURL(di));
+         dep.setProperty("org.jboss.ws.webapp.url", getDeploymentURL(di));
       }
       else if (dep.getType() == DeploymentType.JAXRPC_EJB3 || dep.getType() == DeploymentType.JAXWS_EJB3)
       {

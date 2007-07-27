@@ -9,31 +9,40 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="spi" />
-    <orderEntry type="library" name="jboss-logging-spi" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../spi/thirdparty/jaxws-api.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="module" module-name="42-ejb3" />
     <orderEntry type="module" module-name="42-server" />
+    <orderEntry type="library" name="jaxws-api" level="application" />
+    <orderEntry type="module" module-name="jbossws-core" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../jbossws-core/thirdparty/ejb3.deployer/jboss-ejb3.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../jbossas/branches/Branch_4_2/build/output/jboss-4.2.1.GA/server/default/lib/dom4j.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="jboss-system" level="project" />
-    <orderEntry type="library" name="jboss-jmx" level="project" />
-    <orderEntry type="library" name="jboss-system-jmx" level="project" />
-    <orderEntry type="module" module-name="jbossws-core" />
     <orderEntry type="library" name="jaxws-api" level="application" />
+    <orderEntry type="library" name="jboss-logging-spi" level="application" />
+    <orderEntry type="library" name="servlet-api" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../jbossas/branches/Branch_4_2/build/output/jboss-4.2.1.GA/lib/jboss-system.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../jbossas/branches/Branch_4_2/build/output/jboss-4.2.1.GA/lib/jboss-jmx.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntryProperties />
   </component>
 </module>
