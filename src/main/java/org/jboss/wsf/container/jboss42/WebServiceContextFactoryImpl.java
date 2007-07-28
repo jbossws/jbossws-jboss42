@@ -31,7 +31,7 @@ import javax.xml.ws.handler.MessageContext;
  */
 public class WebServiceContextFactoryImpl extends WebServiceContextFactory
 {
-   public ExtendableWebServiceContext createWebServiceContext(InvocationType type, MessageContext messageContext)
+   public ExtendableWebServiceContext newWebServiceContext(InvocationType type, MessageContext messageContext)
    {
       ExtendableWebServiceContext context = null;
 

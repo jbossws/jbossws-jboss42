@@ -132,7 +132,7 @@ public class InvocationHandlerEJB3 extends InvocationHandler
          {
             EJBContext ejbCtx = beanCtx.getEJBContext();
             SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
-            ExtendableWebServiceContext wsContext = spiProvider.getSPI(WebServiceContextFactory.class).createWebServiceContext(InvocationType.JAXWS_EJB3, jaxwsMessageContext);
+            ExtendableWebServiceContext wsContext = spiProvider.getSPI(WebServiceContextFactory.class).newWebServiceContext(InvocationType.JAXWS_EJB3, jaxwsMessageContext);
             wsContext.addAttachment(EJBContext.class, ejbCtx);
             beanProp.set(beanCtx.getInstance(), wsContext);
          }

@@ -30,7 +30,7 @@ import org.jboss.wsf.spi.invocation.SecurityAdaptor;
  */
 public class SecurityAdapterFactoryImpl extends SecurityAdaptorFactory
 {
-   public SecurityAdaptor createSecurityAdapter()
+   public SecurityAdaptor newSecurityAdapter()
    {
       return new SecurityAdaptorImpl(); 
    }

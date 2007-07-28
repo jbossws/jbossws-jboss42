@@ -70,10 +70,10 @@
   <!-- 
     Each DeploymentAspectManger maintains a list of DeploymentAspects
   -->
-  <bean name="WSDeploymentAspectManagerJSE" class="org.jboss.wsf.framework.deployment.BasicDeploymentAspectManager">
+  <bean name="WSDeploymentAspectManagerJSE" class="org.jboss.wsf.framework.deployment.DeploymentAspectManagerImpl">
     <property name="name">WSDeploymentAspectManagerJSE</property>
   </bean>
-  <bean name="WSDeploymentAspectManagerEJB" class="org.jboss.wsf.framework.deployment.BasicDeploymentAspectManager">
+  <bean name="WSDeploymentAspectManagerEJB" class="org.jboss.wsf.framework.deployment.DeploymentAspectManagerImpl">
     <property name="name">WSDeploymentAspectManagerEJB</property>
   </bean>
   
@@ -147,7 +147,7 @@
     <property name="applicationMetaDataAdapterEJB3"><inject bean="WSApplicationMetaDataAdapterEJB3"/></property>
     <property name="webMetaDataAdapter"><inject bean="WSWebMetaDataAdapter"/></property>
   </bean>
-  <bean name="WSEndpointMetrics" class="org.jboss.wsf.framework.management.BasicEndpointMetrics"/>
+  <bean name="WSEndpointMetrics" class="org.jboss.wsf.framework.management.EndpointMetricsImpl"/>
   <bean name="WSSecurityHandlerEJB21" class="org.jboss.wsf.container.jboss42.SecurityHandlerEJB21"/>
   <bean name="WSSecurityHandlerEJB3" class="org.jboss.wsf.container.jboss42.SecurityHandlerEJB3"/>
   <bean name="WSWebAppDesciptorModifier" class="org.jboss.wsf.container.jboss42.DefaultWebAppDesciptorModifierImpl"/>

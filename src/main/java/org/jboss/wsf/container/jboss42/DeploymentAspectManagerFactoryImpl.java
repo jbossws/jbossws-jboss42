@@ -35,7 +35,7 @@ public class DeploymentAspectManagerFactoryImpl extends DeploymentAspectManagerF
 {
    private static final Logger log = Logger.getLogger(DeploymentAspectManagerFactoryImpl.class);
 
-   public DeploymentAspectManager createDeploymentAspectManager(Deployment.DeploymentType deploymentType)
+   public DeploymentAspectManager getDeploymentAspectManager(Deployment.DeploymentType deploymentType)
    {
       String beanName;
 
