@@ -95,11 +95,11 @@ public abstract class AbstractDeployerHook implements DeployerHook
       }
    }
 
-   public Endpoint newEndpoint(String shortName, String targetBean)
+   public Endpoint newEndpoint(String targetBean)
    {
       try
       {
-         return getDeploymentModelFactory().newEndpoint(shortName, targetBean);
+         return getDeploymentModelFactory().newEndpoint(targetBean);
       }
       catch (Exception ex)
       {

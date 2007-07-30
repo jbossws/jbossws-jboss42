@@ -74,7 +74,8 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
                String epBean = container.getBeanClassName();
 
                // Create the endpoint
-               Endpoint ep = newEndpoint(ejbName, epBean);
+               Endpoint ep = newEndpoint(epBean);
+               ep.setShortName(ejbName);
                service.addEndpoint(ep);
             }
          }

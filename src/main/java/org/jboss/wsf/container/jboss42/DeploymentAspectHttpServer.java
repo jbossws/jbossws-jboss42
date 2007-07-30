@@ -70,7 +70,7 @@ public class DeploymentAspectHttpServer extends DefaultExtensible implements Htt
          SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
          DeploymentModelFactory depFactory = spiProvider.getSPI(DeploymentModelFactory.class);
          Deployment dep = depFactory.newDeployment("jaxws-endpoint-deployment", implClass.getClassLoader());
-         dep.getService().addEndpoint(depFactory.newEndpoint("jaxws-endpoint", implClass.getName()));
+         dep.getService().addEndpoint(depFactory.newEndpoint(implClass.getName()));
          
       }
       catch (RuntimeException rte)

@@ -105,7 +105,8 @@ public class JAXRPCDeployerHookJSE extends AbstractDeployerHookJSE
             }
 
             // Create the endpoint
-            Endpoint ep = newEndpoint(servletLink, servletClass);
+            Endpoint ep = newEndpoint(servletClass);
+            ep.setShortName(servletLink);
             service.addEndpoint(ep);
          }
       }
