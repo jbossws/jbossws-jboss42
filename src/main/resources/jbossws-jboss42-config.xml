@@ -85,6 +85,9 @@
   <bean name="WSDeploymentAspectManagerEJB" class="org.jboss.wsf.framework.deployment.DeploymentAspectManagerImpl">
     <property name="name">WSDeploymentAspectManagerEJB</property>
   </bean>
+  <bean name="WSDeploymentAspectManagerEndpointAPI" class="org.jboss.wsf.framework.deployment.DeploymentAspectManagerImpl">
+    <property name="name">WSDeploymentAspectManagerEndpointAPI</property>
+  </bean>
   
   <!-- 
     The container deployment aspects
@@ -198,6 +201,13 @@
         <inject bean="WSURLPatternDeploymentAspect"/>
         <inject bean="WSWebAppDeploymentAspect"/>
         <inject bean="WSWebAppGeneratorDeploymentAspect"/>
+      </set>
+    </property>
+  </bean>
+  <bean name="WSDeploymentAspectInstallerEndpointAPI" class="org.jboss.wsf.framework.deployment.DeploymentAspectInstaller">
+    <property name="manager"><inject bean="WSDeploymentAspectManagerEndpointAPI"/></property>
+    <property name="aspects">
+      <set class="java.util.HashSet" elementClass="org.jboss.wsf.spi.deployment.DeploymentAspect">
       </set>
     </property>
   </bean>

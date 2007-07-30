@@ -32,7 +32,9 @@ import org.jboss.wsf.framework.DefaultExtensible;
 import org.jboss.wsf.spi.SPIProvider;
 import org.jboss.wsf.spi.SPIProviderResolver;
 import org.jboss.wsf.spi.deployment.Deployment;
+import org.jboss.wsf.spi.deployment.DeploymentAspectManagerFactory;
 import org.jboss.wsf.spi.deployment.DeploymentModelFactory;
+import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsf.spi.http.HttpContext;
 import org.jboss.wsf.spi.http.HttpContextFactory;
 import org.jboss.wsf.spi.http.HttpServer;
@@ -67,10 +69,15 @@ public class DeploymentAspectHttpServer extends DefaultExtensible implements Htt
 
       try
       {
+         // Create the deployment
          SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
-         DeploymentModelFactory depFactory = spiProvider.getSPI(DeploymentModelFactory.class);
-         Deployment dep = depFactory.newDeployment("jaxws-endpoint-deployment", implClass.getClassLoader());
-         dep.getService().addEndpoint(depFactory.newEndpoint(implClass.getName()));
+         DeploymentModelFactory depModelFactory = spiProvider.getSPI(DeploymentModelFactory.class);
+         Deployment dep = depModelFactory.newDeployment("endpoint-deployment", implClass.getClassLoader());
+         dep.getService().addEndpoint(depModelFactory.newEndpoint(implClass.getName()));
+         
+         // Deploy using deployment aspects
+         DeploymentAspectManagerFactory depManagerFactory = spiProvider.getSPI(DeploymentAspectManagerFactory.class);
+         depManagerFactory.getDeploymentAspectManager(DeploymentType.JAXWS_JSE);
          
       }
       catch (RuntimeException rte)
