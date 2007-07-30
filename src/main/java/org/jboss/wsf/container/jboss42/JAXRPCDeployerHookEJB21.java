@@ -88,11 +88,7 @@ public class JAXRPCDeployerHookEJB21 extends AbstractDeployerHookEJB
             String ejbClass = beanMetaData.getEjbClass();
             
             // Create the endpoint
-            Endpoint ep = newEndpoint();
-            ep.setShortName(ejbLink);
-            ep.setService(service);
-            ep.setTargetBeanName(ejbClass);
-
+            Endpoint ep = newEndpoint(ejbLink, ejbClass);
             service.addEndpoint(ep);
          }
       }
