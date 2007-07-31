@@ -208,6 +208,15 @@
     <property name="manager"><inject bean="WSDeploymentAspectManagerEndpointAPI"/></property>
     <property name="aspects">
       <set class="java.util.HashSet" elementClass="org.jboss.wsf.spi.deployment.DeploymentAspect">
+        <inject bean="WSEndpointAddressDeploymentAspect"/>
+        <inject bean="WSEndpointHandlerDeploymentAspect"/>
+        <inject bean="WSEndpointLifecycleDeploymentAspect"/>
+        <inject bean="WSEndpointMetricsDeploymentAspect"/>
+        <inject bean="WSEndpointNameDeploymentAspect"/>
+        <inject bean="WSEndpointRegistryDeploymentAspect"/>
+        <inject bean="WSURLPatternDeploymentAspect"/>
+        <inject bean="WSWebAppDeploymentAspect"/>
+        <inject bean="WSWebAppGeneratorDeploymentAspect"/>
       </set>
     </property>
   </bean>

@@ -34,6 +34,7 @@ import org.jboss.wsf.spi.SPIProviderResolver;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentAspectManagerFactory;
 import org.jboss.wsf.spi.deployment.DeploymentModelFactory;
+import org.jboss.wsf.spi.deployment.Service;
 import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsf.spi.http.HttpContext;
 import org.jboss.wsf.spi.http.HttpContextFactory;
@@ -69,11 +70,21 @@ public class DeploymentAspectHttpServer extends DefaultExtensible implements Htt
 
       try
       {
-         // Create the deployment
+         // Get the deployment model factory
          SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
          DeploymentModelFactory depModelFactory = spiProvider.getSPI(DeploymentModelFactory.class);
+         
+         // Create/Setup the deployment
          Deployment dep = depModelFactory.newDeployment("endpoint-deployment", implClass.getClassLoader());
-         dep.getService().addEndpoint(depModelFactory.newEndpoint(implClass.getName()));
+         
+         // Create/Setup the service
+         Service service = dep.getService();
+         service.setContextRoot(context.getContextRoot());
+         
+         // Create/Setup the endpoint
+         org.jboss.wsf.spi.deployment.Endpoint ep = depModelFactory.newEndpoint(implClass.getName());
+         ep.setURLPattern("/*");
+         service.addEndpoint(ep);
          
          // Deploy using deployment aspects
          DeploymentAspectManagerFactory depManagerFactory = spiProvider.getSPI(DeploymentAspectManagerFactory.class);
