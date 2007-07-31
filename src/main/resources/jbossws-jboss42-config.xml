@@ -114,6 +114,7 @@
   </bean>
   
   <bean name="WSEndpointHandlerDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointHandlerDeploymentAspect">
+    <property name="requires">ContainerMetaData</property>
     <property name="provides">ContainerEndpointHandler</property>   
   </bean>
   
@@ -177,6 +178,7 @@
   <!-- Deployment aspect installers -->  
   <bean name="WSDeploymentAspectInstallerJSE" class="org.jboss.wsf.framework.deployment.DeploymentAspectInstaller">
     <property name="manager"><inject bean="WSDeploymentAspectManagerJSE"/></property>
+    <property name="sortAspectsOnCreate">false</property>
     <property name="aspects">
       <set class="java.util.HashSet" elementClass="org.jboss.wsf.spi.deployment.DeploymentAspect">
         <inject bean="WSContainerMetaDataDeploymentAspect"/>
@@ -194,6 +196,7 @@
   </bean>
   <bean name="WSDeploymentAspectInstallerEJB" class="org.jboss.wsf.framework.deployment.DeploymentAspectInstaller">
     <property name="manager"><inject bean="WSDeploymentAspectManagerEJB"/></property>
+    <property name="sortAspectsOnCreate">false</property>
     <property name="aspects">
       <set class="java.util.HashSet" elementClass="org.jboss.wsf.spi.deployment.DeploymentAspect">
         <inject bean="WSContainerMetaDataDeploymentAspect"/>
@@ -212,6 +215,7 @@
   </bean>
   <bean name="WSDeploymentAspectInstallerEndpointAPI" class="org.jboss.wsf.framework.deployment.DeploymentAspectInstaller">
     <property name="manager"><inject bean="WSDeploymentAspectManagerEndpointAPI"/></property>
+    <property name="sortAspectsOnCreate">false</property>
     <property name="aspects">
       <set class="java.util.HashSet" elementClass="org.jboss.wsf.spi.deployment.DeploymentAspect">
         <inject bean="WSEndpointAPIDeploymentAspect"/>
