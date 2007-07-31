@@ -1,6 +1,6 @@
 
   <!-- Locate the single instance of the kernel -->  
-  <bean name="WSKernelLocator" class="org.jboss.ws.integration.KernelLocator">
+  <bean name="WSKernelLocator" class="org.jboss.wsf.common.KernelLocator">
     <property name="kernel"><inject bean="jboss.kernel:service=Kernel"/></property>
   </bean>
   
@@ -8,8 +8,10 @@
   <bean name="WSMBeanServerLocator" class="org.jboss.wsf.framework.management.MBeanServerLocator"/>
   
   <!-- The HTTPServer used by the JAXWS Endpoint API -->  
-  <bean name="WSHTTPServer" class="org.jboss.wsf.container.jboss42.WebAppDeployingHttpServer">
+  <!--bean name="WSHTTPServer" class="org.jboss.wsf.container.jboss42.WebAppDeployingHttpServer">
     <property name="mbeanServer"><inject bean="WSMBeanServerLocator" property="mbeanServer"/></property>
+  </bean-->
+  <bean name="WSHTTPServer" class="org.jboss.wsf.container.jboss42.DeploymentAspectHttpServer">
   </bean>
 
   <!-- 
@@ -93,7 +95,7 @@
     The container deployment aspects
   --> 
   <bean name="WSContainerMetaDataDeploymentAspect" class="org.jboss.wsf.container.jboss42.ContainerMetaDataDeploymentAspect">
-    <property name="provides">ContainerMetaData</property>
+    <property name="provides">ContainerMetaData, VFSRoot</property>
     <property name="metaDataAdapter"><inject bean="WSContainerMetaDataAdapter"/></property>
   </bean>
   
@@ -102,6 +104,10 @@
     <property name="provides">ContextRoot</property>
   </bean>
   
+  <bean name="WSEndpointAPIDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointAPIDeploymentAspect">
+    <property name="provides">ContainerMetaData, URLPattern, VFSRoot</property>
+  </bean>
+
   <bean name="WSEndpointAddressDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointAddressDeploymentAspect">
     <property name="requires">URLPattern</property>
     <property name="provides">EndpointAddress</property>
@@ -208,13 +214,13 @@
     <property name="manager"><inject bean="WSDeploymentAspectManagerEndpointAPI"/></property>
     <property name="aspects">
       <set class="java.util.HashSet" elementClass="org.jboss.wsf.spi.deployment.DeploymentAspect">
+        <inject bean="WSEndpointAPIDeploymentAspect"/>
         <inject bean="WSEndpointAddressDeploymentAspect"/>
         <inject bean="WSEndpointHandlerDeploymentAspect"/>
         <inject bean="WSEndpointLifecycleDeploymentAspect"/>
         <inject bean="WSEndpointMetricsDeploymentAspect"/>
         <inject bean="WSEndpointNameDeploymentAspect"/>
         <inject bean="WSEndpointRegistryDeploymentAspect"/>
-        <inject bean="WSURLPatternDeploymentAspect"/>
         <inject bean="WSWebAppDeploymentAspect"/>
         <inject bean="WSWebAppGeneratorDeploymentAspect"/>
       </set>

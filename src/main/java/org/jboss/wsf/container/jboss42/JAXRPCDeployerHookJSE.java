@@ -29,7 +29,7 @@ import java.util.Map.Entry;
 
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.metadata.WebMetaData;
-import org.jboss.ws.integration.URLLoaderAdapter;
+import org.jboss.wsf.common.URLLoaderAdapter;
 import org.jboss.wsf.spi.deployment.ArchiveDeployment;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.Endpoint;

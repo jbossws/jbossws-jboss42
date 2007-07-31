@@ -23,15 +23,14 @@ package org.jboss.wsf.container.jboss42;
 
 //$Id: JBossHttpServer.java 1786 2007-01-04 14:30:04Z thomas.diesler@jboss.com $
 
-import javax.enterprise.deploy.spi.factories.DeploymentFactory;
 import javax.xml.ws.Endpoint;
 import javax.xml.ws.WebServiceException;
 
-import org.jboss.wsf.common.DOMUtils;
 import org.jboss.wsf.framework.DefaultExtensible;
 import org.jboss.wsf.spi.SPIProvider;
 import org.jboss.wsf.spi.SPIProviderResolver;
 import org.jboss.wsf.spi.deployment.Deployment;
+import org.jboss.wsf.spi.deployment.DeploymentAspectManager;
 import org.jboss.wsf.spi.deployment.DeploymentAspectManagerFactory;
 import org.jboss.wsf.spi.deployment.DeploymentModelFactory;
 import org.jboss.wsf.spi.deployment.Service;
@@ -39,7 +38,6 @@ import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsf.spi.http.HttpContext;
 import org.jboss.wsf.spi.http.HttpContextFactory;
 import org.jboss.wsf.spi.http.HttpServer;
-import org.w3c.dom.Element;
 
 /**
  * A HTTP Server that uses DeploymentAspects
@@ -73,23 +71,22 @@ public class DeploymentAspectHttpServer extends DefaultExtensible implements Htt
          // Get the deployment model factory
          SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
          DeploymentModelFactory depModelFactory = spiProvider.getSPI(DeploymentModelFactory.class);
-         
+
          // Create/Setup the deployment
          Deployment dep = depModelFactory.newDeployment("endpoint-deployment", implClass.getClassLoader());
-         
+
          // Create/Setup the service
          Service service = dep.getService();
          service.setContextRoot(context.getContextRoot());
-         
+
          // Create/Setup the endpoint
          org.jboss.wsf.spi.deployment.Endpoint ep = depModelFactory.newEndpoint(implClass.getName());
-         ep.setURLPattern("/*");
          service.addEndpoint(ep);
-         
+
          // Deploy using deployment aspects
          DeploymentAspectManagerFactory depManagerFactory = spiProvider.getSPI(DeploymentAspectManagerFactory.class);
-         depManagerFactory.getDeploymentAspectManager(DeploymentType.JAXWS_JSE);
-         
+         DeploymentAspectManager depManager = depManagerFactory.getDeploymentAspectManager("WSDeploymentAspectManagerEndpointAPI");
+         depManager.deploy(dep);
       }
       catch (RuntimeException rte)
       {

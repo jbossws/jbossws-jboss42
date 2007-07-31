@@ -23,6 +23,10 @@ package org.jboss.wsf.container.jboss42;
 
 // $Id: WebAppDeployerDeployer.java 3183 2007-05-22 13:06:13Z thomas.diesler@jboss.com $
 
+import java.net.URL;
+
+import javax.management.MBeanServer;
+
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.deployment.MainDeployerMBean;
 import org.jboss.logging.Logger;
@@ -32,9 +36,6 @@ import org.jboss.mx.util.MBeanServerLocator;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentAspect;
 import org.jboss.wsf.spi.deployment.WSFDeploymentException;
-
-import javax.management.MBeanServer;
-import java.net.URL;
 
 /**
  * Publish the HTTP service endpoint to Tomcat 
@@ -56,28 +57,27 @@ public class WebAppDeploymentAspect extends DeploymentAspect
 
    public void create(Deployment dep)
    {
-      if (dep.getType().toString().endsWith("EJB21") || dep.getType().toString().endsWith("EJB3"))
+      URL warURL = (URL)dep.getProperty("org.jboss.ws.webapp.url");
+      if (warURL == null)
+         throw new IllegalStateException("Cannot obtain webapp URL");
+
+      log.debug("publishServiceEndpoint: " + warURL);
+      try
       {
-         URL warURL = (URL)dep.getProperty("org.jboss.ws.webapp.url");
+         webXMLRewriter.rewriteWebXml(dep);
+         
+         DeploymentInfo auxdi = new DeploymentInfo(warURL, null, MBeanServerLocator.locateJBoss());
 
-         log.debug("publishServiceEndpoint: " + warURL);
-         try
-         {
-            DeploymentInfo di = dep.getAttachment(DeploymentInfo.class);
-            if (di == null)
-               throw new IllegalStateException("Cannot obtain DeploymentInfo from context");
-
-            webXMLRewriter.rewriteWebXml(dep);
-
-            // Preserve the repository config
-            DeploymentInfo auxdi = new DeploymentInfo(warURL, null, MBeanServerLocator.locateJBoss());
+         // Preserve the repository config
+         DeploymentInfo di = dep.getAttachment(DeploymentInfo.class);
+         if (di != null)
             auxdi.repositoryConfig = di.getTopRepositoryConfig();
-            getMainDeployer().deploy(auxdi);
-         }
-         catch (Exception ex)
-         {
-            WSFDeploymentException.rethrow(ex);
-         }
+
+         getMainDeployer().deploy(auxdi);
+      }
+      catch (Exception ex)
+      {
+         WSFDeploymentException.rethrow(ex);
       }
    }
 
