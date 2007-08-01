@@ -37,9 +37,9 @@ import org.jboss.ws.integration.ServiceRefHandler;
 import org.jboss.ws.integration.ServiceRefMetaData;
 import org.jboss.ws.integration.URLLoaderAdapter;
 import org.jboss.ws.integration.UnifiedVirtualFile;
-import org.jboss.wsf.framework.serviceref.ServiceRefBinder;
 import org.jboss.wsf.spi.WSFException;
 import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedServiceRefMetaData;
+import org.jboss.wsf.spi.serviceref.ServiceRefBinder;
 import org.jboss.xb.binding.UnmarshallingContext;
 import org.xml.sax.Attributes;
 
