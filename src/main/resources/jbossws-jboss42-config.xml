@@ -14,6 +14,18 @@
   <bean name="WSHTTPServer" class="org.jboss.wsf.container.jboss42.DeploymentAspectHttpServer">
   </bean>
 
+  <!-- Bind Service objects in client environment context  -->
+  <bean name="WSServiceRefHandler" class="org.jboss.wsf.container.jboss42.serviceref.ServiceRefHandlerImpl">
+     <property name="jaxrpcBinder"><inject bean="WSServiceRefBinderJAXRPC"/></property>
+     <property name="jaxwsBinder"><inject bean="WSServiceRefBinderJAXWS"/></property>
+  </bean>
+
+  <!-- JBoss_4_2_0_GA uses this hardcoded bean name -->
+  <bean name="ServiceRefHandler" class="org.jboss.wsf.container.jboss42.serviceref.ServiceRefHandlerImpl">
+     <property name="jaxrpcBinder"><inject bean="WSServiceRefBinderJAXRPC"/></property>
+     <property name="jaxwsBinder"><inject bean="WSServiceRefBinderJAXWS"/></property>
+  </bean>
+
   <!-- 
     ********************************************************************************************************************* 
     Web Service deployment                                                                                                
