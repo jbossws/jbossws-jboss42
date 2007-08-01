@@ -65,7 +65,7 @@ public class ServiceRefHandlerImpl implements ServiceRefHandler
    private ServiceRefBinder getJaxwsBinder()
    {
       SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
-      return spiProvider.getSPI(ServiceRefBinderFactory.class).newServiceRefBinder(Type.JAXRPC);
+      return spiProvider.getSPI(ServiceRefBinderFactory.class).newServiceRefBinder(Type.JAXWS);
    }
 
    public ServiceRefMetaData newServiceRefMetaData()
