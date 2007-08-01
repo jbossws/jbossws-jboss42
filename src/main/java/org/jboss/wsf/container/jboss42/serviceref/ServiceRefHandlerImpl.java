@@ -37,8 +37,12 @@ import org.jboss.ws.integration.ServiceRefHandler;
 import org.jboss.ws.integration.ServiceRefMetaData;
 import org.jboss.ws.integration.URLLoaderAdapter;
 import org.jboss.ws.integration.UnifiedVirtualFile;
+import org.jboss.wsf.spi.SPIProvider;
+import org.jboss.wsf.spi.SPIProviderResolver;
 import org.jboss.wsf.spi.WSFException;
 import org.jboss.wsf.spi.serviceref.ServiceRefBinder;
+import org.jboss.wsf.spi.serviceref.ServiceRefBinderFactory;
+import org.jboss.wsf.spi.serviceref.ServiceRefHandler.Type;
 import org.jboss.xb.binding.UnmarshallingContext;
 import org.xml.sax.Attributes;
 
@@ -52,22 +56,16 @@ public class ServiceRefHandlerImpl implements ServiceRefHandler
 
    private ServiceRefObjectFactory objectFactory = new ServiceRefObjectFactory();
 
-   enum Type {JAXRPC, JAXWS};
-
-   /* binds jaxrpc deployments */
-   private ServiceRefBinder jaxrpcBinder;
-
-   /* binds jaxws deployments */
-   private ServiceRefBinder jaxwsBinder;
-
-   public void setJaxrpcBinder(ServiceRefBinder binder)
+   private ServiceRefBinder getJaxrpcBinder()
    {
-      this.jaxrpcBinder = binder;
+      SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
+      return spiProvider.getSPI(ServiceRefBinderFactory.class).newServiceRefBinder(Type.JAXRPC);
    }
 
-   public void setJaxwsBinder(ServiceRefBinder binder)
+   private ServiceRefBinder getJaxwsBinder()
    {
-      this.jaxwsBinder = binder;
+      SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
+      return spiProvider.getSPI(ServiceRefBinderFactory.class).newServiceRefBinder(Type.JAXRPC);
    }
 
    public ServiceRefMetaData newServiceRefMetaData()
@@ -120,12 +118,12 @@ public class ServiceRefHandlerImpl implements ServiceRefHandler
       {
          if (getServiceRefType(serviceRef, loader) == Type.JAXRPC)
          {
-            jaxrpcBinder.setupServiceRef(encCtx, encName, null, serviceRef.delegate, loader);
+            getJaxrpcBinder().setupServiceRef(encCtx, encName, null, serviceRef.delegate, loader);
          }
          else
          {
             AnnotatedElement anElement = (AnnotatedElement)sref.getAnnotatedElement();
-            jaxwsBinder.setupServiceRef(encCtx, encName, anElement, serviceRef.delegate, loader);
+            getJaxwsBinder().setupServiceRef(encCtx, encName, anElement, serviceRef.delegate, loader);
          }
       }
       finally
