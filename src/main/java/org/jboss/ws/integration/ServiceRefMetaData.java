@@ -28,10 +28,7 @@ import java.io.Serializable;
 import org.w3c.dom.Element;
 
 /**
- * An abstract service-ref meta data object.
- * 
- * @author Thomas.Diesler@jboss.org
- * @since 08-Mar-2007
+ * @deprecated
  */
 public abstract class ServiceRefMetaData extends ServiceRefElement implements Serializable
 {

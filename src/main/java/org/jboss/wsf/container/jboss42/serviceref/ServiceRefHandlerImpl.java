@@ -38,19 +38,12 @@ import org.jboss.ws.integration.ServiceRefMetaData;
 import org.jboss.ws.integration.URLLoaderAdapter;
 import org.jboss.ws.integration.UnifiedVirtualFile;
 import org.jboss.wsf.spi.WSFException;
-import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedServiceRefMetaData;
 import org.jboss.wsf.spi.serviceref.ServiceRefBinder;
 import org.jboss.xb.binding.UnmarshallingContext;
 import org.xml.sax.Attributes;
 
 /**
- * Bind service refs in the client's ENC
- * for every service-ref element in the deployment descriptor.
- *
- * @author Thomas.Diesler@jboss.org
- * @author Heiko.Braun@jboss.com
- *
- * @since 04-Nov-2006
+ * @deprecated
  */
 public class ServiceRefHandlerImpl implements ServiceRefHandler
 {

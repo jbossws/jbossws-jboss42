@@ -30,9 +30,7 @@ import org.jboss.xb.binding.UnmarshallingContext;
 import org.xml.sax.Attributes;
 
 /**
- * A object model factory for <service-ref>
- * 
- * @author Thomas.Diesler@jboss.com
+ * @deprecated
  */
 public class ServiceRefObjectFactory
 {

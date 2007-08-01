@@ -26,10 +26,7 @@ package org.jboss.ws.integration;
 import java.io.Serializable;
 
 /**
- * A marker for all <service-ref> related objects.
- * 
- * @author Thomas.Diesler@jboss.org
- * @since 08-Mar-2007
+ * @deprecated
  */
 public abstract class ServiceRefElement implements Serializable
 {

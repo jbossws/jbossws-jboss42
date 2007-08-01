@@ -30,12 +30,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 
 /**
- * Load resources through a URLClassLoader.<br>
- * NOTE: The associated classloader doesn't do parent delegation.
- *
- *
- * @author Heiko.Braun@jboss.org
- * @since 25.01.2007
+ * @deprecated
  */
 public class URLLoaderAdapter implements UnifiedVirtualFile
 {

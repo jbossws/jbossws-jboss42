@@ -30,7 +30,7 @@ import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedHandlerMetaData;
 import org.w3c.dom.Element;
 
 /**
- * @author Thomas.Diesler@jboss.org
+ * @deprecated
  */
 public class DelegatingHandlerMetaData extends ServiceRefElement
 {

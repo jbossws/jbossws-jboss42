@@ -30,18 +30,15 @@ import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedHandlerChainMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedHandlerChainsMetaData;
 
 /**
- * The metdata data from service-ref element in web.xml, ejb-jar.xml, and
- * application-client.xml.
- * 
- * @author Thomas.Diesler@jboss.org
+ * @deprecated
  */
 public class DelegatingHandlerChainsMetaData extends ServiceRefElement
 {
    UnifiedHandlerChainsMetaData delegate;
-   
+
    public DelegatingHandlerChainsMetaData()
    {
-      delegate = new UnifiedHandlerChainsMetaData(); 
+      delegate = new UnifiedHandlerChainsMetaData();
    }
 
    public void addHandlerChain(UnifiedHandlerChainMetaData handlerChain)

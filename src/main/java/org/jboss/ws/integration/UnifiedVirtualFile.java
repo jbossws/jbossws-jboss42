@@ -28,11 +28,7 @@ import java.io.Serializable;
 import java.net.URL;
 
 /**
- * An adaptor to a VirtualFile from jboss-vfs.jar
- * jboss-vfs cannot be used in jboss-4.x because of its dependeny on jboss-common-core.jar
- *  
- * @author Thomas.Diesler@jboss.org
- * @since 05-May-2006
+ * @deprecated
  */
 public interface UnifiedVirtualFile extends Serializable
 {

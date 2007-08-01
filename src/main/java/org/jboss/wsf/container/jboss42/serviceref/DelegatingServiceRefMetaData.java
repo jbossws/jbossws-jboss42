@@ -34,10 +34,7 @@ import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedServiceRefMetaData;
 import org.w3c.dom.Element;
 
 /**
- * The metdata data from service-ref element in web.xml, ejb-jar.xml, and
- * application-client.xml.
- * 
- * @author Thomas.Diesler@jboss.org
+ * @deprecated
  */
 public class DelegatingServiceRefMetaData extends ServiceRefMetaData
 {

@@ -29,7 +29,7 @@ import org.jboss.ws.integration.ServiceRefElement;
 import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedPortComponentRefMetaData;
 
 /**
- * @author Thomas.Diesler@jboss.org
+ * @deprecated
  */
 public class DelegatingPortComponentRefMetaData extends ServiceRefElement
 {

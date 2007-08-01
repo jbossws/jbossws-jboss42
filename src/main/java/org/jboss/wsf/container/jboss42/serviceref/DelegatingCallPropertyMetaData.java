@@ -27,7 +27,7 @@ import org.jboss.ws.integration.ServiceRefElement;
 import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedCallPropertyMetaData;
 
 /**
- * @author Thomas.Diesler@jboss.org
+ * @deprecated
  */
 public class DelegatingCallPropertyMetaData extends ServiceRefElement
 {

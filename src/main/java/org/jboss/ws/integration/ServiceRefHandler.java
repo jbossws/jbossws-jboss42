@@ -30,10 +30,7 @@ import org.jboss.xb.binding.UnmarshallingContext;
 import org.xml.sax.Attributes;
 
 /**
- * An implementation of this interface handles all service-ref binding concerns 
- * 
- * @author Thomas.Diesler@jboss.org
- * @since 05-May-2004
+ * @deprecated
  */
 public interface ServiceRefHandler
 {
