@@ -28,8 +28,8 @@ import java.net.URL;
 
 import org.jboss.deployment.DeploymentException;
 import org.jboss.deployment.DeploymentInfo;
-import org.jboss.wsf.common.ResourceLoaderAdapter;
-import org.jboss.wsf.spi.deployment.UnifiedVirtualFile;
+import org.jboss.ws.integration.ResourceLoaderAdapter;
+import org.jboss.ws.integration.UnifiedVirtualFile;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.WSFDeploymentException;
 import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
