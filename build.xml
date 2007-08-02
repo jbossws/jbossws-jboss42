@@ -11,12 +11,11 @@
 
 <!-- $Id$ -->
 
-<project default="main" basedir="../.." name="JBossWS-JBoss42">
+<project default="main" basedir="." name="JBossWS-JBoss42">
   
-  <import file="${basedir}/build/ant-import/build-setup.xml"/>
-  
-  <import file="${int.jboss42.dir}/ant-import/build-release.xml"/>
-  <import file="${int.jboss42.dir}/ant-import/build-thirdparty.xml"/>
+  <import file="${basedir}/ant-import/build-setup.xml"/>
+  <import file="${basedir}/ant-import/build-release.xml"/>
+  <import file="${basedir}/ant-import/build-thirdparty.xml"/>
   
   <!-- ================================================================== -->
   <!-- Setup                                                              -->
@@ -37,9 +36,8 @@
   <!-- Initialization                                                     -->
   <!-- ================================================================== -->
   
-  <target name="init" depends="prepare, thirdparty">
+  <target name="init" depends="prepare,thirdparty-get">
     <fail message="Not available: ${jboss42.available.file}" unless="jboss42.available"/>
-    <ant antfile="${framework.dir}/build.xml" target="jars" inheritall="false"/>
   </target>
   
   <!-- ================================================================== -->
@@ -72,7 +70,7 @@
   <target name="compile-etc" depends="init">
     <mkdir dir="${jbws42.output.etc.dir}"/>
     <copy todir="${jbws42.output.etc.dir}" filtering="yes">
-      <fileset dir="${build.dir}/etc">
+      <fileset dir="${jbws42.etc.dir}">
         <include name="default.mf"/>
   	  </fileset>
       <filterset>
@@ -80,7 +78,7 @@
         <filter token="java.vm.vendor" value="${java.vm.vendor}"/>
         <filter token="build.id" value="${build.id}"/>
         <filter token="implementation.version" value="jbossws-${version.id}"/>
-        <filtersfile file="${build.dir}/version.properties"/>
+        <filtersfile file="${jbws42.dir}/version.properties"/>
       </filterset>
     </copy>
   </target>
@@ -142,6 +140,7 @@
   </target>
   
   <target name="clobber" depends="clean" description="Cleans up all generated files.">
+    <delete dir="${jbws42.dir}/thirdparty"/>
   </target>
   
   <target name="main" description="Executes the default target (most)." depends="most"/>

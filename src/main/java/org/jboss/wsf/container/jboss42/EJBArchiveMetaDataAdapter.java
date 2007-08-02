@@ -21,7 +21,7 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-// $Id$
+// $Id: $
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -34,7 +34,7 @@ import javax.xml.ws.WebServiceProvider;
 
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.metadata.WebMetaData;
-import org.jboss.wsf.framework.deployment.URLLoaderAdapter;
+import org.jboss.wsf.common.URLLoaderAdapter;
 import org.jboss.wsf.spi.deployment.ArchiveDeployment;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.Endpoint;

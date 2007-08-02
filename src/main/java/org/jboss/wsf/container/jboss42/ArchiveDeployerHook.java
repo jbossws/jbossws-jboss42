@@ -35,7 +35,7 @@ import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsf.spi.metadata.webservices.WebservicesFactory;
 import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
 import org.jboss.wsf.common.DOMUtils;
-import org.jboss.wsf.framework.deployment.ResourceLoaderAdapter;
+import org.jboss.wsf.common.ResourceLoaderAdapter;
 import org.jboss.xb.binding.ObjectModelFactory;
 import org.jboss.xb.binding.Unmarshaller;
 import org.jboss.xb.binding.UnmarshallerFactory;

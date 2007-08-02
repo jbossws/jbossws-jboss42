@@ -21,14 +21,14 @@
     <property name="jboss.repository.dir" value="${jboss.local.repository}/jboss"/>
     <mkdir dir="${jboss.repository.dir}/jbossws-jboss42/${repository.id}/lib"/>
     <copy todir="${jboss.repository.dir}/jbossws-jboss42/${repository.id}/lib" overwrite="true">
-      <fileset dir="${int.jboss42.dir}/output/lib">
+      <fileset dir="${jbws42.dir}/output/lib">
         <include name="jbossws-jboss42.jar"/>
         <include name="jbossws-jboss42-src.zip"/>
       </fileset>
     </copy>
     <copy tofile="${jboss.repository.dir}/jbossws-jboss42/${repository.id}/component-info.xml" file="${jbws42.etc.dir}/component-info.xml" filtering="true" overwrite="true">
       <filterset>
-        <filtersfile file="${build.dir}/version.properties"/>
+        <filtersfile file="${jbws42.dir}/version.properties"/>
       </filterset>
     </copy>
     

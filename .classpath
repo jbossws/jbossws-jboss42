@@ -4,7 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jboss-4.2.x"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/spi"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/integration-framework"/>
 	<classpathentry kind="lib" path="/integration-framework/thirdparty/dom4j.jar"/>
 	<classpathentry kind="lib" path="/integration-framework/thirdparty/jaxws-api.jar"/>
 	<classpathentry kind="lib" path="/integration-framework/thirdparty/jsr181-api.jar"/>
