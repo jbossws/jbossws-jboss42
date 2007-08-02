@@ -108,7 +108,12 @@
       <metainf dir="${jbws42.resources.dir}/jbossws-jboss42.jar/META-INF"/>
     </jar>
     
-    <!-- Build jbossws42-src.zip -->
+    <!-- Build jbossws-jboss42-resources.zip -->
+    <zip zipfile="${jbws42.output.lib.dir}/jbossws-jboss42-resources.zip" >
+      <fileset dir="${jbws42.resources.dir}"/>
+    </zip>
+    
+    <!-- Build jbossws-jboss42-src.zip -->
     <zip zipfile="${jbws42.output.lib.dir}/jbossws-jboss42-src.zip" >
       <fileset dir="${jbws42.java.dir}"/>
     </zip>

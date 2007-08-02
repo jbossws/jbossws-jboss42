@@ -24,6 +24,7 @@
       <fileset dir="${jbws42.dir}/output/lib">
         <include name="jbossws-jboss42.jar"/>
         <include name="jbossws-jboss42-src.zip"/>
+        <include name="jbossws-jboss42-resources.zip"/>
       </fileset>
     </copy>
     <copy tofile="${jboss.repository.dir}/jbossws-jboss42/${repository.id}/component-info.xml" file="${jbws42.etc.dir}/component-info.xml" filtering="true" overwrite="true">
