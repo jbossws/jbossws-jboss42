@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="/integration-spi/thirdparty/jsr181-api.jar"/>
 	<classpathentry kind="lib" path="/integration-spi/thirdparty/saaj-api.jar"/>
 	<classpathentry kind="lib" path="/integration-spi/thirdparty/dom4j.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/spi"/>
 	<classpathentry kind="output" path="output/eclipse"/>
 </classpath>

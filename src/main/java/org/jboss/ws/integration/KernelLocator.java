@@ -32,6 +32,6 @@ public class KernelLocator
 {
    public static Kernel getKernel()
    {
-      return org.jboss.wsf.common.KernelLocator.getKernel();
+      return org.jboss.wsf.spi.util.KernelLocator.getKernel();
    }
 }
