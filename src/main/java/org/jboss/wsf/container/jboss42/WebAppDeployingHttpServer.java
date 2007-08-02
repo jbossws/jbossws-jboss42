@@ -36,9 +36,9 @@ import javax.xml.ws.WebServiceException;
 
 import org.jboss.wsf.common.DOMUtils;
 import org.jboss.wsf.common.DOMWriter;
-import org.jboss.wsf.framework.DefaultExtensible;
 import org.jboss.wsf.spi.SPIProvider;
 import org.jboss.wsf.spi.SPIProviderResolver;
+import org.jboss.wsf.spi.deployment.AbstractExtensible;
 import org.jboss.wsf.spi.http.HttpContext;
 import org.jboss.wsf.spi.http.HttpContextFactory;
 import org.jboss.wsf.spi.http.HttpServer;
@@ -52,7 +52,7 @@ import org.w3c.dom.Element;
  * @author Thomas.Diesler@jboss.org
  * @since 07-Jul-2006
  */
-public class WebAppDeployingHttpServer extends DefaultExtensible implements HttpServer
+public class WebAppDeployingHttpServer extends AbstractExtensible implements HttpServer
 {
    private static final String MAIN_DEPLOYER = "jboss.system:service=MainDeployer";
 

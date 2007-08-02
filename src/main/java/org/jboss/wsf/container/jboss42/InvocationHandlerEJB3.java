@@ -42,9 +42,8 @@ import org.jboss.wsf.spi.SPIProvider;
 import org.jboss.wsf.spi.SPIProviderResolver;
 import org.jboss.wsf.spi.deployment.ArchiveDeployment;
 import org.jboss.wsf.spi.deployment.Endpoint;
-import org.jboss.wsf.spi.invocation.ExtendableWebServiceContext;
+import org.jboss.wsf.spi.invocation.ExtensibleWebServiceContext;
 import org.jboss.wsf.spi.invocation.Invocation;
-import org.jboss.wsf.spi.invocation.InvocationHandler;
 import org.jboss.wsf.spi.invocation.InvocationType;
 import org.jboss.wsf.spi.invocation.WebServiceContextFactory;
 
@@ -132,7 +131,8 @@ public class InvocationHandlerEJB3 extends AbstractInvocationHandler
          {
             EJBContext ejbCtx = beanCtx.getEJBContext();
             SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
-            ExtendableWebServiceContext wsContext = spiProvider.getSPI(WebServiceContextFactory.class).newWebServiceContext(InvocationType.JAXWS_EJB3, jaxwsMessageContext);
+            WebServiceContextFactory factory = spiProvider.getSPI(WebServiceContextFactory.class);
+            ExtensibleWebServiceContext wsContext = factory.newWebServiceContext(InvocationType.JAXWS_EJB3, jaxwsMessageContext);
             wsContext.addAttachment(EJBContext.class, ejbCtx);
             beanProp.set(beanCtx.getInstance(), wsContext);
          }

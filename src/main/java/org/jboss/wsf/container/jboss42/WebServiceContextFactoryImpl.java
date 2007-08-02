@@ -31,9 +31,9 @@ import javax.xml.ws.handler.MessageContext;
  */
 public class WebServiceContextFactoryImpl extends WebServiceContextFactory
 {
-   public ExtendableWebServiceContext newWebServiceContext(InvocationType type, MessageContext messageContext)
+   public ExtensibleWebServiceContext newWebServiceContext(InvocationType type, MessageContext messageContext)
    {
-      ExtendableWebServiceContext context = null;
+      ExtensibleWebServiceContext context = null;
 
       if(type.toString().indexOf("EJB")!=-1 || type.toString().indexOf("MDB")!=-1)
          context = new WebServiceContextEJB(messageContext);

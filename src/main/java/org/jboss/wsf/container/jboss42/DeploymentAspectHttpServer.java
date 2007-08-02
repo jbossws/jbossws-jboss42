@@ -26,15 +26,14 @@ package org.jboss.wsf.container.jboss42;
 import javax.xml.ws.Endpoint;
 import javax.xml.ws.WebServiceException;
 
-import org.jboss.wsf.framework.DefaultExtensible;
 import org.jboss.wsf.spi.SPIProvider;
 import org.jboss.wsf.spi.SPIProviderResolver;
+import org.jboss.wsf.spi.deployment.AbstractExtensible;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentAspectManager;
 import org.jboss.wsf.spi.deployment.DeploymentAspectManagerFactory;
 import org.jboss.wsf.spi.deployment.DeploymentModelFactory;
 import org.jboss.wsf.spi.deployment.Service;
-import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsf.spi.http.HttpContext;
 import org.jboss.wsf.spi.http.HttpContextFactory;
 import org.jboss.wsf.spi.http.HttpServer;
@@ -45,7 +44,7 @@ import org.jboss.wsf.spi.http.HttpServer;
  * @author Thomas.Diesler@jboss.org
  * @since 07-Jul-2006
  */
-public class DeploymentAspectHttpServer extends DefaultExtensible implements HttpServer
+public class DeploymentAspectHttpServer extends AbstractExtensible implements HttpServer
 {
    /** Start an instance of this HTTP server */
    public void start()
