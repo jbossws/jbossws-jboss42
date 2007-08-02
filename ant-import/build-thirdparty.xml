@@ -33,6 +33,7 @@
     <!-- The compile classpath for jboss42 integration -->
     <path id="jbws42.integration.classpath">
       <pathelement location="${framework.dir}/output/lib/jbossws-framework.jar"/>
+      <pathelement location="${framework.dir}/thirdparty/jbossws-common.jar"/>
       <pathelement location="${framework.dir}/thirdparty/jbossws-spi.jar"/>
       <pathelement location="${framework.dir}/thirdparty/jaxws-api.jar"/>
       <pathelement location="${framework.dir}/thirdparty/jaxrpc-api.jar"/>
