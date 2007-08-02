@@ -21,52 +21,48 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-// $Id: InvocationHandlerEJB21.java 3524 2007-06-09 17:28:37Z thomas.diesler@jboss.com $
+// $Id: DefaultInvocationHandlerJAXRPC.java 3959 2007-07-20 14:44:19Z heiko.braun@jboss.com $
 
-import org.jboss.logging.Logger;
+import javax.xml.rpc.server.ServiceLifecycle;
+import javax.xml.rpc.server.ServletEndpointContext;
+
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.invocation.Invocation;
 import org.jboss.wsf.spi.invocation.InvocationContext;
-import org.jboss.wsf.spi.invocation.InvocationHandler;
-
-import java.lang.reflect.Method;
 
 /**
- * Handles invocations on MDB EJB21 endpoints.
+ * Handles invocations on JSE endpoints.
  *
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class InvocationHandlerMDB21 extends AbstractInvocationHandler
+public class DefaultInvocationHandlerJAXRPC extends DefaultInvocationHandler
 {
-   // provide logging
-   private static final Logger log = Logger.getLogger(InvocationHandlerMDB21.class);
-
-   public Invocation createInvocation()
-   {
-      return new Invocation();
-   }
-
-   public void init(Endpoint ep)
-   {
-
-   }
-
    public void invoke(Endpoint ep, Invocation epInv) throws Exception
    {
-      log.debug("Invoke: " + epInv.getJavaMethod().getName());
-
       try
       {
-         InvocationContext invContext = epInv.getInvocationContext();
-         Object targetBean = invContext.getTargetBean();
-         Class implClass = targetBean.getClass();
-         Method seiMethod = epInv.getJavaMethod();
-         Method implMethod = getImplMethod(implClass, seiMethod);
+         Object targetBean = getTargetBean(ep, epInv);
 
-         Object[] args = epInv.getArgs();
-         Object retObj = implMethod.invoke(targetBean, args);
-         epInv.setReturnValue(retObj);
+         InvocationContext invContext = epInv.getInvocationContext();
+         if (targetBean instanceof ServiceLifecycle)
+         {
+            ServletEndpointContext sepContext = invContext.getAttachment(ServletEndpointContext.class);
+            if (sepContext != null)
+               ((ServiceLifecycle)targetBean).init(sepContext);
+         }
+
+         try
+         {
+            super.invoke(ep, epInv);
+         }
+         finally
+         {
+            if (targetBean instanceof ServiceLifecycle)
+            {
+               ((ServiceLifecycle)targetBean).destroy();
+            }
+         }
       }
       catch (Exception e)
       {

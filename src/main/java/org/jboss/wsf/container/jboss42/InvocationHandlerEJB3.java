@@ -54,7 +54,7 @@ import org.jboss.wsf.spi.invocation.WebServiceContextFactory;
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class InvocationHandlerEJB3 extends InvocationHandler
+public class InvocationHandlerEJB3 extends AbstractInvocationHandler
 {
    private ObjectName objectName;
 
