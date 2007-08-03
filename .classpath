@@ -4,11 +4,12 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jboss-4.2.x"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/spi"/>
-	<classpathentry kind="lib" path="/integration-framework/thirdparty/dom4j.jar"/>
-	<classpathentry kind="lib" path="/integration-framework/thirdparty/jaxws-api.jar"/>
-	<classpathentry kind="lib" path="/integration-framework/thirdparty/jsr181-api.jar"/>
-	<classpathentry kind="lib" path="/integration-framework/thirdparty/saaj-api.jar"/>
-	<classpathentry kind="lib" path="/integration-framework/thirdparty/jaxrpc-api.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/common"/>
+	<classpathentry kind="lib" path="thirdparty/jaxrpc-api.jar"/>
+	<classpathentry kind="lib" path="thirdparty/jaxws-api.jar"/>
+	<classpathentry kind="lib" path="thirdparty/jbossws-common.jar"/>
+	<classpathentry kind="lib" path="thirdparty/jbossws-spi.jar"/>
+	<classpathentry kind="lib" path="thirdparty/jsr181-api.jar"/>
+	<classpathentry kind="lib" path="thirdparty/saaj-api.jar"/>
 	<classpathentry kind="output" path="output/eclipse"/>
 </classpath>
