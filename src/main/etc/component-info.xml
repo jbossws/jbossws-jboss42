@@ -8,8 +8,14 @@
     <artifact id="jbossws-jboss42.jar"/>
     <artifact id="jbossws-jboss42-src.zip"/>
     
+    <import componentref="jboss/jbossws-common">
+      <compatible version="@jbossws-common@"/>
+    </import>
+    <import componentref="jboss/jbossws-framework">
+      <compatible version="@jbossws-framework@"/>
+    </import>
     <import componentref="jboss/jbossws-spi">
-      <compatible version="@repository.id@"/>
+      <compatible version="@jbossws-spi@"/>
     </import>
     
     <export>
