@@ -53,12 +53,20 @@ public abstract class AbstractDeployerHook implements DeployerHook
    private List<ObjectName> phaseOneInterceptors;
    private List<ObjectName> phaseTwoInterceptors;
 
+   protected String deploymentManagerName;
+
+   /** MC provided property **/
+   public void setDeploymentManagerName(String deploymentManagerName)
+   {
+      this.deploymentManagerName = deploymentManagerName;
+   }
+   
    public DeploymentAspectManager getDeploymentAspectManager()
    {
       if(null == deploymentAspectManager)
       {
          SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
-         deploymentAspectManager = spiProvider.getSPI(DeploymentAspectManagerFactory.class).getDeploymentAspectManager(getDeploymentType());
+         deploymentAspectManager = spiProvider.getSPI(DeploymentAspectManagerFactory.class).getDeploymentAspectManager( deploymentManagerName );
       }
 
       return deploymentAspectManager;
