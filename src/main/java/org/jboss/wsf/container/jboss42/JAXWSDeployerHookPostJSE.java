@@ -21,23 +21,17 @@
  */
 package org.jboss.wsf.container.jboss42;
 
+// $Id$
+
+import org.jboss.deployment.DeploymentInfo;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
-import org.jboss.deployment.DeploymentInfo;
-import org.jboss.metadata.WebMetaData;
-
-import javax.jws.WebService;
-import javax.xml.ws.WebServiceProvider;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * @author Heiko.Braun@jboss.com
  * @version $Revision$
  */
-public class JAXWSDeployerHookJSE2 extends Phase2DeployerHookJSE
+public class JAXWSDeployerHookPostJSE extends Phase2DeployerHookJSE
 {
    /** Get the deployment type this deployer can handle
     */
@@ -46,14 +40,13 @@ public class JAXWSDeployerHookJSE2 extends Phase2DeployerHookJSE
       return Deployment.DeploymentType.JAXWS_JSE;
    }
 
-
    /**
     * Reject JAX-RPC deployments
     */
    @Override
    public boolean isWebServiceDeployment(DeploymentInfo unit)
-   {     
-      WebservicesMetaData wsMetaData = getWebservicesMetaData(unit, "WEB-INF/webservices.xml");  // JAX-RPC artifact
-      return (wsMetaData==null && super.isWebServiceDeployment(unit));
+   {
+      WebservicesMetaData wsMetaData = getWebservicesMetaData(unit, "WEB-INF/webservices.xml"); // JAX-RPC artifact
+      return (wsMetaData == null && super.isWebServiceDeployment(unit));
    }
 }

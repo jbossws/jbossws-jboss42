@@ -45,7 +45,7 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class JAXRPCDeployerHookJSE extends AbstractDeployerHookJSE
+public class JAXRPCDeployerHookPreJSE extends AbstractDeployerHookJSE
 {
    /** Get the deployemnt type this deployer can handle 
     */

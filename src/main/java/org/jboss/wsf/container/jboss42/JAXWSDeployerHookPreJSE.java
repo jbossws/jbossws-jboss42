@@ -47,7 +47,7 @@ import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class JAXWSDeployerHookJSE extends AbstractDeployerHookJSE
+public class JAXWSDeployerHookPreJSE extends AbstractDeployerHookJSE
 {
    /** Get the deployemnt type this deployer can handle 
     */
