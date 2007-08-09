@@ -73,6 +73,7 @@ public class DeploymentAspectHttpServer extends AbstractExtensible implements Ht
 
          // Create/Setup the deployment
          Deployment dep = depModelFactory.newDeployment("endpoint-deployment", implClass.getClassLoader());
+         dep.setRuntimeClassLoader(dep.getInitialClassLoader());
 
          // Create/Setup the service
          Service service = dep.getService();

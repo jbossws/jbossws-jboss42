@@ -8,11 +8,7 @@
   <bean name="WSMBeanServerLocator" class="org.jboss.wsf.framework.management.MBeanServerLocator"/>
   
   <!-- The HTTPServer used by the JAXWS Endpoint API -->  
-  <!--bean name="WSHTTPServer" class="org.jboss.wsf.container.jboss42.WebAppDeployingHttpServer">
-    <property name="mbeanServer"><inject bean="WSMBeanServerLocator" property="mbeanServer"/></property>
-  </bean-->
-  <bean name="WSHTTPServer" class="org.jboss.wsf.container.jboss42.DeploymentAspectHttpServer">
-  </bean>
+  <bean name="WSHTTPServer" class="org.jboss.wsf.container.jboss42.DeploymentAspectHttpServer"/>
 
   <!-- Bind Service objects in client environment context  -->
   <bean name="WSServiceRefHandler" class="org.jboss.wsf.container.jboss42.serviceref.ServiceRefHandlerImpl"/>
@@ -272,6 +268,7 @@
       </set>
     </property>
   </bean>
+
   <bean name="WSDeploymentAspectInstallerEndpointAPI" class="org.jboss.wsf.framework.deployment.DeploymentAspectInstaller">
     <property name="manager"><inject bean="WSDeploymentAspectManagerEndpointAPI"/></property>
     <property name="sortAspectsOnCreate">false</property>
@@ -284,7 +281,6 @@
         <inject bean="WSEndpointMetricsDeploymentAspect"/>
         <inject bean="WSEndpointNameDeploymentAspect"/>
         <inject bean="WSEndpointRegistryDeploymentAspect"/>
-        <inject bean="WSRuntimeLoaderDeploymentAspect"/>
         <inject bean="WSWebAppDeploymentAspect"/>
         <inject bean="WSWebAppGeneratorDeploymentAspect"/>
       </set>
