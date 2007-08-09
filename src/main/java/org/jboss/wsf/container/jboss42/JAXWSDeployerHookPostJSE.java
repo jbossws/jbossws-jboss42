@@ -31,7 +31,7 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
  * @author Heiko.Braun@jboss.com
  * @version $Revision$
  */
-public class JAXWSDeployerHookPostJSE extends Phase2DeployerHookJSE
+public class JAXWSDeployerHookPostJSE extends DeployerHookPostJSE
 {
    /** Get the deployment type this deployer can handle
     */

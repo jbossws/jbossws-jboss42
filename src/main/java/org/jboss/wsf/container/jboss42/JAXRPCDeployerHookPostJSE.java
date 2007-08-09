@@ -31,7 +31,7 @@ import org.jboss.deployment.DeploymentInfo;
  * @author Thomas.Diesler@jboss.org
  * @since 25-Apr-2007
  */
-public class JAXRPCDeployerHookPostJSE extends Phase2DeployerHookJSE
+public class JAXRPCDeployerHookPostJSE extends DeployerHookPostJSE
 {
    /** Get the deployment type this deployer can handle
     */

@@ -28,21 +28,18 @@ import org.jboss.wsf.spi.deployment.Deployment;
  * @author Heiko.Braun@jboss.com
  * @version $Revision$
  */
-public abstract class Phase2DeployerHookJSE extends AbstractDeployerHookJSE
+public abstract class DeployerHookPostJSE extends AbstractDeployerHookJSE
 {
    /**
     * The deployment should be created in phase 1.
-    */
-   /**
-    * Create an endpoint for every servlet-link in webservices.xml
     */
    @Override
    public Deployment createDeployment(DeploymentInfo di)
    {
       Deployment deployment = (Deployment)di.context.get(Deployment.class);
-      if(null == deployment)
+      if (null == deployment)
          throw new IllegalArgumentException("spi.Deployment missing. Should be created in Phase 1");
-      
+
       return deployment;
    }
 
@@ -54,11 +51,11 @@ public abstract class Phase2DeployerHookJSE extends AbstractDeployerHookJSE
    @Override
    public boolean isWebServiceDeployment(DeploymentInfo di)
    {
-      if(super.isWebServiceDeployment(di) == false)
+      if (super.isWebServiceDeployment(di) == false)
          return false;
 
       Deployment deployment = (Deployment)di.context.get(Deployment.class);
-      return deployment!=null;
+      return deployment != null;
    }
-  
+
 }
