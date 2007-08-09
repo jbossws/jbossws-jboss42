@@ -109,7 +109,6 @@ public abstract class ArchiveDeployerHook extends AbstractDeployerHook
       {
          log.debug("undeploy: " + unit.shortName);
          getDeploymentAspectManager().undeploy(dep);
-         unit.context.remove(Deployment.class);
       }
    }
 
