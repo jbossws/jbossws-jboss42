@@ -60,12 +60,15 @@ public class JSEArchiveMetaDataAdapter
       if (di.parent != null)
       {
          J2eeApplicationMetaData appmd = (J2eeApplicationMetaData)di.parent.metaData;
-         Iterator it = appmd.getModules();
-         while (it.hasNext())
+         if(appmd!=null) // An ESB case, They deploy a *.war inside *.esb 
          {
-            J2eeModuleMetaData module = (J2eeModuleMetaData)it.next();
-            if (module.getFileName().equals(dep.getSimpleName()))
-               contextRoot = module.getWebContext();
+            Iterator it = appmd.getModules();
+            while (it.hasNext())
+            {
+               J2eeModuleMetaData module = (J2eeModuleMetaData)it.next();
+               if (module.getFileName().equals(dep.getSimpleName()))
+                  contextRoot = module.getWebContext();
+            }
          }
       }
       
