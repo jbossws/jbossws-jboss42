@@ -45,6 +45,15 @@ import org.jboss.wsf.spi.invocation.ResourceInjectorFactory;
  */
 public class DefaultInvocationHandler extends InvocationHandler
 {
+   private SPIProvider spiProvider;
+   private ResourceInjectorFactory resourceInjectorFactory;
+
+   public DefaultInvocationHandler()
+   {
+      spiProvider = SPIProviderResolver.getInstance().getProvider();
+      resourceInjectorFactory = spiProvider.getSPI(ResourceInjectorFactory.class);
+   }
+
    public Invocation createInvocation()
    {
       return new Invocation();
@@ -84,9 +93,8 @@ public class DefaultInvocationHandler extends InvocationHandler
          WebServiceContext wsContext = invContext.getAttachment(WebServiceContext.class);
          if (wsContext != null)
          {
-            SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
-            ResourceInjectorFactory factory = spiProvider.getSPI(ResourceInjectorFactory.class);
-            ResourceInjector injector = factory.newResourceInjector();
+
+            ResourceInjector injector = resourceInjectorFactory.newResourceInjector();
             injector.inject(targetBean, wsContext);
          }
 
