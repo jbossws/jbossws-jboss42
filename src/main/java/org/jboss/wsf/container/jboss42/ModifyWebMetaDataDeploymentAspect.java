@@ -23,6 +23,12 @@ package org.jboss.wsf.container.jboss42;
 
 //$Id: ModifyWebMetaDataDeployer.java 3772 2007-07-01 19:29:13Z thomas.diesler@jboss.com $
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URL;
+
+import javax.xml.ws.WebServiceException;
+
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentAspect;
 import org.jboss.wsf.spi.deployment.Endpoint;
@@ -61,4 +67,36 @@ public class ModifyWebMetaDataDeploymentAspect extends DeploymentAspect
          }
       }
    }
+   
+   public void destroy(Deployment dep)
+   {
+      URL warURL = (URL)dep.getProperty("org.jboss.ws.webapp.url");
+      File warFile = new File(warURL.getFile());
+      if (warFile.isDirectory() == false)
+         throw new WebServiceException("Expected a war directory: " + warURL);
+
+      File webXML = new File(warURL.getFile() + "/WEB-INF/web.xml");
+      if (webXML.isFile() == false)
+         throw new WebServiceException("Cannot find web.xml: " + webXML);
+
+      try
+      {
+         // On destroy remove the modified web.xml and rollback web.xml.org to web.xml
+         File orgWebXML = new File(webXML.getCanonicalPath() + ".org");
+         webXML.delete();
+
+         // Rename the web.xml.org
+         if (orgWebXML.renameTo(webXML) == false)
+            throw new WebServiceException("Cannot rename web.xml: " + orgWebXML);
+      }
+      catch (RuntimeException rte)
+      {
+         throw rte;
+      }
+      catch (Exception e)
+      {
+         throw new WebServiceException(e);
+      }
+   }
+   
 }
