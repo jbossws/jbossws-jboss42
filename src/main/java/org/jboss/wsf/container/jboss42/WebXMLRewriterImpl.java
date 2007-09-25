@@ -75,15 +75,24 @@ public class WebXMLRewriterImpl
 
       try
       {
-         // After redeployment there might be a stale copy of the original web.xml.org, we delete it
-         File orgWebXML = new File(webXML.getCanonicalPath() + ".org");
-         orgWebXML.delete();
+         FileInputStream stream = new FileInputStream(webXML);
+         String modifyProperty = (String)dep.getProperty("org.jboss.ws.webapp.modify");
+         
+         // JBWS 1762
+         if ((modifyProperty == null) || (!modifyProperty.equals("false")))
+         {
+            String suffix = (String)dep.getProperty("org.jboss.ws.webapp.descriptor.suffix");
+            if (suffix == null)
+               suffix = ".org";
+            File orgWebXML = new File(webXML.getCanonicalPath() + suffix);
 
-         // Rename the web.xml
-         if (webXML.renameTo(orgWebXML) == false)
-            throw new WebServiceException("Cannot rename web.xml: " + orgWebXML);
+            // Rename the web.xml
+            if (webXML.renameTo(orgWebXML) == false)
+               throw new WebServiceException("Cannot rename web.xml: " + orgWebXML);
+            
+            stream = new FileInputStream(orgWebXML);
+         }
 
-         FileInputStream stream = new FileInputStream(orgWebXML);
          return rewriteWebXml(stream, webXML, dep);
       }
       catch (RuntimeException rte)
@@ -110,11 +119,15 @@ public class WebXMLRewriterImpl
       RewriteResults results = desciptorModifier.modifyDescriptor(dep, document);
       results.webXML = destFile.toURL();
 
-      FileOutputStream fos = new FileOutputStream(destFile);
-      OutputFormat format = OutputFormat.createPrettyPrint();
-      XMLWriter writer = new XMLWriter(fos, format);
-      writer.write(document);
-      writer.close();
+      String modifyProperty = (String)dep.getProperty("org.jboss.ws.webapp.modify"); 
+      if ((modifyProperty == null) || (!modifyProperty.equals("false")))
+      {
+         FileOutputStream fos = new FileOutputStream(destFile);
+         OutputFormat format = OutputFormat.createPrettyPrint();
+         XMLWriter writer = new XMLWriter(fos, format);
+         writer.write(document);
+         writer.close();
+      }
 
       return results;
    }

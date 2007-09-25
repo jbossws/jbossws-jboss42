@@ -87,7 +87,7 @@ public class JAXRPCDeployerHookPreJSE extends AbstractDeployerHookJSE
             if (servletLink == null)
                throw new IllegalStateException("servlet-link cannot be null");
 
-            Servlet servlet = getServletForName(webMetaData, servletLink);
+            Servlet servlet = getServletForName(webMetaData, di.annotationsCl, servletLink, dep);
             String servletClass = servlet.getServletClass();
 
             try
@@ -114,9 +114,22 @@ public class JAXRPCDeployerHookPreJSE extends AbstractDeployerHookJSE
       return dep;
    }
 
-   private Servlet getServletForName(WebMetaData wmd, String servletLink)
+   private Servlet getServletForName(WebMetaData wmd, ClassLoader loader, String servletLink, Deployment dep)
    {
-      Iterator it = wmd.getServletClassMap().entrySet().iterator();
+      // JBWS 1762
+      Map servletClassMap = getServletClassMap(loader.getResource("WEB-INF/web.xml.org"));
+      
+      if (servletClassMap != null)
+      {
+         if (dep != null)
+            dep.setProperty("org.jboss.ws.webapp.modify", "false");
+      }
+      else 
+      {
+         servletClassMap = wmd.getServletClassMap(); 
+      }
+
+      Iterator it = servletClassMap.entrySet().iterator();
       while (it.hasNext())
       {
          Map.Entry entry = (Entry)it.next();

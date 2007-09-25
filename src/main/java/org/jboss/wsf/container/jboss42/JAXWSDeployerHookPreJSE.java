@@ -73,7 +73,7 @@ public class JAXWSDeployerHookPreJSE extends AbstractDeployerHookJSE
       // Copy the attachments
       dep.addAttachment(WebMetaData.class, webMetaData);
 
-      List<Servlet> servlets = getRelevantServlets(webMetaData, di.annotationsCl);
+      List<Servlet> servlets = getRelevantServlets(webMetaData, di.annotationsCl, dep);
       for (Servlet servlet : servlets)
       {
          String servletName = servlet.getServletName();
@@ -98,7 +98,7 @@ public class JAXWSDeployerHookPreJSE extends AbstractDeployerHookJSE
       try
       {
          WebMetaData webMetaData = (WebMetaData)unit.metaData;
-         List<Servlet> servlets = getRelevantServlets(webMetaData, unit.annotationsCl);
+         List<Servlet> servlets = getRelevantServlets(webMetaData, unit.annotationsCl, null);
          isWebServiceDeployment = servlets.size() > 0;
       }
       catch (Exception ex)
@@ -108,11 +108,24 @@ public class JAXWSDeployerHookPreJSE extends AbstractDeployerHookJSE
 
       return isWebServiceDeployment;
    }
-
-   private List<Servlet> getRelevantServlets(WebMetaData webMetaData, ClassLoader loader)
+   
+   private List<Servlet> getRelevantServlets(WebMetaData webMetaData, ClassLoader loader, Deployment dep)
    {
+      // JBWS 1762
+      Map servletClassMap = getServletClassMap(loader.getResource("WEB-INF/web.xml.org"));
+      
+      if (servletClassMap != null)
+      {
+         if (dep != null)
+            dep.setProperty("org.jboss.ws.webapp.modify", "false");
+      }
+      else 
+      {
+         servletClassMap = webMetaData.getServletClassMap(); 
+      }
+
       List<Servlet> servlets = new ArrayList<Servlet>();
-      Iterator it = webMetaData.getServletClassMap().entrySet().iterator();
+      Iterator it = servletClassMap.entrySet().iterator();
       while (it.hasNext())
       {
          Map.Entry entry = (Entry)it.next();

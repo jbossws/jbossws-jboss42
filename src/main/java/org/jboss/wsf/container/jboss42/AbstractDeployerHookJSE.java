@@ -21,6 +21,16 @@
  */
 package org.jboss.wsf.container.jboss42;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.metadata.WebMetaData;
 
@@ -60,4 +70,38 @@ public abstract class AbstractDeployerHookJSE extends ArchiveDeployerHook
          return servletName;
       }
    }
+   
+   // JBWS 1762
+   Map<String, String> getServletClassMap(URL resource)
+   {
+      if (resource == null)
+         return null;
+      
+      File origWebXml = new File(resource.getFile());
+      if (origWebXml.isDirectory())
+         return null;
+
+      Map<String, String> retVal = new HashMap<String, String>();
+      try
+      {
+         FileInputStream source = new FileInputStream(origWebXml);
+         SAXReader reader = new SAXReader();
+         Document document = reader.read(source);
+         Element root = document.getRootElement();
+         for (Iterator it = root.elementIterator("servlet"); it.hasNext();)
+         {
+            Element servlet = (Element)it.next();
+            String servletName = servlet.element("servlet-name").getTextTrim();
+            Element servletClass = servlet.element("servlet-class");
+            retVal.put(servletName, servletClass == null ? null : servletClass.getTextTrim());
+         }
+      }
+      catch (Exception ignore)
+      {
+         return null;
+      }
+      
+      return retVal.size() > 0 ? retVal : null;
+   }
+
 }

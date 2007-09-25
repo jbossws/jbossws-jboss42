@@ -64,6 +64,8 @@ public class WebAppDeploymentAspect extends DeploymentAspect
       log.debug("publishServiceEndpoint: " + warURL);
       try
       {
+         // JBWS 1762
+         dep.setProperty("org.jboss.ws.webapp.descriptor.suffix", ".ejb.org");
          webXMLRewriter.rewriteWebXml(dep);
          
          DeploymentInfo auxdi = new DeploymentInfo(warURL, null, MBeanServerLocator.locateJBoss());
