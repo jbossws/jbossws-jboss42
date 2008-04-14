@@ -4,9 +4,9 @@
   
   <name>JBoss Web Services - Container JBoss-4.2.1</name>
   <groupId>org.jboss.ws</groupId>
-  <artifactId>jbossws-jboss</artifactId>
+  <artifactId>jbossws-jboss42</artifactId>
   
-  <version>4.2.1.SP1</version>
+  <version>4.2.1-SNAPSHOT</version>
   
   <organization>
     <name>JBoss, a division of Red Hat</name>
