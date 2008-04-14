@@ -12,5 +12,5 @@
 	<classpathentry kind="lib" path="thirdparty/jsr181-api.jar"/>
 	<classpathentry kind="lib" path="thirdparty/saaj-api.jar"/>
 	<classpathentry kind="lib" path="thirdparty/dom4j.jar"/>
-	<classpathentry kind="output" path="output/eclipse"/>
+	<classpathentry kind="output" path="target/eclipse"/>
 </classpath>

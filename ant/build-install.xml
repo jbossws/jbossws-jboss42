@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+<!-- $Id$ -->
+
+<project>
+  
+  <!-- ================================================================== -->
+  <!-- Setup                                                              -->
+  <!-- ================================================================== -->
+  
+  <property name="project.dir" value="${basedir}"/>
+  <property name="project.etc.dir" value="${project.dir}/src/main/etc"/>
+  <property name="project.target.dir" value="${project.dir}/target"/>
+  
+  <!-- ================================================================== -->
+  <!-- Initialization                                                     -->
+  <!-- ================================================================== -->
+  
+  <target name="init">
+    <property name="repository.id" value="${version.id}"/>
+    <echo message="version.id=${version.id}"/>
+    <echo message="repository.id=${repository.id}"/>
+    <echo message="jboss.local.repository=${jboss.local.repository}"/>
+  </target>
+  
+  <!-- ================================================================== -->
+  <!-- Installation                                                       -->
+  <!-- ================================================================== -->
+  
+  <!-- Install to jboss.local.repository -->
+  <target name="install" depends="init" description="Install to jboss.local.repository">
+    
+    <!-- Check if the target jar is available -->
+    <available property="jbossws.jboss.jar.available" file="${project.target.dir}/jbossws-jboss-${version.id}.jar"/>
+    <fail message="Cannot find jbossws-jboss-${version.id}.jar. Did you run 'mvn package'?" unless="jbossws.jboss.jar.available"/>
+    
+    <!-- jboss/jbossws-project -->
+    <property name="jboss.repository.dir" value="${jboss.local.repository}/jboss/jbossws-jboss42/${repository.id}"/>
+    <mkdir dir="${jboss.repository.dir}/lib"/>
+    <copy file="${project.target.dir}/jbossws-jboss-${version.id}.jar" tofile="${jboss.repository.dir}/lib/jbossws-jboss42.jar" overwrite="true"/>
+    <copy file="${project.target.dir}/jbossws-jboss-${version.id}-sources.jar" tofile="${jboss.repository.dir}/lib/jbossws-jboss42-src.jar" overwrite="true"/>
+    <copy file="${project.target.dir}/jbossws-jboss-${version.id}-resources.zip" tofile="${jboss.repository.dir}/lib/jbossws-jboss42-resources.zip" overwrite="true"/>
+    <copy file="${project.target.dir}/etc/component-info.xml" tofile="${jboss.repository.dir}/component-info.xml" overwrite="true"/>
+  </target>
+  
+</project>
