@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+<!-- $Id$ -->
+
+<project>
+
+  <!-- ========= -->
+  <!-- Libraries -->
+  <!-- ========= -->
+
+  <target name="thirdparty-init" depends="prepare">
+    
+    <property name="thirdparty.dir" value="${jbws42.dir}/thirdparty"/>
+    <checksum file="${jbws42.dir}/version.properties" fileext=".md5" verifyproperty="checksum.ok"/>
+    <condition property="force.thirdparty">
+      <or>
+        <not>
+          <available file="${thirdparty.dir}" type="dir"/>
+        </not>
+        <isfalse value="${checksum.ok}"/>
+        <isset property="force.thirdparty.get"/>
+      </or>
+    </condition>
+    <echo message="checksum.ok = ${checksum.ok}"/>
+  </target>
+  
+  <target name="thirdparty-get" depends="thirdparty-init" if="force.thirdparty" description="Gets the thirdparty libraries">
+    
+    <mkdir dir="${thirdparty.dir}"/>
+    <get src="${jboss.repository}/jboss/jbossws-common/${jbossws-common}/lib/jbossws-common.jar" dest="${thirdparty.dir}/jbossws-common.jar" usetimestamp="true" verbose="true"/>
+    <get src="${jboss.repository}/jboss/jbossws-framework/${jbossws-framework}/lib/jbossws-framework.jar" dest="${thirdparty.dir}/jbossws-framework.jar" usetimestamp="true" verbose="true"/>
+    <get src="${jboss.repository}/jboss/jbossws-spi/${jbossws-spi}/lib/jbossws-spi.jar" dest="${thirdparty.dir}/jbossws-spi.jar" usetimestamp="true" verbose="true"/>
+    
+    <get src="${jboss.repository}/dom4j/${dom4j}/lib/dom4j.jar" dest="${thirdparty.dir}/dom4j.jar" usetimestamp="true" verbose="true"/>
+    <get src="${jboss.repository}/sun-jaxws/${sun-jaxws}/lib/jaxws-api.jar" dest="${thirdparty.dir}/jaxws-api.jar" usetimestamp="true" verbose="true"/>
+    <get src="${jboss.repository}/sun-jaxws/${sun-jaxws}/lib/jsr181-api.jar" dest="${thirdparty.dir}/jsr181-api.jar" usetimestamp="true" verbose="true"/> 
+    <get src="${jboss.repository}/sun-jaxws/${sun-jaxws}/lib/saaj-api.jar" dest="${thirdparty.dir}/saaj-api.jar" usetimestamp="true" verbose="true"/>
+    <get src="${jboss.repository}/sun-jaxrpc/${sun-jaxrpc}/lib/jaxrpc-api.jar" dest="${thirdparty.dir}/jaxrpc-api.jar" usetimestamp="true" verbose="true"/>
+    <checksum file="${jbws42.dir}/version.properties" fileext=".md5"/>
+  </target>
+  
+  <target name="thirdparty-classpath" depends="thirdparty-get">
+    
+    <!-- The compile classpath for jboss42 integration -->
+    <path id="jbws42.integration.classpath">
+      <pathelement location="${thirdparty.dir}/jbossws-common.jar"/>
+      <pathelement location="${thirdparty.dir}/jbossws-spi.jar"/>
+      <pathelement location="${thirdparty.dir}/jaxws-api.jar"/>
+      <pathelement location="${thirdparty.dir}/jaxrpc-api.jar"/>
+      <pathelement location="${thirdparty.dir}/jsr181-api.jar"/>
+      <pathelement location="${thirdparty.dir}/saaj-api.jar"/>
+      <pathelement location="${jboss42.lib}/jboss-common.jar"/>
+      <pathelement location="${jboss42.lib}/jboss-jmx.jar"/>
+      <pathelement location="${jboss42.lib}/jboss-system.jar"/>
+      <pathelement location="${jboss42.lib}/jboss-xml-binding.jar"/>
+      <pathelement location="${jboss42.server.lib}/dom4j.jar"/>
+      <pathelement location="${jboss42.server.lib}/jboss.jar"/>
+      <pathelement location="${jboss42.server.lib}/jboss-j2ee.jar"/>
+      <pathelement location="${jboss42.server.lib}/jboss-ejb3x.jar"/>
+      <pathelement location="${jboss42.server.lib}/jbosssx.jar"/>
+      <pathelement location="${jboss42.server.lib}/servlet-api.jar"/>
+      <pathelement location="${jboss42.server.deploy}/jboss-aop-jdk50.deployer/jboss-aop-jdk50.jar"/>
+      <pathelement location="${jboss42.server.deploy}/jboss-bean.deployer/jboss-dependency.jar"/>
+      <pathelement location="${jboss42.server.deploy}/jboss-bean.deployer/jboss-microcontainer.jar"/>
+      <pathelement location="${jboss42.server.deploy}/ejb3.deployer/jboss-annotations-ejb3.jar"/>
+      <pathelement location="${jboss42.server.deploy}/ejb3.deployer/jboss-ejb3.jar"/>
+    </path>
+
+  </target>
+
+</project>

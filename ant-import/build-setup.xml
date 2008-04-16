@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+<!-- $Id$ -->
+
+<project>
+  
+  <!-- ================================================================== -->
+  <!-- Setup                                                              -->
+  <!-- ================================================================== -->
+	
+  <property name="jbws42.dir" value="${basedir}"/>
+  
+  <!-- Check if ant.properties is available -->
+  <available property="ant.properties.available" file="${jbws42.dir}/ant.properties"/>
+  <fail message="Cannot find ant.properties. Did you copy/edit ant.properties.example?" unless="ant.properties.available"/>
+  
+  <property file="${jbws42.dir}/ant.properties"/>
+  <property file="${jbws42.dir}/version.properties"/>
+  
+  <property name="jboss42.lib" value="${jboss42.home}/lib"/>
+  <property name="jboss42.client" value="${jboss42.home}/client"/>
+  <property name="jboss42.server" value="${jboss42.home}/server/${jboss.server.instance}"/>
+  <property name="jboss42.server.lib" value="${jboss42.server}/lib"/>
+  <property name="jboss42.server.deploy" value="${jboss42.server}/deploy"/>
+  
+  <property name="jboss42.available.file" value="${jboss42.client}/jboss-client.jar"/>
+  <available property="jboss42.available" file="${jboss42.available.file}"/>
+  
+  <!-- JDK Detection -->
+  <available classname="java.lang.Enum" property="HAVE_JDK_1.5"/>
+  <available classname="java.io.Console" property="HAVE_JDK_1.6"/>
+  
+  <fail message="JDK1.5 or above is required" unless="HAVE_JDK_1.5"/>
+  
+  <!-- ================================================================== -->
+  <!-- Initialization                                                     -->
+  <!-- ================================================================== -->
+  
+  <target name="prepare">
+    <tstamp>
+      <format property="build.id" pattern="yyyyMMddHHmm"/>
+    </tstamp>
+  </target>
+  
+</project>
