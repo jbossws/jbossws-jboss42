@@ -23,10 +23,10 @@ package org.jboss.wsf.container.jboss42;
 
 //$Id$
 
+import org.jboss.wsf.spi.WSFRuntime;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentAspect;
 import org.jboss.wsf.spi.deployment.Endpoint;
-import org.jboss.wsf.spi.WSFRuntime;
 
 /**
  * A deployer that modifies the web.xml meta data 

@@ -7,7 +7,9 @@
  <bean name="WSMBeanServerLocator" class="org.jboss.wsf.framework.management.MBeanServerLocator"/>
 
  <!-- The HTTPServer used by the JAXWS Endpoint API -->
- <bean name="WSHTTPServer" class="org.jboss.wsf.container.jboss42.DeploymentAspectHttpServer"/>
+ <bean name="WSHTTPServer" class="org.jboss.wsf.container.jboss42.DeploymentAspectHttpServer">
+    <property name="runtimeName">EndpointAPIRuntime</property>
+ </bean>
 
  <!-- Bind Service objects in client environment context  -->
  <bean name="WSServiceRefHandler" class="org.jboss.wsf.container.jboss42.serviceref.ServiceRefHandlerImpl"/>

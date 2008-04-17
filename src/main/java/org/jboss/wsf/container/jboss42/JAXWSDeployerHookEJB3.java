@@ -120,18 +120,4 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
       }
       return isWebServiceBean;
    }
-
-
-   public void deploy(DeploymentInfo unit) throws DeploymentException
-   {
-      super.deploy(unit);
-
-      Deployment dep = getDeployment(unit);
-      if (dep == null)
-      {
-         throw new IllegalStateException("Deployment missing in start phase");
-      }
-
-      getRuntime().start(dep);
-   }
 }

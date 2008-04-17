@@ -22,16 +22,36 @@
 package org.jboss.wsf.container.jboss42;
 
 import org.jboss.wsf.spi.deployment.Deployment;
+import org.jboss.deployment.DeploymentInfo;
+import org.jboss.deployment.DeploymentException;
 
 //$Id$
 
 /**
- * An abstract deployer for EJB Endpoints
+ * An abstract deployer for EJB Endpoints.
+ * Enganges the START lifecylcle of an endpoint.
  *
  * @author Thomas.Diesler@jboss.org
+ * @author Heiko.Braun@jboss.com
+ * 
  * @since 25-Apr-2007
  */
 public abstract class AbstractDeployerHookEJB extends ArchiveDeployerHook
 {
-   
+   public void deploy(DeploymentInfo unit) throws DeploymentException
+   {
+      if (!ignoreDeployment(unit) && isWebServiceDeployment(unit))
+      {
+         super.deploy(unit); // Calls create
+         
+         log.debug("deploy: " + unit.shortName);
+         Deployment dep = getDeployment(unit);
+         if (dep == null  || (dep.getState() != Deployment.DeploymentState.CREATED) )
+            throw new DeploymentException("Create step failed");
+
+         getRuntime().start(dep);         
+
+         unit.context.put(Deployment.class, dep);
+      }
+   }
 }
