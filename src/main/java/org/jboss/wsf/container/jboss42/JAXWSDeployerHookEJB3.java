@@ -23,11 +23,8 @@ package org.jboss.wsf.container.jboss42;
 
 //$Id$
 
-import javax.jws.WebService;
-import javax.xml.ws.WebServiceProvider;
-
-import org.jboss.deployment.DeploymentInfo;
 import org.jboss.deployment.DeploymentException;
+import org.jboss.deployment.DeploymentInfo;
 import org.jboss.ejb3.EJBContainer;
 import org.jboss.ejb3.Ejb3ModuleMBean;
 import org.jboss.ejb3.mdb.MessagingContainer;
@@ -35,9 +32,12 @@ import org.jboss.ejb3.stateless.StatelessContainer;
 import org.jboss.wsf.common.URLLoaderAdapter;
 import org.jboss.wsf.spi.deployment.ArchiveDeployment;
 import org.jboss.wsf.spi.deployment.Deployment;
+import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.Service;
-import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
+
+import javax.jws.WebService;
+import javax.xml.ws.WebServiceProvider;
 
 /**
  * A deployer JAXWS EJB3 Endpoints
@@ -121,17 +121,4 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
       return isWebServiceBean;
    }
 
-
-   public void deploy(DeploymentInfo unit) throws DeploymentException
-   {
-      super.deploy(unit);
-
-      Deployment dep = getDeployment(unit);
-      if (dep == null)
-      {
-         throw new IllegalStateException("Deployment missing in start phase");
-      }
-
-      getRuntime().start(dep);
-   }
 }
