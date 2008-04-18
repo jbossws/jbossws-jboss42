@@ -4,7 +4,7 @@
   
   <name>JBoss Web Services - Container JBoss-4.2.2</name>
   <groupId>org.jboss.ws</groupId>
-  <artifactId>jbossws-jboss422</artifactId>
+  <artifactId>jbossws-jboss42</artifactId>
   
   <version>4.2.2-SNAPSHOT</version>
   
