@@ -149,10 +149,19 @@
       <groupId>org.jboss</groupId>
       <artifactId>jbossxb</artifactId>
       <version>${jbossxb.version}</version>
+      <!-- dependencies not in sync with jboss-4.2.2 -->
       <exclusions>
         <exclusion>
           <groupId>jboss.common.core</groupId>
           <artifactId>jboss-common-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>jboss.logging</groupId>
+          <artifactId>jboss-logging-spi</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>jboss.logging.log4j</groupId>
+          <artifactId>jboss-logging-log4j</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
