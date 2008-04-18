@@ -8,17 +8,11 @@
   
   <version>4.2.2-SNAPSHOT</version>
   
-  <organization>
-    <name>JBoss, a division of Red Hat</name>
-    <url>http://www.jboss.org</url>
-  </organization>
-  <url>http://maven.apache.org</url>
-  
   <!-- Parent -->
   <parent>
-    <groupId>org.jboss</groupId>
-    <artifactId>jboss-parent</artifactId>
-    <version>3</version>
+    <groupId>org.jboss.ws</groupId>
+    <artifactId>jbossws-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
   </parent>
   
   <!-- Properties -->
@@ -218,26 +212,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <showDeprecation>false</showDeprecation>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-            </manifest>
-          </archive>
-        </configuration>
       </plugin>
     </plugins>
   </build>
