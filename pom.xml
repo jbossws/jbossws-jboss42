@@ -117,9 +117,20 @@
       <version>${jboss.version}</version>
     </dependency>
     <dependency>
+      <groupId>jboss.common</groupId>
+      <artifactId>jboss-common</artifactId>
+      <version>1.2.1.GA</version>
+    </dependency>
+    <dependency>
+      <groupId>jboss</groupId>
+      <artifactId>jbossxb</artifactId>
+      <version>1.0.0.GA</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.microcontainer</groupId>
-      <artifactId>jboss-kernel</artifactId>
-      <version>2.0.0.Beta4</version>
+      <artifactId>jboss-microcontainer</artifactId>
+      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>org.jboss.ws</groupId>
