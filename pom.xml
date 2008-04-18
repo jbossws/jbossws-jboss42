@@ -180,6 +180,9 @@
         <directory>src/main/etc</directory>
         <filtering>true</filtering>
       </resource>
+      <resource>
+        <directory>src/main/resources/jbossws-jboss42.jar</directory>
+      </resource>
     </resources>
     <plugins>
       <plugin>
