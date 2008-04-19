@@ -2,20 +2,17 @@
   
   <component id="jboss/jbossws-jboss42"
     description="JBossWS container integration layer" 
-    version="@repository.id@"
+    version="${version}"
     licenseType="lgpl">
     
     <artifact id="jbossws-jboss42.jar"/>
     <artifact id="jbossws-jboss42-src.zip"/>
     
     <import componentref="jboss/jbossws-common">
-      <compatible version="@jbossws-common@"/>
-    </import>
-    <import componentref="jboss/jbossws-framework">
-      <compatible version="@jbossws-framework@"/>
+      <compatible version="${jbossws.common.version}"/>
     </import>
     <import componentref="jboss/jbossws-spi">
-      <compatible version="@jbossws-spi@"/>
+      <compatible version="${jbossws.spi.version}"/>
     </import>
     
     <export>
