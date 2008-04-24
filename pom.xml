@@ -18,14 +18,10 @@
   <!-- Properties -->
   <properties>
     <!--
-       Cannot deploy-file to snaphot repo. 
-       mvn install:install-file -DgroupId=jboss -DartifactId=jbosssx -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=server/default/lib/jbosssx.jar
-       mvn install:install-file -DgroupId=jboss -DartifactId=jboss-system -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=lib/jboss-system.jar 
-       mvn install:install-file -DgroupId=jboss -DartifactId=jboss -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=server/default/lib/jboss.jar 
-       mvn install:install-file -DgroupId=jboss -DartifactId=jboss-annotations-ejb3 -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=server/default/deploy/ejb3.deployer/jboss-annotations-ejb3.jar 
-       mvn install:install-file -DgroupId=jboss -DartifactId=jboss-ejb3 -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=server/default/deploy/ejb3.deployer/jboss-ejb3.jar 
-       mvn install:install-file -DgroupId=jboss -DartifactId=jboss-ejb3x -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=server/default/lib/jboss-ejb3x.jar 
-       mvn install:install-file -DgroupId=jboss -DartifactId=jboss-jmx -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=lib/jboss-jmx.jar 
+      To deploy-file to snapshot repo do:
+      http://wiki.jboss.org/auth/wiki/en/MavenSnapshotRepository
+       
+      mvn deploy:deploy-file -DgroupId=jboss -DartifactId=jbosssx -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=server/default/lib/jbosssx.jar -Durl=http://snapshots.jboss.org/maven2 -DrepositoryId=snapshots.jboss.org
     -->
     <jboss.version>4.2.3-SNAPSHOT</jboss.version>
     <jbossws.common.version>3.0.0-SNAPSHOT</jbossws.common.version>
