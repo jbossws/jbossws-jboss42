@@ -4,9 +4,9 @@
   
   <name>JBoss Web Services - Container JBoss-4.2.3</name>
   <groupId>org.jboss.ws</groupId>
-  <artifactId>jbossws-jboss</artifactId>
+  <artifactId>jbossws-jboss423</artifactId>
   
-  <version>4.2.3-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   
   <!-- Parent -->
   <parent>
@@ -200,6 +200,7 @@
             <configuration>
               <tasks>
                 <property name="version.id" value="${project.version}"/>
+                <property name="artifact.id" value="${project.artifactId}"/>
                 <property name="jboss.local.repository" value="${jboss.local.repository}"/>
                 <ant antfile="src/main/scripts/antrun-install.xml" target="install"/>
               </tasks>

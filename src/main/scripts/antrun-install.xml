@@ -46,15 +46,15 @@
   <target name="install" depends="check-properties" description="Install to jboss.local.repository">
     
     <!-- Check if the target jar is available -->
-    <available property="jbossws.jboss.jar.available" file="${project.target.dir}/jbossws-jboss-${version.id}.jar"/>
-    <fail message="Cannot find jbossws-jboss-${version.id}.jar. Did you run 'mvn package'?" unless="jbossws.jboss.jar.available"/>
+    <available property="jar.available" file="${project.target.dir}/${artifact.id}-${version.id}.jar"/>
+    <fail message="Cannot find ${artifact.id}-${version.id}.jar. Did you run 'mvn package'?" unless="jar.available"/>
     
     <!-- jboss/jbossws-project -->
-    <property name="jboss.repository.dir" value="${jboss.local.repository}/jboss/jbossws-jboss42/${repository.id}"/>
+    <property name="jboss.repository.dir" value="${jboss.local.repository}/jboss/${artifact.id}/${repository.id}"/>
     <mkdir dir="${jboss.repository.dir}/lib"/>
-    <copy file="${project.target.dir}/jbossws-jboss-${version.id}.jar" tofile="${jboss.repository.dir}/lib/jbossws-jboss42.jar" overwrite="true"/>
-    <copy file="${project.target.dir}/jbossws-jboss-${version.id}-sources.jar" tofile="${jboss.repository.dir}/lib/jbossws-jboss42-src.jar" overwrite="true"/>
-    <copy file="${project.target.dir}/jbossws-jboss-${version.id}-resources.zip" tofile="${jboss.repository.dir}/lib/jbossws-jboss42-resources.zip" overwrite="true"/>
+    <copy file="${project.target.dir}/${artifact.id}-${version.id}.jar" tofile="${jboss.repository.dir}/lib/${artifact.id}.jar" overwrite="true"/>
+    <copy file="${project.target.dir}/${artifact.id}-${version.id}-sources.jar" tofile="${jboss.repository.dir}/lib/${artifact.id}-src.jar" overwrite="true"/>
+    <copy file="${project.target.dir}/${artifact.id}-${version.id}-resources.zip" tofile="${jboss.repository.dir}/lib/${artifact.id}-resources.zip" overwrite="true"/>
     <copy file="${project.target.dir}/etc/component-info.xml" tofile="${jboss.repository.dir}/component-info.xml" overwrite="true"/>
   </target>
   
