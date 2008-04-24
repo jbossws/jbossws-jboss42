@@ -1,22 +1,26 @@
-<project name="jboss/jbossws-jboss42">
+<project name="jboss/jbossws-jboss422">
   
-  <component id="jboss/jbossws-jboss42"
+  <component id="jboss/jbossws-jboss422"
     description="JBossWS container integration layer" 
-    version="${version}"
+    version="@repository.id@"
     licenseType="lgpl">
     
-    <artifact id="jbossws-jboss42.jar"/>
-    <artifact id="jbossws-jboss42-src.zip"/>
+    <artifact id="jbossws-jboss422.jar"/>
+    <artifact id="jbossws-jboss422-src.jar"/>
+    <artifact id="jbossws-jboss422-resources.zip"/>
     
     <import componentref="jboss/jbossws-common">
-      <compatible version="${jbossws.common.version}"/>
+      <compatible version="@jbossws-common@"/>
+    </import>
+    <import componentref="jboss/jbossws-framework">
+      <compatible version="@jbossws-framework@"/>
     </import>
     <import componentref="jboss/jbossws-spi">
-      <compatible version="${jbossws.spi.version}"/>
+      <compatible version="@jbossws-spi@"/>
     </import>
     
     <export>
-      <include input="jbossws-jboss42.jar"/>
+      <include input="jbossws-jboss422.jar"/>
     </export>
     
   </component>
