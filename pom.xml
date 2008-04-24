@@ -21,7 +21,7 @@
       To deploy-file to snapshot repo do:
       http://wiki.jboss.org/auth/wiki/en/MavenSnapshotRepository
        
-      mvn deploy:deploy-file -DgroupId=jboss -DartifactId=jbosssx -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=server/default/lib/jbosssx.jar -Durl=http://snapshots.jboss.org/maven2 -DrepositoryId=snapshots.jboss.org
+      mvn deploy:deploy-file -DgroupId=jboss -DartifactId=jbosssx -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=server/default/lib/jbosssx.jar -Durl=dav:https://snapshots.jboss.org/maven2 -DrepositoryId=snapshots.jboss.org
     -->
     <jboss.version>4.2.3-SNAPSHOT</jboss.version>
     <jbossws.common.version>3.0.0-SNAPSHOT</jbossws.common.version>
