@@ -191,7 +191,7 @@
               <tasks>
                 <property name="version.id" value="${project.version}"/>
                 <property name="jboss.local.repository" value="${jboss.local.repository}"/>
-                <ant antfile="src/main/ant/build-install.xml" target="install"/>
+                <ant antfile="src/main/scripts/antrun-install.xml" target="install"/>
               </tasks>
             </configuration>
           </execution>
@@ -207,7 +207,7 @@
             </goals>
             <configuration>
               <descriptors>
-                <descriptor>src/main/assembly/src.xml</descriptor>
+                <descriptor>src/main/scripts/assembly-resources.xml</descriptor>
               </descriptors>
             </configuration>
           </execution>
