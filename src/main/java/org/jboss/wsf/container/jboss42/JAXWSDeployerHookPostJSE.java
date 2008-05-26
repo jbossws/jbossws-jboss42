@@ -34,8 +34,6 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
  */
 public class JAXWSDeployerHookPostJSE extends DeployerHookPostJSE
 {
-
-
    public void deploy(DeploymentInfo unit) throws DeploymentException
    {
       if (ignoreDeployment(unit))
@@ -48,11 +46,11 @@ public class JAXWSDeployerHookPostJSE extends DeployerHookPostJSE
 
          if (null == dep || Deployment.DeploymentState.CREATED != dep.getState())
             throw new DeploymentException("Create step failed");
-       
-         getRuntime().start(dep);                  
+
+         getRuntime().start(dep);
       }
    }
-
+   
    /** Get the deployment type this deployer can handle
     */
    public Deployment.DeploymentType getDeploymentType()

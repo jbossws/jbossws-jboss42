@@ -23,21 +23,19 @@ package org.jboss.wsf.container.jboss42;
 
 //$Id$
 
-import org.jboss.deployment.DeploymentException;
+import javax.jws.WebService;
+import javax.xml.ws.WebServiceProvider;
+
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.ejb3.EJBContainer;
 import org.jboss.ejb3.Ejb3ModuleMBean;
-import org.jboss.ejb3.mdb.MessagingContainer;
 import org.jboss.ejb3.stateless.StatelessContainer;
 import org.jboss.wsf.common.URLLoaderAdapter;
 import org.jboss.wsf.spi.deployment.ArchiveDeployment;
 import org.jboss.wsf.spi.deployment.Deployment;
-import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.Service;
-
-import javax.jws.WebService;
-import javax.xml.ws.WebServiceProvider;
+import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 
 /**
  * A deployer JAXWS EJB3 Endpoints
@@ -112,7 +110,7 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
    private boolean isWebServiceBean(EJBContainer container)
    {
       boolean isWebServiceBean = false;
-      if (container instanceof StatelessContainer || container instanceof MessagingContainer)
+      if (container instanceof StatelessContainer)
       {
          boolean isWebService = container.resolveAnnotation(WebService.class) != null;
          boolean isWebServiceProvider = container.resolveAnnotation(WebServiceProvider.class) != null;
@@ -120,5 +118,4 @@ public class JAXWSDeployerHookEJB3 extends AbstractDeployerHookEJB
       }
       return isWebServiceBean;
    }
-
 }

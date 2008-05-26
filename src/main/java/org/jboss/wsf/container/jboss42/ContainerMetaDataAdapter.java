@@ -79,7 +79,7 @@ public class ContainerMetaDataAdapter
          
          dep.setProperty("org.jboss.ws.webapp.url", getDeploymentURL(di));
       }
-      else if (dep.getType() == DeploymentType.JAXWS_EJB3)
+      else if (dep.getType() == DeploymentType.JAXRPC_EJB3 || dep.getType() == DeploymentType.JAXWS_EJB3)
       {
          EJBArchiveMetaData appMetaData = applicationMetaDataAdapterEJB3.buildUnifiedApplicationMetaData(dep);
          if (appMetaData != null)

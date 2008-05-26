@@ -35,7 +35,7 @@ import org.jboss.wsf.spi.deployment.DeploymentAspectManager;
 /**
  * Lazy assembly required because MC 1.0.x doesn't support IOC
  * across different beans configurations.
- * 
+ *
  * @author Heiko.Braun <heiko.braun@jboss.com>
  */
 public class LazyAssemblyWSFRuntime implements WSFRuntime, ComposableRuntime
@@ -128,7 +128,7 @@ public class LazyAssemblyWSFRuntime implements WSFRuntime, ComposableRuntime
    {
       return this.ihf;
    }
-   
+
    private void assemble()
    {
       if(!assembled)

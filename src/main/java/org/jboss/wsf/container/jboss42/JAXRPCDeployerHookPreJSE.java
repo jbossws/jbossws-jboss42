@@ -47,13 +47,12 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
  */
 public class JAXRPCDeployerHookPreJSE extends AbstractDeployerHookJSE
 {
-
    public void undeploy(DeploymentInfo unit)
    {
-      // the post hook deals with undeployment 
+      // the post hook deals with undeployment
    }
 
-   /** Get the deployemnt type this deployer can handle 
+   /** Get the deployemnt type this deployer can handle
     */
    public DeploymentType getDeploymentType()
    {
@@ -139,8 +138,7 @@ public class JAXRPCDeployerHookPreJSE extends AbstractDeployerHookJSE
    @Override
    public boolean isWebServiceDeployment(DeploymentInfo unit)
    {
-      if (super.isWebServiceDeployment(unit) == false
-        || unit.context.get("org.jboss.ws.ejbwebapp")!=null) // Reject EJB im-memory deployments)
+      if (super.isWebServiceDeployment(unit) == false)
          return false;
 
       WebservicesMetaData wsMetaData = getWebservicesMetaData(unit, "WEB-INF/webservices.xml");

@@ -48,7 +48,7 @@ public class DeploymentAspectHttpServer extends AbstractExtensible implements Ht
 {
    private String runtimeName;
 
-
+   /* MC injected property */
    public void setRuntimeName(String runtimeName)
    {
       this.runtimeName = runtimeName;
@@ -94,8 +94,8 @@ public class DeploymentAspectHttpServer extends AbstractExtensible implements Ht
          // Deploy using deployment aspects
          WSFRuntimeLocator locator = spiProvider.getSPI(WSFRuntimeLocator.class);
          WSFRuntime runtime = locator.locateRuntime(runtimeName);
-        
-         runtime.create(dep);         
+
+         runtime.create(dep);
          runtime.start(dep);
       }
       catch (RuntimeException rte)

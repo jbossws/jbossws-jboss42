@@ -21,8 +21,8 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.WebMetaData;
+import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentAspect;
 import org.jboss.wsf.spi.WSFRuntime;
@@ -37,7 +37,7 @@ import org.jboss.wsf.spi.WSFRuntime;
 public class RuntimeLoaderDeploymentAspect extends DeploymentAspect
 {
 
-   public void start(Deployment dep, WSFRuntime runtime)
+   public void start(Deployment dep, WSFRuntime rruntime)
    {
 
       // JSE endpoints
@@ -49,7 +49,8 @@ public class RuntimeLoaderDeploymentAspect extends DeploymentAspect
       }
 
       // EJB3 endpoints
-      else if (dep.getType() == Deployment.DeploymentType.JAXWS_EJB3)
+      else if (dep.getType() == Deployment.DeploymentType.JAXRPC_EJB3
+        || dep.getType() == Deployment.DeploymentType.JAXWS_EJB3 )
       {
          // loader provided by the deployer hook
          if(null == dep.getRuntimeClassLoader())

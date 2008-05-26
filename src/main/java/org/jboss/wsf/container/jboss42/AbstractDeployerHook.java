@@ -39,11 +39,8 @@ import java.util.List;
 
 /**
  * An abstract web service deployer.
- * Lazily adds deployer hooks to the deployment interceptors.
- * Otherwise the dependency management at boot time doesn't work.
  * 
  * @author Thomas.Diesler@jboss.org
- * @author Heiko.Braun@jboss.com
  * @since 25-Apr-2007
  */
 public abstract class AbstractDeployerHook implements DeployerHook
@@ -52,9 +49,10 @@ public abstract class AbstractDeployerHook implements DeployerHook
    protected final Logger log = Logger.getLogger(getClass());
 
    private WSFRuntime runtime;
-   private DeploymentModelFactory deploymentModelFactory;
 
+   private DeploymentModelFactory deploymentModelFactory;
    private List<ObjectName> phaseOneInterceptors;
+
    private List<ObjectName> phaseTwoInterceptors;
 
    /**
@@ -65,11 +63,11 @@ public abstract class AbstractDeployerHook implements DeployerHook
    {
       this.runtime = runtime;
    }
- 
+
    public WSFRuntime getRuntime()
-   {      
+   {
       return this.runtime;
-   }
+   }  
 
    public DeploymentModelFactory getDeploymentModelFactory()
    {
@@ -135,6 +133,7 @@ public abstract class AbstractDeployerHook implements DeployerHook
     */
    public void start()
    {
+
       MBeanServer server = MBeanServerLocator.locateJBoss();
       try
       {

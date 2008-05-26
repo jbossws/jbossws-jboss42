@@ -34,7 +34,6 @@ import org.jboss.deployment.DeploymentException;
  */
 public class JAXRPCDeployerHookPostJSE extends DeployerHookPostJSE
 {
-
    public void deploy(DeploymentInfo unit) throws DeploymentException
    {
       if (ignoreDeployment(unit))
@@ -65,5 +64,4 @@ public class JAXRPCDeployerHookPostJSE extends DeployerHookPostJSE
       WebservicesMetaData wsMetaData = getWebservicesMetaData(unit, "WEB-INF/webservices.xml");
       return (wsMetaData!=null && super.isWebServiceDeployment(unit));
    }
-
 }

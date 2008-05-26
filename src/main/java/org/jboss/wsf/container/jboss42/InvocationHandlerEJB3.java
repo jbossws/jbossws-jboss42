@@ -126,12 +126,16 @@ public class InvocationHandlerEJB3 extends AbstractInvocationHandler
          StatelessBeanContext sbc = (StatelessBeanContext)beanCtx;
          sbc.setMessageContextJAXRPC(jaxrpcMessageContext);
 
-         EJBContext ejbCtx = beanCtx.getEJBContext();
-         SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
-         WebServiceContextFactory factory = spiProvider.getSPI(WebServiceContextFactory.class);
-         ExtensibleWebServiceContext wsContext = factory.newWebServiceContext(InvocationType.JAXWS_EJB3, jaxwsMessageContext);
-         wsContext.addAttachment(EJBContext.class, ejbCtx);
-         sbc.setWebServiceContext(wsContext);
+         BeanProperty beanProp = sbc.getWebServiceContextProperty();
+         if (beanProp != null)
+         {
+            EJBContext ejbCtx = beanCtx.getEJBContext();
+            SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
+            WebServiceContextFactory factory = spiProvider.getSPI(WebServiceContextFactory.class);
+            ExtensibleWebServiceContext wsContext = factory.newWebServiceContext(InvocationType.JAXWS_EJB3, jaxwsMessageContext);
+            wsContext.addAttachment(EJBContext.class, ejbCtx);
+            beanProp.set(beanCtx.getInstance(), wsContext);
+         }
       }
 
       public void released(BeanContext beanCtx)
@@ -139,7 +143,9 @@ public class InvocationHandlerEJB3 extends AbstractInvocationHandler
          StatelessBeanContext sbc = (StatelessBeanContext)beanCtx;
          sbc.setMessageContextJAXRPC(null);
 
-         sbc.setWebServiceContext(null);
+         BeanProperty beanProp = sbc.getWebServiceContextProperty();
+         if (beanProp != null)
+            beanProp.set(beanCtx.getInstance(), null);
       }
    }
 }

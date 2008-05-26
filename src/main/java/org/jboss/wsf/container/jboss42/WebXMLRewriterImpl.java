@@ -22,20 +22,20 @@
 package org.jboss.wsf.container.jboss42;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.net.URL;
+import org.jboss.wsf.spi.deployment.Deployment;
+import org.jboss.wsf.common.IOUtils;
 
 import javax.xml.ws.WebServiceException;
+import java.net.URL;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.FileOutputStream;
 
-import org.dom4j.Document;
-import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
-import org.jboss.util.xml.JBossEntityResolver;
-import org.jboss.wsf.common.IOUtils;
-import org.jboss.wsf.spi.deployment.Deployment;
+import org.dom4j.Document;
 
 /**
  * The rewriter for web.xml
@@ -82,8 +82,9 @@ public class WebXMLRewriterImpl
          // Rename the web.xml
          if (webXML.renameTo(orgWebXML) == false)
             throw new WebServiceException("Cannot rename web.xml: " + orgWebXML);
-        
-         return rewriteWebXml(orgWebXML, webXML, dep);
+
+         FileInputStream stream = new FileInputStream(orgWebXML);
+         return rewriteWebXml(stream, webXML, dep);
       }
       catch (RuntimeException rte)
       {
@@ -95,7 +96,7 @@ public class WebXMLRewriterImpl
       }
    }
 
-   private RewriteResults rewriteWebXml(File input, File destFile, Deployment dep) throws Exception
+   private RewriteResults rewriteWebXml(InputStream source, File destFile, Deployment dep) throws Exception
    {
       if (destFile == null)
       {
@@ -103,35 +104,18 @@ public class WebXMLRewriterImpl
          destFile.deleteOnExit();
       }
 
-      FileInputStream inputStream = null;
-      FileOutputStream outputStream = null;
-
-      try
-      {
       SAXReader reader = new SAXReader();
-         reader.setEntityResolver(new JBossEntityResolver());
-         
-         inputStream = new FileInputStream(input);
-         Document document = reader.read(inputStream);
+      Document document = reader.read(source);
 
       RewriteResults results = desciptorModifier.modifyDescriptor(dep, document);
       results.webXML = destFile.toURL();
 
-         outputStream = new FileOutputStream(destFile);
+      FileOutputStream fos = new FileOutputStream(destFile);
       OutputFormat format = OutputFormat.createPrettyPrint();
-         XMLWriter writer = new XMLWriter(outputStream, format);
+      XMLWriter writer = new XMLWriter(fos, format);
       writer.write(document);
       writer.close();
 
       return results;
-   }
-      finally
-      {
-         if(inputStream!=null)
-            inputStream.close();
-
-         if(outputStream!=null)
-            outputStream.close();
-      }
    }
 }

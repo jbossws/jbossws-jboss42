@@ -24,18 +24,13 @@ package org.jboss.wsf.container.jboss42;
 // $Id$
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
 import org.jboss.ejb3.Ejb3ModuleMBean;
-import org.jboss.ejb3.EJBContainer;
-import org.jboss.ejb3.metamodel.EnterpriseBean;
-import org.jboss.ejb3.mdb.MessagingContainer;
 import org.jboss.ejb3.stateless.StatelessContainer;
 import org.jboss.logging.Logger;
-import org.jboss.metadata.ActivationConfigPropertyMetaData;
 import org.jboss.mx.util.MBeanProxy;
 import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
@@ -43,9 +38,7 @@ import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.WSFDeploymentException;
 import org.jboss.wsf.spi.metadata.j2ee.EJBArchiveMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.EJBMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.MDBMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.SLSBMetaData;
-import org.jboss.wsf.spi.annotation.WebContext;
 
 /**
  * Build container independent application meta data 

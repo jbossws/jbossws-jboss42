@@ -31,11 +31,8 @@ import java.util.Map.Entry;
 
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceProvider;
-import javax.ejb.Stateless;
-import javax.ejb.Stateful;
 
 import org.jboss.deployment.DeploymentInfo;
-import org.jboss.deployment.DeploymentException;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.wsf.common.URLLoaderAdapter;
 import org.jboss.wsf.spi.deployment.ArchiveDeployment;
@@ -43,8 +40,6 @@ import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.Service;
 import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
-
-
 
 /**
  * A deployer JAXWS JSE Endpoints
@@ -54,9 +49,7 @@ import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
  */
 public class JAXWSDeployerHookPreJSE extends AbstractDeployerHookJSE
 {
-
-
-   public void undeploy(DeploymentInfo unit) 
+   public void undeploy(DeploymentInfo unit)
    {
       // let the post hook deal with undeployment
    }
@@ -85,7 +78,7 @@ public class JAXWSDeployerHookPreJSE extends AbstractDeployerHookJSE
       // Copy the attachments
       dep.addAttachment(WebMetaData.class, webMetaData);
 
-      List<Servlet> servlets = getEndpointBeans(webMetaData, di.annotationsCl);
+      List<Servlet> servlets = getRelevantServlets(webMetaData, di.annotationsCl);
       for (Servlet servlet : servlets)
       {
          String servletName = servlet.getServletName();
@@ -103,15 +96,14 @@ public class JAXWSDeployerHookPreJSE extends AbstractDeployerHookJSE
    @Override
    public boolean isWebServiceDeployment(DeploymentInfo unit)
    {
-      if (super.isWebServiceDeployment(unit) == false
-        || unit.context.get("org.jboss.ws.ejbwebapp")!=null) // Reject EJB im-memory deployments
+      if (super.isWebServiceDeployment(unit) == false)
          return false;
 
       boolean isWebServiceDeployment = false;
       try
       {
          WebMetaData webMetaData = (WebMetaData)unit.metaData;
-         List<Servlet> servlets = getEndpointBeans(webMetaData, unit.annotationsCl);
+         List<Servlet> servlets = getRelevantServlets(webMetaData, unit.annotationsCl);
          isWebServiceDeployment = servlets.size() > 0;
       }
       catch (Exception ex)
@@ -122,7 +114,7 @@ public class JAXWSDeployerHookPreJSE extends AbstractDeployerHookJSE
       return isWebServiceDeployment;
    }
 
-   private List<Servlet> getEndpointBeans(WebMetaData webMetaData, ClassLoader loader)
+   private List<Servlet> getRelevantServlets(WebMetaData webMetaData, ClassLoader loader)
    {
       List<Servlet> servlets = new ArrayList<Servlet>();
       Iterator it = webMetaData.getServletClassMap().entrySet().iterator();

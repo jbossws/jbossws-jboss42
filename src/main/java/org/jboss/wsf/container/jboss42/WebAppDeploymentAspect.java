@@ -56,7 +56,7 @@ public class WebAppDeploymentAspect extends DeploymentAspect
       this.webXMLRewriter = serviceEndpointPublisher;
    }
 
-   public void create(Deployment dep, WSFRuntime runtime)
+   public void create(Deployment dep, WSFRuntime rruntime)
    {
       URL warURL = (URL)dep.getProperty("org.jboss.ws.webapp.url");
       if (warURL == null)
@@ -73,7 +73,6 @@ public class WebAppDeploymentAspect extends DeploymentAspect
          DeploymentInfo di = dep.getAttachment(DeploymentInfo.class);
          if (di != null)
             auxdi.repositoryConfig = di.getTopRepositoryConfig();
-         auxdi.context.put("org.jboss.ws.ejbwebapp", "true");
 
          getMainDeployer().deploy(auxdi);
       }
@@ -83,7 +82,7 @@ public class WebAppDeploymentAspect extends DeploymentAspect
       }
    }
 
-   public void destroy(Deployment dep)
+   public void destroy(Deployment dep, WSFRuntime rruntime)
    {
       URL warURL = (URL)dep.getProperty("org.jboss.ws.webapp.url");
       if (warURL == null)
