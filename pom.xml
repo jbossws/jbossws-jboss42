@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-  <name>JBoss Web Services - Container JBoss-4.2.2</name>
+  <name>JBoss Web Services - Container JBoss-4.2.1</name>
   <groupId>org.jboss.ws</groupId>
   <artifactId>jbossws-jboss421</artifactId>
   
@@ -143,7 +143,7 @@
       <groupId>org.jboss</groupId>
       <artifactId>jbossxb</artifactId>
       <version>${jbossxb.version}</version>
-      <!-- dependencies not in sync with jboss-4.2.2 -->
+      <!-- dependencies not in sync with jboss-4.2.1 -->
       <exclusions>
         <exclusion>
           <groupId>jboss.common.core</groupId>
