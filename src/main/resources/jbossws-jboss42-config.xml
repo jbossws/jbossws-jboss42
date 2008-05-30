@@ -241,6 +241,10 @@
     <property name="securityHandlerEJB3"><inject bean="WSSecurityHandlerEJB3"/></property>
  </bean>
 
+ <bean name="WSFakeWebMetaDataDeploymentAspect" class="org.jboss.wsf.framework.deployment.IdentityDeploymentAspect">
+    <property name="provides">WebMetaData</property>
+ </bean>
+
  <!-- Deployment aspect helper beans -->
  <bean name="WSApplicationMetaDataAdapterEJB21" class="org.jboss.wsf.container.jboss42.EJBArchiveMetaDataAdapterEJB21"/>
  <bean name="WSApplicationMetaDataAdapterEJB3" class="org.jboss.wsf.container.jboss42.EJBArchiveMetaDataAdapterEJB3"/>
@@ -271,11 +275,10 @@
           <inject bean="WSEndpointMetricsDeploymentAspect"/>
           <inject bean="WSEndpointNameDeploymentAspect"/>
           <inject bean="WSEndpointRegistryDeploymentAspect"/>
-          <inject bean="WSModifyWebMetaDataDeploymentAspect"/>
           <inject bean="WSURLPatternDeploymentAspect"/>
           <inject bean="WSEndpointLifecycleDeploymentAspect"/>
           <inject bean="WSRuntimeLoaderDeploymentAspect"/>
-          <inject bean="WSWebAppGeneratorDeploymentAspect"/>
+          <inject bean="WSFakeWebMetaDataDeploymentAspect"/>
        </set>
     </property>
  </bean>
