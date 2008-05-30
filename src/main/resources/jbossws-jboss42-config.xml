@@ -172,7 +172,7 @@
    The container deployment aspects
  -->
  <bean name="WSContainerMetaDataDeploymentAspect" class="org.jboss.wsf.container.jboss42.ContainerMetaDataDeploymentAspect">
-    <property name="provides">ContainerMetaData, VFSRoot</property>
+    <property name="provides">ContainerMetaData,VFSRoot</property>
     <property name="metaDataAdapter"><inject bean="WSContainerMetaDataAdapter"/></property>
  </bean>
 
@@ -182,7 +182,7 @@
  </bean>
 
  <bean name="WSEndpointAPIDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointAPIDeploymentAspect">
-    <property name="provides">ContainerMetaData, RuntimeLoader, URLPattern, VFSRoot</property>
+    <property name="provides">ContainerMetaData,RuntimeLoader,URLPattern,VFSRoot</property>
  </bean>
 
  <bean name="WSEndpointAddressDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointAddressDeploymentAspect">
@@ -215,7 +215,7 @@
  </bean>
 
  <bean name="WSModifyWebMetaDataDeploymentAspect" class="org.jboss.wsf.container.jboss42.ModifyWebMetaDataDeploymentAspect">
-    <property name="requires">ContextProperties, ContainerMetaData, StackDescriptor</property>
+    <property name="requires">ContextProperties,ContainerMetaData,StackDescriptor,WebMetaData</property>
     <property name="webXMLRewriter"><inject bean="WSWebXMLRewriter"/></property>
  </bean>
 
@@ -225,12 +225,12 @@
  </bean>
 
  <bean name="WSURLPatternDeploymentAspect" class="org.jboss.wsf.framework.deployment.BackwardCompatibleURLPatternDeploymentAspect">
-    <property name="requires">ContextRoot, ContainerMetaData</property>
+    <property name="requires">ContextRoot,ContainerMetaData</property>
     <property name="provides">URLPattern</property>
  </bean>
 
  <bean name="WSWebAppDeploymentAspect" class="org.jboss.wsf.container.jboss42.WebAppDeploymentAspect">
-    <property name="requires">WebMetaData, ContextProperties</property>
+    <property name="requires">WebMetaData,ContextProperties</property>
     <property name="webXMLRewriter"><inject bean="WSWebXMLRewriter"/></property>
  </bean>
 
@@ -273,10 +273,9 @@
           <inject bean="WSEndpointRegistryDeploymentAspect"/>
           <inject bean="WSModifyWebMetaDataDeploymentAspect"/>
           <inject bean="WSURLPatternDeploymentAspect"/>
-
-
           <inject bean="WSEndpointLifecycleDeploymentAspect"/>
           <inject bean="WSRuntimeLoaderDeploymentAspect"/>
+          <inject bean="WSWebAppGeneratorDeploymentAspect"/>
        </set>
     </property>
  </bean>
