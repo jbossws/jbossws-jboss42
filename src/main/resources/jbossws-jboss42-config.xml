@@ -275,6 +275,7 @@
           <inject bean="WSURLPatternDeploymentAspect"/>
           <inject bean="WSEndpointLifecycleDeploymentAspect"/>
           <inject bean="WSRuntimeLoaderDeploymentAspect"/>
+          <inject bean="WSWebAppGeneratorDeploymentAspect"/>
        </set>
     </property>
  </bean>
