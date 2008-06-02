@@ -275,6 +275,7 @@
           <inject bean="WSEndpointMetricsDeploymentAspect"/>
           <inject bean="WSEndpointNameDeploymentAspect"/>
           <inject bean="WSEndpointRegistryDeploymentAspect"/>
+          <inject bean="WSModifyWebMetaDataDeploymentAspect"/>
           <inject bean="WSURLPatternDeploymentAspect"/>
           <inject bean="WSEndpointLifecycleDeploymentAspect"/>
           <inject bean="WSRuntimeLoaderDeploymentAspect"/>
@@ -297,7 +298,6 @@
           <inject bean="WSEndpointNameDeploymentAspect"/>
           <inject bean="WSEndpointRegistryDeploymentAspect"/>
           <inject bean="WSRuntimeLoaderDeploymentAspect"/>
-          <inject bean="WSModifyWebMetaDataDeploymentAspect"/>
           <inject bean="WSURLPatternDeploymentAspect"/>
           <inject bean="WSWebAppDeploymentAspect"/>
           <inject bean="WSWebAppGeneratorDeploymentAspect"/>
