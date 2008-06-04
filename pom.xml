@@ -15,6 +15,13 @@
     <version>1.0.0.GA</version>
   </parent>
   
+  <!-- Source Control Management -->
+  <scm>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossws/container/jboss42/branches/jbossws-jboss422</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossws/container/jboss42/branches/jbossws-jboss422</developerConnection>
+    <url>http://fisheye.jboss.com/viewrep/JBossWS/container/jboss42/branches/jbossws-jboss422</url>
+  </scm>
+  
   <!-- Properties -->
   <properties>
     <jboss.version>4.2.2.GA</jboss.version>
