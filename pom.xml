@@ -6,17 +6,20 @@
   <groupId>org.jboss.ws</groupId>
   <artifactId>jbossws-jboss423</artifactId>
   
-  <version>3.0.0-SNAPSHOT</version>
+  <version>3.0.2-SNAPSHOT</version>
   
   <!-- Parent -->
   <parent>
     <groupId>org.jboss.ws</groupId>
     <artifactId>jbossws-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0.GA</version>
   </parent>
   
   <!-- Properties -->
   <properties>
+    <jbossws.common.version>1.0.5-SNAPSHOT</jbossws.common.version>
+    <jbossws.spi.version>1.0.4-SNAPSHOT</jbossws.spi.version>
+    
     <!--
       To deploy-file to snapshot repo do:
       http://wiki.jboss.org/auth/wiki/en/MavenSnapshotRepository
@@ -24,8 +27,6 @@
       mvn deploy:deploy-file -DgroupId=jboss -DartifactId=jbosssx -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=server/default/lib/jbosssx.jar -Durl=dav:https://snapshots.jboss.org/maven2 -DrepositoryId=snapshots.jboss.org
     -->
     <jboss.version>4.2.3-SNAPSHOT</jboss.version>
-    <jbossws.common.version>3.0.0-SNAPSHOT</jbossws.common.version>
-    <jbossws.spi.version>3.0.0-SNAPSHOT</jbossws.spi.version>
     
     <!-- versions defined in build/build-thirdparty.xml -->
     <dom4j.version>1.6.1</dom4j.version>
