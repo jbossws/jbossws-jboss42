@@ -1,0 +1,28 @@
+<project name="jboss/jbossws-jboss423">
+  
+  <component id="jboss/jbossws-jboss423"
+    description="JBossWS container integration layer" 
+    version="@repository.id@"
+    licenseType="lgpl">
+    
+    <artifact id="jbossws-jboss423.jar"/>
+    <artifact id="jbossws-jboss423-src.jar"/>
+    <artifact id="jbossws-jboss423-resources.zip"/>
+    
+    <import componentref="jboss/jbossws-common">
+      <compatible version="@jbossws-common@"/>
+    </import>
+    <import componentref="jboss/jbossws-framework">
+      <compatible version="@jbossws-framework@"/>
+    </import>
+    <import componentref="jboss/jbossws-spi">
+      <compatible version="@jbossws-spi@"/>
+    </import>
+    
+    <export>
+      <include input="jbossws-jboss423.jar"/>
+    </export>
+    
+  </component>
+  
+</project>
