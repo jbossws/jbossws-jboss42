@@ -4,7 +4,7 @@
   
   <name>JBoss Web Services - Container JBoss-4.2.3</name>
   <groupId>org.jboss.ws</groupId>
-  <artifactId>jbossws-jboss423Trunk</artifactId>
+  <artifactId>jbossws-jboss423x</artifactId>
   
   <version>3.0.2.GA</version>
   
