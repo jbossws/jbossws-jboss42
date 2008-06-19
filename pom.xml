@@ -4,7 +4,7 @@
   
   <name>JBoss Web Services - Container JBoss-4.2.3</name>
   <groupId>org.jboss.ws</groupId>
-  <artifactId>jbossws-jboss423</artifactId>
+  <artifactId>jbossws-jboss423x</artifactId>
   
   <version>3.0.3-SNAPSHOT</version>
   
@@ -12,7 +12,7 @@
   <parent>
     <groupId>org.jboss.ws</groupId>
     <artifactId>jbossws-parent</artifactId>
-    <version>1.0.0.GA</version>
+    <version>1.0.1.GA</version>
   </parent>
   
   <!-- Source Control Management -->
@@ -24,8 +24,8 @@
   
   <!-- Properties -->
   <properties>
-    <jbossws.common.version>1.0.5-SNAPSHOT</jbossws.common.version>
-    <jbossws.spi.version>1.0.4-SNAPSHOT</jbossws.spi.version>
+    <jbossws.common.version>1.0.5.GA</jbossws.common.version>
+    <jbossws.spi.version>1.0.4.GA</jbossws.spi.version>
     
     <!--
       To deploy-file to snapshot repo do:
