@@ -2,9 +2,9 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-  <name>JBoss Web Services - Container JBoss-4.2.3</name>
+  <name>JBoss Web Services - Container JBoss-4.2.4</name>
   <groupId>org.jboss.ws</groupId>
-  <artifactId>jbossws-jboss423x</artifactId>
+  <artifactId>jbossws-jboss424x</artifactId>
   
   <version>3.0.3-SNAPSHOT</version>
   
@@ -17,9 +17,9 @@
   
   <!-- Source Control Management -->
   <scm>
-    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossws/container/jboss42/branches/jbossws-jboss423</connection>
-    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossws/container/jboss42/branches/jbossws-jboss423</developerConnection>
-    <url>http://fisheye.jboss.com/viewrep/JBossWS/container/jboss42/branches/jbossws-jboss423</url>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossws/container/jboss42/trunk</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossws/container/jboss42/trunk</developerConnection>
+    <url>http://fisheye.jboss.com/viewrep/JBossWS/container/jboss42/trunk</url>
   </scm>
   
   <!-- Properties -->
@@ -31,9 +31,9 @@
       To deploy-file to snapshot repo do:
       http://wiki.jboss.org/auth/wiki/en/MavenSnapshotRepository
        
-      mvn deploy:deploy-file -DgroupId=jboss -DartifactId=jbosssx -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=server/default/lib/jbosssx.jar -Durl=dav:https://snapshots.jboss.org/maven2 -DrepositoryId=snapshots.jboss.org
+      mvn deploy:deploy-file -DgroupId=jboss -DartifactId=jbosssx -Dversion=4.2.4-SNAPSHOT -Dpackaging=jar -Dfile=server/default/lib/jbosssx.jar -Durl=dav:https://snapshots.jboss.org/maven2 -DrepositoryId=snapshots.jboss.org
     -->
-    <jboss.version>4.2.3-SNAPSHOT</jboss.version>
+    <jboss.version>4.2.4-SNAPSHOT</jboss.version>
     
     <!-- versions defined in build/build-thirdparty.xml -->
     <dom4j.version>1.6.1</dom4j.version>
@@ -157,7 +157,7 @@
       <groupId>org.jboss</groupId>
       <artifactId>jbossxb</artifactId>
       <version>${jbossxb.version}</version>
-      <!-- dependencies not in sync with jboss-4.2.3 -->
+      <!-- dependencies not in sync with jboss-4.2.4 -->
       <exclusions>
         <exclusion>
           <groupId>jboss.common.core</groupId>
