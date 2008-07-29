@@ -27,7 +27,9 @@ import org.jboss.logging.Logger;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,6 +42,9 @@ public class DefaultWebAppDesciptorModifierImpl implements WebAppDesciptorModifi
 {
    // logging support
    private static Logger log = Logger.getLogger(DefaultWebAppDesciptorModifierImpl.class);
+   private static final List FORBIDDEN_CONTEXT_PARAMETER_NAMES = java.util.Arrays.asList(
+         new String[]{"jbossws-sun-jaxws-url", "jbossws.cxf.beans.url"}
+   );
 
    public RewriteResults modifyDescriptor(Deployment dep, Document webXml) throws ClassNotFoundException
    {
@@ -57,9 +62,15 @@ public class DefaultWebAppDesciptorModifierImpl implements WebAppDesciptorModifi
       {
          for (Map.Entry<String, String> entry : contextParams.entrySet())
          {
-            Element contextParam = root.addElement("context-param");
-            contextParam.addElement("param-name").addText(entry.getKey());
-            contextParam.addElement("param-value").addText(entry.getValue());
+            String paramName = entry.getKey();
+            String paramValue = entry.getValue();
+            // JBWS-2243
+            if (false == FORBIDDEN_CONTEXT_PARAMETER_NAMES.contains(paramName))
+            {
+               Element contextParam = root.addElement("context-param");
+               contextParam.addElement("param-name").addText(paramName);
+               contextParam.addElement("param-value").addText(paramValue);
+            }
          }
       }
 
