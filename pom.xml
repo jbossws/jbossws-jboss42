@@ -6,7 +6,7 @@
   <groupId>org.jboss.ws</groupId>
   <artifactId>jbossws-jboss423</artifactId>
   
-  <version>3.0.2.GA</version>
+  <version>3.0.3-SNAPSHOT</version>
   
   <!-- Parent -->
   <parent>
@@ -17,9 +17,9 @@
   
   <!-- Source Control Management -->
   <scm>
-    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossws/container/jboss42/tags/jbossws-jboss423-3.0.2.GA</connection>
-    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossws/container/jboss42/tags/jbossws-jboss423-3.0.2.GA</developerConnection>
-    <url>http://fisheye.jboss.com/viewrep/JBossWS/container/jboss42/tags/jbossws-jboss423-3.0.2.GA</url>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossws/container/jboss42/branches/jboss423</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossws/container/jboss42/branches/jboss423</developerConnection>
+    <url>http://fisheye.jboss.com/viewrep/JBossWS/container/jboss42/tags/jboss423</url>
   </scm>
   
   <!-- Properties -->
@@ -31,7 +31,7 @@
       To deploy-file to snapshot repo do:
       http://wiki.jboss.org/auth/wiki/en/MavenSnapshotRepository
        
-      mvn deploy:deploy-file -DgroupId=jboss -DartifactId=jbosssx -Dversion=4.2.3-SNAPSHOT -Dpackaging=jar -Dfile=server/default/lib/jbosssx.jar -Durl=dav:https://snapshots.jboss.org/maven2 -DrepositoryId=snapshots.jboss.org
+      mvn deploy:deploy-file -DgroupId=jboss -DartifactId=jbosssx -Dversion=4.2.3.GA -Dpackaging=jar -Dfile=server/default/lib/jbosssx.jar -Durl=dav:https://snapshots.jboss.org/maven2 -DrepositoryId=snapshots.jboss.org
     -->
     <jboss.version>4.2.3.GA</jboss.version>
     
