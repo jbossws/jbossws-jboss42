@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jboss-4.2.2"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jbossws-common"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jbossws-framework"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jbossws-spi"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jbossws-native"/>
 	<classpathentry kind="output" path="target/eclipse-classes"/>
 </classpath>
