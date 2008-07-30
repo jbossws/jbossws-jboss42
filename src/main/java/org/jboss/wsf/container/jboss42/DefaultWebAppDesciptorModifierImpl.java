@@ -43,7 +43,7 @@ public class DefaultWebAppDesciptorModifierImpl implements WebAppDesciptorModifi
    // logging support
    private static Logger log = Logger.getLogger(DefaultWebAppDesciptorModifierImpl.class);
    private static final List FORBIDDEN_CONTEXT_PARAMETER_NAMES = java.util.Arrays.asList(
-         new String[]{"jbossws-sun-jaxws-url", "jbossws.cxf.beans.url"}
+         new String[]{"jbossws-sun-jaxws-url"}
    );
 
    public RewriteResults modifyDescriptor(Deployment dep, Document webXml) throws ClassNotFoundException
