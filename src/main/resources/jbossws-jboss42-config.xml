@@ -146,7 +146,7 @@
   </bean>
     
   <bean name="WSEndpointAPIDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointAPIDeploymentAspect">
-    <property name="provides">ContainerMetaData, RuntimeLoader, URLPattern, VFSRoot</property>
+    <property name="provides">ContainerMetaData, RuntimeLoader, URLPattern, VFSRoot, VirtualHosts</property>
   </bean>
 
   <bean name="WSEndpointAddressDeploymentAspect" class="org.jboss.wsf.framework.deployment.EndpointAddressDeploymentAspect">
@@ -198,7 +198,7 @@
   </bean>
   
   <bean name="WSWebAppGeneratorDeploymentAspect" class="org.jboss.wsf.framework.deployment.WebAppGeneratorDeploymentAspect">
-    <property name="requires">URLPattern</property>
+    <property name="requires">URLPattern, VirtualHosts</property>
     <property name="provides">WebMetaData</property>
     <property name="securityHandlerEJB21"><inject bean="WSSecurityHandlerEJB21"/></property>
     <property name="securityHandlerEJB3"><inject bean="WSSecurityHandlerEJB3"/></property>
