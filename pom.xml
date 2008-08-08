@@ -6,7 +6,7 @@
   <groupId>org.jboss.ws</groupId>
   <artifactId>jbossws-jboss424x</artifactId>
   
-  <version>3.0.3-SNAPSHOT</version>
+  <version>3.0.3.GA</version>
   
   <!-- Parent -->
   <parent>
