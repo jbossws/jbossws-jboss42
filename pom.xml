@@ -24,8 +24,8 @@
   
   <!-- Properties -->
   <properties>
-    <jbossws.common.version>1.0.6-SNAPSHOT</jbossws.common.version>
-    <jbossws.spi.version>1.0.5-SNAPSHOT</jbossws.spi.version>
+    <jbossws.common.version>1.0.7-SNAPSHOT</jbossws.common.version>
+    <jbossws.spi.version>1.0.6-SNAPSHOT</jbossws.spi.version>
     
     <!--
       To deploy-file to snapshot repo do:
