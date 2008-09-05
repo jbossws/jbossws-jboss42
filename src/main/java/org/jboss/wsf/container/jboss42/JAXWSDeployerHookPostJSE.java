@@ -1,8 +1,8 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2005, JBoss Inc., and individual contributors as indicated
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2006, Red Hat Middleware LLC, and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -21,8 +21,6 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-// $Id$
-
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.deployment.DeploymentException;
 import org.jboss.wsf.spi.deployment.Deployment;
@@ -30,7 +28,6 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
 
 /**
  * @author Heiko.Braun@jboss.com
- * @version $Revision$
  */
 public class JAXWSDeployerHookPostJSE extends DeployerHookPostJSE
 {
