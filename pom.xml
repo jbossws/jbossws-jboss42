@@ -25,8 +25,8 @@
   <!-- Properties -->
   <properties>
     <jboss.version>4.2.2.GA</jboss.version>
-    <jbossws.common.version>1.0.7-SNAPSHOT</jbossws.common.version>
-    <jbossws.spi.version>1.0.6-SNAPSHOT</jbossws.spi.version>
+    <jbossws.common.version>1.0.7.GA</jbossws.common.version>
+    <jbossws.spi.version>1.0.6.GA</jbossws.spi.version>
     
     <!-- versions defined in build/build-thirdparty.xml -->
     <dom4j.version>1.6.1</dom4j.version>
