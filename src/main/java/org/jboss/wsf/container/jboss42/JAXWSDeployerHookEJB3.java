@@ -25,7 +25,6 @@ import javax.jws.WebService;
 import javax.xml.ws.WebServiceProvider;
 
 import org.jboss.deployment.DeploymentInfo;
-import org.jboss.deployment.DeploymentException;
 import org.jboss.ejb3.EJBContainer;
 import org.jboss.ejb3.Ejb3ModuleMBean;
 import org.jboss.ejb3.mdb.MessagingContainer;

@@ -21,7 +21,6 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-import org.jboss.wsf.spi.WSFRuntime;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentAspect;
 import org.jboss.wsf.spi.deployment.Endpoint;
@@ -41,7 +40,7 @@ public class ModifyWebMetaDataDeploymentAspect extends DeploymentAspect
       this.webXMLRewriter = serviceEndpointPublisher;
    }
 
-   public void create(Deployment dep, WSFRuntime runtime)
+   public void create(Deployment dep)
    {
       RewriteResults results = webXMLRewriter.rewriteWebXml(dep);
 

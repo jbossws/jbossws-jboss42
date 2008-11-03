@@ -92,8 +92,7 @@ public abstract class ArchiveDeployerHook extends AbstractDeployerHook
             dep.addAttachment(DeploymentInfo.class, unit);
          }
 
-         getRuntime().create(dep);         
-         
+         getDeploymentAspectManager().deploy(dep);
          unit.context.put(Deployment.class, dep);
       }
    }
@@ -107,8 +106,7 @@ public abstract class ArchiveDeployerHook extends AbstractDeployerHook
       if (dep != null)
       {
          log.debug("undeploy: " + unit.shortName);
-         getRuntime().stop(dep);
-         getRuntime().destroy(dep);
+         getDeploymentAspectManager().undeploy(dep);
       }
    }
 

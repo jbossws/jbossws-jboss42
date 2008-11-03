@@ -24,7 +24,6 @@ package org.jboss.wsf.container.jboss42;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
 import org.jboss.deployment.DeploymentInfo;
-import org.jboss.deployment.DeploymentException;
 
 /**
  * A deployer JAXRPC JSE Endpoints
@@ -34,22 +33,6 @@ import org.jboss.deployment.DeploymentException;
  */
 public class JAXRPCDeployerHookPostJSE extends DeployerHookPostJSE
 {
-
-   public void deploy(DeploymentInfo unit) throws DeploymentException
-   {
-      if (ignoreDeployment(unit))
-         return;
-
-      if (!ignoreDeployment(unit) && isWebServiceDeployment(unit))
-      {
-         log.debug("deploy: " + unit.shortName);
-         Deployment dep = getDeployment(unit);
-         if(null==dep || Deployment.DeploymentState.CREATED != dep.getState())
-            throw new DeploymentException("Create step is missing");
-
-         getRuntime().start(dep);
-      }
-   }
 
    /** Get the deployment type this deployer can handle
     */
