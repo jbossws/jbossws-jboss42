@@ -30,7 +30,6 @@ import org.jboss.mx.util.MBeanProxyCreationException;
 import org.jboss.mx.util.MBeanServerLocator;
 import org.jboss.wsf.spi.SPIProvider;
 import org.jboss.wsf.spi.SPIProviderResolver;
-import org.jboss.wsf.spi.WSFRuntime;
 import org.jboss.wsf.spi.deployment.*;
 
 import javax.management.MBeanServer;
@@ -39,11 +38,8 @@ import java.util.List;
 
 /**
  * An abstract web service deployer.
- * Lazily adds deployer hooks to the deployment interceptors.
- * Otherwise the dependency management at boot time doesn't work.
  * 
  * @author Thomas.Diesler@jboss.org
- * @author Heiko.Braun@jboss.com
  * @since 25-Apr-2007
  */
 public abstract class AbstractDeployerHook implements DeployerHook
@@ -51,24 +47,29 @@ public abstract class AbstractDeployerHook implements DeployerHook
    // provide logging
    protected final Logger log = Logger.getLogger(getClass());
 
-   private WSFRuntime runtime;
+   private DeploymentAspectManager deploymentAspectManager;
    private DeploymentModelFactory deploymentModelFactory;
 
    private List<ObjectName> phaseOneInterceptors;
    private List<ObjectName> phaseTwoInterceptors;
 
-   /**
-    * MC injected
-    * @param runtime
-    */
-   public void setRuntime(WSFRuntime runtime)
+   protected String deploymentManagerName;
+
+   /** MC provided property **/
+   public void setDeploymentManagerName(String deploymentManagerName)
    {
-      this.runtime = runtime;
+      this.deploymentManagerName = deploymentManagerName;
    }
- 
-   public WSFRuntime getRuntime()
-   {      
-      return this.runtime;
+   
+   public DeploymentAspectManager getDeploymentAspectManager()
+   {
+      if(null == deploymentAspectManager)
+      {
+         SPIProvider spiProvider = SPIProviderResolver.getInstance().getProvider();
+         deploymentAspectManager = spiProvider.getSPI(DeploymentAspectManagerFactory.class).getDeploymentAspectManager( deploymentManagerName );
+      }
+
+      return deploymentAspectManager;
    }
 
    public DeploymentModelFactory getDeploymentModelFactory()
@@ -135,6 +136,7 @@ public abstract class AbstractDeployerHook implements DeployerHook
     */
    public void start()
    {
+
       MBeanServer server = MBeanServerLocator.locateJBoss();
       try
       {

@@ -35,29 +35,12 @@ import org.jboss.deployment.DeploymentException;
 public class JAXRPCDeployerHookPostJSE extends DeployerHookPostJSE
 {
 
-   public void deploy(DeploymentInfo unit) throws DeploymentException
-   {
-      if (ignoreDeployment(unit))
-         return;
-
-      if (!ignoreDeployment(unit) && isWebServiceDeployment(unit))
-      {
-         log.debug("deploy: " + unit.shortName);
-         Deployment dep = getDeployment(unit);
-         if(null==dep || Deployment.DeploymentState.CREATED != dep.getState())
-            throw new DeploymentException("Create step is missing");
-
-         getRuntime().start(dep);
-      }
-   }
-
    /** Get the deployment type this deployer can handle
     */
    public Deployment.DeploymentType getDeploymentType()
    {
       return Deployment.DeploymentType.JAXRPC_JSE;
    }
-
 
    @Override
    public boolean isWebServiceDeployment(DeploymentInfo unit)

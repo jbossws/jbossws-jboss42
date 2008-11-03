@@ -21,10 +21,7 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-// $Id$
-
 import org.jboss.deployment.DeploymentInfo;
-import org.jboss.deployment.DeploymentException;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
 
@@ -34,24 +31,6 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
  */
 public class JAXWSDeployerHookPostJSE extends DeployerHookPostJSE
 {
-
-
-   public void deploy(DeploymentInfo unit) throws DeploymentException
-   {
-      if (ignoreDeployment(unit))
-         return;
-
-      if (!ignoreDeployment(unit) && isWebServiceDeployment(unit))
-      {
-         log.debug("deploy: " + unit.shortName);
-         Deployment dep = getDeployment(unit);
-
-         if (null == dep || Deployment.DeploymentState.CREATED != dep.getState())
-            throw new DeploymentException("Create step failed");
-       
-         getRuntime().start(dep);                  
-      }
-   }
 
    /** Get the deployment type this deployer can handle
     */

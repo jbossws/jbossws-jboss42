@@ -55,12 +55,6 @@ import org.jboss.wsf.spi.deployment.Deployment.DeploymentType;
 public class JAXWSDeployerHookPreJSE extends AbstractDeployerHookJSE
 {
 
-
-   public void undeploy(DeploymentInfo unit) 
-   {
-      // let the post hook deal with undeployment
-   }
-
    /** Get the deployemnt type this deployer can handle
     */
    public DeploymentType getDeploymentType()

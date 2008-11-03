@@ -21,12 +21,9 @@
  */
 package org.jboss.wsf.container.jboss42;
 
-//$Id$
-
 import org.jboss.deployment.DeploymentInfo;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentAspect;
-import org.jboss.wsf.spi.WSFRuntime;
 
 /**
  * A deployer that builds the UnifiedDeploymentInfo 
@@ -44,7 +41,7 @@ public class ContainerMetaDataDeploymentAspect extends DeploymentAspect
    }
 
    @Override
-   public void create(Deployment dep, WSFRuntime runtime)
+   public void create(Deployment dep)
    {
       DeploymentInfo di = dep.getAttachment(DeploymentInfo.class);
       if (di == null)

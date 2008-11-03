@@ -48,11 +48,6 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
 public class JAXRPCDeployerHookPreJSE extends AbstractDeployerHookJSE
 {
 
-   public void undeploy(DeploymentInfo unit)
-   {
-      // the post hook deals with undeployment 
-   }
-
    /** Get the deployemnt type this deployer can handle 
     */
    public DeploymentType getDeploymentType()
