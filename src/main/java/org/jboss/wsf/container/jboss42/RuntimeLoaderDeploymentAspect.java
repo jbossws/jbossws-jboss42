@@ -25,7 +25,6 @@ import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.WebMetaData;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentAspect;
-import org.jboss.wsf.spi.WSFRuntime;
 
 /**
  * Determines the correct runtime loader for per deployment type
@@ -36,7 +35,7 @@ import org.jboss.wsf.spi.WSFRuntime;
 public class RuntimeLoaderDeploymentAspect extends DeploymentAspect
 {
 
-   public void start(Deployment dep, WSFRuntime runtime)
+   public void create(Deployment dep)
    {
 
       // JSE endpoints

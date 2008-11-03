@@ -39,20 +39,11 @@ import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
 
 /**
  * A deployer JAXRPC JSE Endpoints
- *
  * @author Thomas.Diesler@jboss.org
- * @author Heiko.Braun@jboss.com
- *
- * @see org.jboss.wsf.container.jboss42.ModifyWebMetaDataDeploymentAspect#create(org.jboss.wsf.spi.deployment.Deployment, org.jboss.wsf.spi.WSFRuntime) 
  * @since 25-Apr-2007
  */
 public class JAXRPCDeployerHookPreJSE extends AbstractDeployerHookJSE
 {
-
-   public void undeploy(DeploymentInfo unit)
-   {
-      // the post hook deals with undeployment 
-   }
 
    /** Get the deployemnt type this deployer can handle
     */
@@ -103,7 +94,6 @@ public class JAXRPCDeployerHookPreJSE extends AbstractDeployerHookJSE
                Class<?> epBean = loader.loadClass(servletClass.trim());
 
                // If this is a servlet we defer the the bean creation
-               // See ModifyWebMetaDataDeploymentAspect#create(Deployment dep, WSFRuntime runtime)
                if (javax.servlet.Servlet.class.isAssignableFrom(epBean))
                   servletClass = null;
             }

@@ -22,7 +22,6 @@
 package org.jboss.wsf.container.jboss42;
 
 import org.jboss.deployment.DeploymentInfo;
-import org.jboss.deployment.DeploymentException;
 import org.jboss.wsf.spi.deployment.Deployment;
 
 /**

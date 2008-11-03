@@ -34,7 +34,6 @@ import org.jboss.mx.util.MBeanServerLocator;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentAspect;
 import org.jboss.wsf.spi.deployment.WSFDeploymentException;
-import org.jboss.wsf.spi.WSFRuntime;
 
 /**
  * Publish the HTTP service endpoint to Tomcat 
@@ -54,7 +53,7 @@ public class WebAppDeploymentAspect extends DeploymentAspect
       this.webXMLRewriter = serviceEndpointPublisher;
    }
 
-   public void create(Deployment dep, WSFRuntime runtime)
+   public void create(Deployment dep)
    {
       URL warURL = (URL)dep.getProperty("org.jboss.ws.webapp.url");
       if (warURL == null)
