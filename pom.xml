@@ -6,7 +6,7 @@
   <groupId>org.jboss.ws</groupId>
   <artifactId>jbossws-jboss423</artifactId>
   
-  <version>3.0.5.GA</version>
+  <version>3.0.6-SNAPSHOT</version>
   
   <!-- Parent -->
   <parent>
@@ -17,9 +17,9 @@
   
   <!-- Source Control Management -->
   <scm>
-    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossws/container/jboss42/tags/jbossws-jboss423-3.0.5.GA</connection>
-    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossws/container/jboss42/tags/jbossws-jboss423-3.0.5.GA</developerConnection>
-    <url>http://fisheye.jboss.com/viewrep/JBossWS/container/jboss42/tags/jbossws-jboss423-3.0.5.GA</url>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossws/container/jboss42/branches/jboss423</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossws/container/jboss42/branches/jboss423</developerConnection>
+    <url>http://fisheye.jboss.com/viewrep/JBossWS/container/jboss42/branches/jboss423</url>
   </scm>
   
   <!-- Properties -->
