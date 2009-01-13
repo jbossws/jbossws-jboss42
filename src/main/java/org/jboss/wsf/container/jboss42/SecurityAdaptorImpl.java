@@ -23,6 +23,8 @@ package org.jboss.wsf.container.jboss42;
 
 import java.security.Principal;
 
+import javax.security.auth.Subject;
+
 import org.jboss.security.SecurityAssociation;
 import org.jboss.wsf.spi.invocation.SecurityAdaptor;
 
@@ -57,4 +59,9 @@ public class SecurityAdaptorImpl implements SecurityAdaptor
    {
       SecurityAssociation.setCredential(credential);
    }
+   
+   public void pushSubjectContext(Subject subject, Principal principal, Object credential)
+   {
+      SecurityAssociation.pushSubjectContext(subject, principal, credential);
+   }   
 }
