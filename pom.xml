@@ -6,7 +6,7 @@
   <groupId>org.jboss.ws</groupId>
   <artifactId>jbossws-jboss423</artifactId>
   
-  <version>3.0.6-SNAPSHOT</version>
+  <version>3.1.0-SNAPSHOT</version>
   
   <!-- Parent -->
   <parent>
@@ -24,8 +24,8 @@
   
   <!-- Properties -->
   <properties>
-    <jbossws.common.version>1.0.8.GA</jbossws.common.version>
-    <jbossws.spi.version>1.0.8-SNAPSHOT</jbossws.spi.version>
+    <jbossws.common.version>1.0.9-SNAPSHOT</jbossws.common.version>
+    <jbossws.spi.version>1.1.0-SNAPSHOT</jbossws.spi.version>
     
     <!--
       To deploy-file to snapshot repo do:
