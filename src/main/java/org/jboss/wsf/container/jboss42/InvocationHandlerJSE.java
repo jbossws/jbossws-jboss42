@@ -80,14 +80,14 @@ public class InvocationHandlerJSE extends InvocationHandler
          {
             throw new IllegalStateException("Cannot get target bean instance", ex);
          }
-         
-         JavaxAnnotationHelper.callPostConstructMethod(targetBean, targetBean.getClass().getClassLoader());
+
+         JavaxAnnotationHelper.callPostConstructMethod(targetBean);
          ep.addAttachment(PreDestroyHolder.class, new PreDestroyHolder(targetBean));
       }
-      
+
       return targetBean;
    }
-   
+
    public void invoke(Endpoint ep, Invocation epInv) throws Exception
    {
       try
